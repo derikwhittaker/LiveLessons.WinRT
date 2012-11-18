@@ -1,0 +1,119 @@
+Topics
+- How to handle search activation
+- Handle searching
+	- within the app
+	- from external apps
+- Search suggestions
+	
+
+Steps
+- Give a demo of how searching works in other applications
+- Give a quick walk through of the stub application
+	- Show the Episode Repository
+	- SearchableViewModel
+
+
+- Enable Search Declaration
+1) Launch the application, manover through it
+	-> Attempt to do a search, show that nothing shows up
+
+2) Enable the app to be Searchable by enabling Search Contracts
+	-> Package.appxmanifest
+	-> Launch the applicaiton again, this time attempt to do a search, show how our app shows up
+	-> Do a search and show how nothing is found
+	-> Close the app, perform a search and show how nothing is found
+
+3) Hookup the event to listen to search, just the shell
+App.xaml.cs
+- Override the OnSearchActivated (searchContract_OnSearchActivated)
+        protected override void OnSearchActivated(SearchActivatedEventArgs args)
+        {
+            base.OnSearchActivated(args);
+        }
+
+4) Create the search method
+SearchResultsViewModel.cs
+        public async void PerformSearchAsync(string searchString )
+        {
+            SearchString = searchString;
+            PageTitle = string.Format("Search: {0}", searchString);
+            Items.Clear();
+
+            // do search here
+            var searchResults = await _repository.SearchAsync(searchString);
+            if ( !searchResults.Any() ){return;}
+
+            foreach (var searchResult in searchResults)
+            {
+                Items.Add(new SearchItemModel(searchResult));
+            }
+
+            SelectedItem = Items.First();
+            OnPropertyChanged("Items");
+        }
+
+5) Go back to app.xml.cs and implement the search logic       
+
+        protected override void OnSearchActivated(SearchActivatedEventArgs args)
+        {
+            base.OnSearchActivated(args);
+
+            var searchResultsPage = new SearchResultsPage();
+            ((SearchResultsViewModel)searchResultsPage.DataContext).PerformSearchAsync(args.QueryText);
+
+            WindowManager.NavigateTo(searchResultsPage);
+        }
+** SHOW DEMO NOW **
+ 	-> Show from inside the app and outside the app
+
+6) Now talk about how we can perform real time searches for a given screen -- put this on the dashboard
+	-> Stub out the following methods
+
+Searching from outside the application
+        private void SetupRealtimeSearchEvents()
+        {
+            _currentSearchPane = SearchPane.GetForCurrentView();
+            _currentSearchPane.QueryChanged +=  SearchPaneQueryChanged;
+            _currentSearchPane.SuggestionsRequested += SearchPaneSuggestionsRequested;
+
+            _currentSearchPane.PlaceholderText = "Search for Episodes";
+        }
+
+        void SearchPaneSuggestionsRequested(SearchPane sender, SearchPaneSuggestionsRequestedEventArgs args)
+        {
+            var suggestions = (DataContext as SearchableViewModel).SearchSuggestions(args.QueryText);
+
+            args.Request.SearchSuggestionCollection.AppendQuerySuggestions(suggestions);
+        }
+
+        void SearchPaneQueryChanged(SearchPane sender, SearchPaneQueryChangedEventArgs args)
+        {
+
+        }
+
+7) Implement the search 
+
+- Hook up the search results page from the current view (searchContract_SearchPaneGetForCurrentView)
+- Create the actual events which will handle the search (searchContract_SearchPaneCreateEvents)
+        void SearchPaneQueryChanged(SearchPane sender, SearchPaneQueryChangedEventArgs args)
+        {
+            var vm = ((DashboardViewModel) DataContext);
+            vm.PerformSearchAsync(args.QueryText);
+        }}
+
+	-> Go to the perform search logic
+
+8) Run the application, show it working
+
+9) Talk about how to create suggestions
+	-> Implement
+        void SearchPaneSuggestionsRequested(SearchPane sender, SearchPaneSuggestionsRequestedEventArgs args)
+        {
+            var vm = ((DashboardViewModel)DataContext);
+            var suggestions = vm.SearchSuggestiongsAsync(args.QueryText);
+
+            args.Request.SearchSuggestionCollection.AppendQuerySuggestions(suggestions.Result);
+        }
+
+	-> Go to the SearchSuggestion logic
+                                                        

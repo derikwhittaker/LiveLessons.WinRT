@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="6b56ce7e-e8ad-4f2b-a8d1-0203b2d876d4" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.SearchContracts</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.SearchContracts.App">
+      <VisualElements DisplayName="LL: Search Contracts" Logo="SearchContractTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.SearchContracts" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="SearchContractTiles_310x150.png" />
+        <SplashScreen Image="SearchContractsSplash_620x300.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.search" />
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
