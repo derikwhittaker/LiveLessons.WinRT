@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="9e1871bd-27a9-4ecd-bc60-1fb98b63e4c1" Publisher="CN=derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>Metro.LL.IntrodctionToMVVM</DisplayName>
+    <PublisherDisplayName>derik</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+    <Description>Metro.LL.IntrodctionToMVVM</Description>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2</OSMinVersion>
+    <OSMaxVersionTested>6.2</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="en-us" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="metro.ll.introdctiontomvvm.exe" EntryPoint="Metro.LL.IntrodctionToMVVM.App">
+      <VisualElements DisplayName="Introduction to MVVM" Logo="Images\Logo.png" SmallLogo="Images\SmallLogo.png" Description="Metro.LL.IntrodctionToMVVM" ForegroundText="light" BackgroundColor="#222222" InitialRotationPreference="landscape">
+        <SplashScreen Image="Images\SplashScreen.png" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

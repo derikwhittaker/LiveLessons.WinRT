@@ -1,0 +1,219 @@
+One of the really powerful features of any XAML based enviornment is the binding engine.  The binding engine allows for a very simply and elegant way to get
+data out of your VM and displayed on the UI.  Binding in MVVM is the glue which allows for us to no longer need the code behind or do manual
+data mapping between UI elements and VM properties.  However, like most great technology features binding can be both simple and complex.  we are going to look
+at different ways which we can use binding inside our Windows 8 application.
+
+* talk about what binding is and explain how it works
+* show the VM and talk about INotifyPropertyChanged
+* show having to setup the datacontext w/ the current VM
+	DataContext = new DashboardViewModel();
+
+* run the application w/ no binding setup, explain what we are gonig to look at
+* Start the text binding part of the vm
+
+#region Text Binding
+
+        private string _textBoxValueByElementName = "Text Box Value w/ Element";
+        private string _textBoxValueByPath = "Text Box Value w/ Path";
+        private string _textBoxValue = "Text Box Value";
+        private ChildViewModel _child = new ChildViewModel();
+
+        public string TextBoxValue
+        {
+            get { return _textBoxValue; }
+            set { _textBoxValue = value; OnPropertyChanged("TextBoxValue"); }
+        }
+        
+        public string TextBoxValueByPath
+        {
+            get { return _textBoxValueByPath; }
+            set { _textBoxValueByPath = value; OnPropertyChanged("TextBoxValueByPath"); }
+        }
+        
+        public string TextBoxValueByElementName
+        {
+            get { return _textBoxValueByElementName; }
+            set { _textBoxValueByElementName = value; OnPropertyChanged("TextBoxValueByElementName"); }
+        }
+
+        public ChildViewModel Child
+        {
+            get { return _child; }
+            set { _child = value; }
+        }
+#endregion
+
+* Straight binding
+Text="{Binding TextBoxValue}"
+
+* Bindining w/ Path
+Text="{Binding Path=TextBoxValueByPath}"
+
+* Binding w/ ElementName
+ Text="{Binding ElementName=LayoutRoot, Path=DataContext.TextBoxValueByElementName}"
+
+* Binding to child object
+ Text="{Binding Child.ChildValue}"
+
+* Two Way Binding
+Text="{Binding TextBoxValue, Mode=TwoWay}"
+
+Start the converter binding
+#region Converter Binding
+        private string _textWithStyle = "ConverterOffItemTextStyle";
+        private bool _canSeeText;
+        private RelayCommand _toggleTextVisibility;
+        private RelayCommand _toggleTextStyle;
+
+        public RelayCommand ToggleTextVisibility
+        {
+            get { return _toggleTextVisibility ?? (_toggleTextVisibility = new RelayCommand(() => { CanSeeText = !CanSeeText; })); }
+        }
+
+        public bool CanSeeText
+        {
+            get { return _canSeeText; }
+            set { _canSeeText = value; OnPropertyChanged("CanSeeText"); }
+        }
+
+        public RelayCommand ToggleTextStyle
+        {
+            get { return _toggleTextStyle ?? (_toggleTextStyle = new RelayCommand(() =>
+                                                                                      {
+                                                                                          if (TextWithStyle == "ConverterOnItemTextStyle")
+                                                                                          {
+                                                                                              TextWithStyle = "ConverterOffItemTextStyle";
+                                                                                          }
+                                                                                          else
+                                                                                          {
+                                                                                              TextWithStyle = "ConverterOnItemTextStyle";
+                                                                                          }
+                                                                                      })); }
+        }
+
+        public string TextWithStyle
+        {
+            get { return _textWithStyle; }
+            set { _textWithStyle = value; OnPropertyChanged("TextWithStyle"); }
+        }
+
+        #endregion
+
+
+
+* Create the bool converter
+    public class BooleanToVisibilityConverter : IValueConverter
+    {
+        public Visibility TrueValue { get; set; }
+        public Visibility FalseValue { get; set; }
+
+        public BooleanToVisibilityConverter()
+        {
+            TrueValue = Visibility.Visible;
+            FalseValue = Visibility.Collapsed;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, string language)
+        {
+            if (value == null) { return Visibility.Collapsed; }
+
+            return ((bool)value) ? TrueValue : FalseValue;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+* wire up the bool converter
+        <Converters:BooleanToVisibilityConverter x:Key="b2v" />
+
+* Wire up the usage of the bool converter
+Visibility="{Binding CanSeeText, Converter={StaticResource b2v}}"
+
+* create the style converter
+    public class StyleConverter : IValueConverter
+    {
+        public object Convert(object value, System.Type targetType, object parameter, string language)
+        {
+            if ( value == null || string.IsNullOrEmpty(value.ToString() )) { return null; }
+
+            var foundStyle = Application.Current.Resources[value] as Style;
+
+            return foundStyle;
+        }
+
+        public object ConvertBack(object value, System.Type targetType, object parameter, string language)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+* Wire up the style converter
+        <Converters:StyleConverter x:Key="styleConverter" />
+
+* Wire up the usage of hte style converter
+Style="{Binding TextWithStyle, Converter={StaticResource styleConverter}}"
+
+* Start the list box binding
+
+#region List Binding
+
+        public DashboardViewModel()
+        {
+            var temp = new List<ImageModel>
+                           {
+                               new ImageModel {DisplayValue = "Planet 1", ImageUri = "../Images/Planet01.jpg"},
+                               new ImageModel {DisplayValue = "Planet 2", ImageUri = "../Images/Planet02.jpg"},
+                               new ImageModel {DisplayValue = "Planet 3", ImageUri = "../Images/Planet03.jpg"},
+                               new ImageModel {DisplayValue = "Planet 4", ImageUri = "../Images/Planet04.jpg"},
+                           };
+
+            Items = new ObservableCollection<ImageModel>(temp);
+        }
+
+        private ObservableCollection<ImageModel> _items;
+        private ImageModel _selectedItem;
+
+        public ObservableCollection<ImageModel> Items
+        {
+            get { return _items; }
+            set
+            {
+                _items = value;
+                OnPropertyChanged("Items");
+            }
+        }
+
+        public ImageModel SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged("SelectedItem");
+                OnPropertyChanged("SelectedItemText");
+            }
+        }
+        public string SelectedItemText
+        {
+            get
+            {
+                if ( SelectedItem != null )
+                {
+                    return SelectedItem.DisplayValue;
+                }
+
+                return "";
+            }
+        }
+
+        #endregion
+
+* Wire up the list box items collection
+ItemsSource="{Binding Items}"
+
+* Wire up the list box selected item
+                        SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+

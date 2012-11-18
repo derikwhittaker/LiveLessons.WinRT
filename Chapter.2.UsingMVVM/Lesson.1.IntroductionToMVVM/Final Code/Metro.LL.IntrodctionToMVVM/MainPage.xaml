@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Metro.LL.IntrodctionToMVVM.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="768" d:DesignWidth="1366">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Name="CollectionViewSource" x:Key="CollectionViewSource" />
+    </UserControl.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="#FF0C0C0C">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="140"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".6*"/>
+                <ColumnDefinition Width=".1*"/>
+                <ColumnDefinition Width=".3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource BackButtonStyle}" IsEnabled="False" />
+                <TextBlock x:Name="PageTitle" Text="Introduction to MVVM" Grid.Column="1" Style="{StaticResource PageTitleStyle}" />
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <GridView x:Name="ImagesGrid" ItemsSource="{Binding Source={StaticResource CollectionViewSource}}" 
+                    ItemTemplate="{StaticResource ImagesGroupedItemTemplate}" 
+                    ItemContainerStyle="{StaticResource GridTileStyle}" 
+                    ItemsPanel="{StaticResource GridItemsPanelTemplate}"
+                      SelectedItem="{Binding SelectedImage, Mode=TwoWay}"
+                    Background="{StaticResource PageBackgroundBrush}" BorderThickness="0" VerticalAlignment="Stretch"
+              />
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width=".7*" />
+                </Grid.ColumnDefinitions>
+                    
+                 <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Data Entry" Style="{StaticResource DefaultFontStyle}" />
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="First" Style="{StaticResource SmallContentFontStyle}" VerticalAlignment="Center" />
+                <TextBox Grid.Row="1" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5" x:Name="FirstNameTextBox"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Last" Style="{StaticResource SmallContentFontStyle}"  VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5" x:Name="LastNameTextBox"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Active" Style="{StaticResource SmallContentFontStyle}"  VerticalAlignment="Center" />
+                <CheckBox Grid.Row="3" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5" x:Name="ActiveCheckBox"/>
+
+                <Button Grid.Row="4" Grid.Column="0" Content="Click Me" Click="Button_Click" />
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource SmallContentFontStyle}" VerticalAlignment="Top"
+                           x:Name="ClickResults" Margin="0,5" />
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

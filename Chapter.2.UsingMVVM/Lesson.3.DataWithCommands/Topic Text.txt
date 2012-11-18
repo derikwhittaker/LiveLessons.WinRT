@@ -1,0 +1,84 @@
+When talking about the MVVM pattern one constant is the ability to remove need for using the code behind and the want to use the 
+viewmodel to handle any ui interaction.  The mvvm pattern allows this in many ways and one way is via Commanding.  Commanding
+is a way for your viewmodel to handle a user action request such as pressing a button.  Commanding is made possible
+because of the ICommand interface and it allows us to remove need for button click events.
+
+* Talk about commanding and why it is great
+	-> Show how it replaces the need for click event
+* Talk about the ICommand interface and how it allows for commanding
+
+* Create the ICommand command
+#region ICommand
+
+        public ICommand CommandCommand
+        {
+            get { return _commandCommand ?? (_commandCommand = new RelayCommand(HandleCommand)); }
+        }
+
+        private void HandleCommand()
+        {
+            FirstName = FirstName + " From ICommand";
+            LastName = LastName + " From ICommand";
+            EmailAddress = EmailAddress + " From ICommand";
+        }
+
+#endregion
+
+* Create the Relay Command -- show the relay command class
+        #region RelayCommand
+
+        public RelayCommand RelayCommand
+        {
+            get { return _relayCommand ?? (_relayCommand = new RelayCommand(HandleRelay)); }
+        }
+
+        private void HandleRelay()
+        {
+            FirstName = FirstName + " From RelayCommand";
+            LastName = LastName + " From RelayCommand";
+            EmailAddress = EmailAddress + " From RelayCommand";
+        }
+
+#endregion
+
+* Create the relay command w/ canexecute
+#region RelayCommand With CanExecute
+
+        public RelayCommand RelayWithCanExecuteCommand
+        {
+            get { return _relayWithCanExecuteCommand ?? (_relayWithCanExecuteCommand = new RelayCommand(HandleRelay, CanHandleRelay)); }
+        }
+
+        private bool CanHandleRelay()
+        {
+            return !string.IsNullOrEmpty(FirstName) &&
+                   !string.IsNullOrEmpty(LastName) &&
+                   !string.IsNullOrEmpty(EmailAddress);
+        }
+
+#endregion
+
+* add the raise event to the first name box
+
+* Create the command w/ arg
+        #region RelayCommand w/ Argument
+
+        public string RelayParm
+        {
+            get { return _relayParm; }
+            set { _relayParm = value; }
+        }
+
+        public RelayCommand<string> RelayWithArgumentCommand
+        {
+            get { return _relayWithArgumentCommand ?? (_relayWithArgumentCommand = new RelayCommand<string>(HandleRelayWithArgument)); }
+        }
+
+        private void HandleRelayWithArgument(string value)
+        {
+            FirstName = FirstName + value;
+            LastName = LastName + value;
+            EmailAddress = EmailAddress + value;
+        }
+
+        #endregion

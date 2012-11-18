@@ -1,0 +1,246 @@
+When build a XAML based windows 8 application the accepted best design practic is to use the MVVM pattern.  The MVVM pattern stands for Model-View-ViewModel.  The idea is that with these 3
+layers you will be able to incorporate better seperation of concerns by having a well defined view which is decoupled from the Model and is wired together by the viewmodel.  in MVVM you can 
+think of the View as your XAML page, the Model as the data which is 'important' and the ViewModel as the controller which projects the Model unto the view.  Like any design pattern
+there are many ways it can be implemented.  We will take an intro look here at the basics of mvvm
+
+                   
+
+1) Launch the app and show the basic UI
+2) talk about using the code behind vs MVVM
+3) Open up the xaml show how everything is wired directly to the code behind
+4) Open up the code behind and show the code
+5) Talk about the plan of attack for breaking this out to use a vm
+
+
+* Show the current app. 
+	-ctr code
+		ItemsListBox.Items.Add("Item 1");
+            	ItemsListBox.Items.Add("Item 2");
+            	ItemsListBox.Items.Add("Item 3");
+            	ItemsListBox.Items.Add("Item 4");
+
+       private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedValue = "";
+            if ( ItemsListBox.SelectedItem != null )
+            {
+                selectedValue = ItemsListBox.SelectedItem.ToString();
+            }
+
+            var firstName = this.FirstNameTextBox.Text;
+            var lastName = this.LastNameTextBox.Text;
+            var isActive = this.ActiveCheckBox.IsChecked;
+
+            ClickResults.Text = string.Format("First: {0} Last: {1} Active: {2} Selected: {3}", firstName, lastName, isActive, selectedValue);
+        }
+
+* Create the VM 
+* Wire it up to the view
+	DataContext = new DashboardViewModel();
+
+* talk about the datacontext and how any object can be bound to it
+* Bind the title in the ctr of the VM
+	PageTitle = "Introduction to MVVM (Bound)";
+
+* Create the FirstName Property
+	- Create LastName
+	- Create IsActive
+
+* show how to bind these to the xaml
+
+* run the app
+	- show how the binding did NOT update the values.... Explain mode=twoway
+
+* Bind the results
+	- forget to put the onpropertychanged
+	- run the app, point out that it will not update the UI w/out the property chagned
+	- wire property changed
+
+* time to wire up the list box to objects
+* remove the manual population
+* show how by default it wants to show the object. -- create the data template
+                   <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DisplayValue}" VerticalAlignment="Center" Margin="10,5,0,5" />
+                                <Image Source="{Binding ImageUri}" VerticalAlignment="Center" Height="48" Width="48" Margin="25,5" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+* show the list box being populated
+* wire up the selected item
+	- set breakpoint in the vm
+* Change the button click to use the selected item
+* wire the button to a relay command
+
+
+
+
+
+public class DashboardViewModel : Metro.LL.Common.BaseViewModel
+    {
+        private string _firstName;
+        private string _lastName;
+        private bool _isActive;
+        private string _clickResults;
+        private ObservableCollection<ImageModel> _images;
+        private ImageModel _selectedImage;
+        private RelayCommand _showDataCommand;
+
+        public DashboardViewModel()
+        {
+            PageTitle = "Introduction to MVVM (Bound)";
+
+            var temp = new List<ImageModel>
+                           {
+                               new ImageModel {DisplayValue = "Planet 1", ImageUri = "../Images/Planet01.jpg"},
+                               new ImageModel {DisplayValue = "Planet 2", ImageUri = "../Images/Planet02.jpg"},
+                               new ImageModel {DisplayValue = "Planet 3", ImageUri = "../Images/Planet03.jpg"},
+                               new ImageModel {DisplayValue = "Planet 4", ImageUri = "../Images/Planet04.jpg"},
+                               new ImageModel {DisplayValue = "Planet 5", ImageUri = "../Images/Planet05.jpg"},
+                               new ImageModel {DisplayValue = "Planet 6", ImageUri = "../Images/Planet06.jpg"},
+                               new ImageModel {DisplayValue = "Planet 7", ImageUri = "../Images/Planet07.jpg"},
+                               new ImageModel {DisplayValue = "Planet 8", ImageUri = "../Images/Planet08.jpg"},
+                           };
+
+            Images = new ObservableCollection<ImageModel>(temp);
+        }
+
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
+
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }
+
+        public bool IsActive
+        {
+            get { return _isActive; }
+            set
+            {
+                _isActive = value;
+                OnPropertyChanged("IsActive");
+            }
+        }
+
+        public string ClickResults
+        {
+            get { return _clickResults; }
+            set
+            {
+                _clickResults = value;
+                OnPropertyChanged("ClickResults");
+            }
+        }
+
+        public ObservableCollection<ImageModel> Images
+        {
+            get { return _images; }
+            set
+            {
+                _images = value;
+                OnPropertyChanged("Images");
+            }
+        }
+
+        public ImageModel SelectedImage
+        {
+            get { return _selectedImage; }
+            set
+            {
+                _selectedImage = value;
+                OnPropertyChanged("SelectedImage");
+            }
+        }
+
+        public RelayCommand ShowDataCommand
+        {
+            get { return _showDataCommand ?? (_showDataCommand = new RelayCommand(ShowData)); }
+        }
+
+        private void ShowData()
+        {
+            var selectedValue = "";
+
+            if (SelectedImage != null)
+            {
+                selectedValue = SelectedImage.DisplayValue;
+            }
+
+            ClickResults = string.Format("First: {0} Last: {1} Active: {2} Selected: {3}", FirstName, LastName, IsActive, selectedValue);
+        }
+    }
+
+
+
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <ListBox 
+                    x:Name="ItemsListBox"
+                    ItemsSource="{Binding Images}"
+                    SelectedItem="{Binding SelectedImage, Mode=TwoWay}"
+                    Margin="10,0"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="Transparent"                    
+                    >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding DisplayValue}" VerticalAlignment="Center" Margin="10,5,0,5" />
+                                <Image Source="{Binding ImageUri}" VerticalAlignment="Center" Height="48" Width="48" Margin="25,5" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Column="1" Margin="25,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="200" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width=".3*" />
+                    <ColumnDefinition Width=".7*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Data Entry"  Style="{StaticResource HeaderTextStyle}" Margin="0,5" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="First" VerticalAlignment="Center" Style="{StaticResource SubheaderTextStyle}" Margin="0,5" />
+                <TextBox Grid.Row="1" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5" Text="{Binding FirstName, Mode=TwoWay}" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Last" VerticalAlignment="Center" Style="{StaticResource SubheaderTextStyle}"  Margin="0,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5"  Text="{Binding LastName, Mode=TwoWay}"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Active" VerticalAlignment="Center" Style="{StaticResource SubheaderTextStyle}"  Margin="0,5"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" Width="250" HorizontalAlignment="Left" Margin="0,5"  IsChecked="{Binding IsActive, Mode=TwoWay}"/>
+
+                <Button Grid.Row="4" Grid.Column="0" Content="Click Me" Command="{Binding ShowDataCommand}"  Margin="0,10"/>
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" Text="{Binding ClickResults}" Style="{StaticResource SubheaderTextStyle}" Margin="0,5" />
+
+            </Grid>
+        </Grid>
