@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="788c805f-2873-4319-be7a-e6d0e5496ab4" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.ShareTarget</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.ShareTarget.App">
+      <VisualElements DisplayName="LL Share Target" Logo="ShareTargetTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL Share Target" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="ShareTargetTiles_310x150.png" />
+        <SplashScreen Image="ShareTargetSplash_620x300.png" BackgroundColor="#757575" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
+      <Extensions>
+        <Extension Category="windows.shareTarget">
+          <ShareTarget>
+            <SupportedFileTypes>
+              <SupportsAnyFileType />
+            </SupportedFileTypes>
+            <DataFormat>Text</DataFormat>
+            <DataFormat>URI</DataFormat>
+            <DataFormat>Bitmap</DataFormat>
+            <DataFormat>StorageItems</DataFormat>
+          </ShareTarget>
+        </Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

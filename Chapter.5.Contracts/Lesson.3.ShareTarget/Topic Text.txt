@@ -1,0 +1,163 @@
+- How to setup your application to be able to be both a source and share taget.  
+	- Source Target is an application which can expose its contents to be shared with other applications
+	- Share target is an application which is enabled to reach into other applications in order to 'grab' data from those other applications.
+
+Things to show for source target demo
+	- How to set an error message if your app does not expose share
+	- How to share images, files, text or link
+
+
+Steps
+
+1) Open up Package.appxmanifest
+	- Setup Share Target in the Declarations
+		- Add file types (.jpg, .png, .bmp)
+		- Add data formats (text, url, bitmap)
+
+		talk about how an application can share multiple types of data
+
+2) Open up app.xaml.cs
+	- Override OnSharingTaregetActivated
+
+        protected override async void OnShareTargetActivated(ShareTargetActivatedEventArgs args)
+        {
+            
+            var frame = new Frame();
+            frame.Navigate(typeof (SharePage), args.ShareOperation);
+
+            Window.Current.Content = frame;
+            Window.Current.Activate();
+        }
+
+3) Open up the ShareLandingPage/ShareLandingPageViewModel
+	show how we are going to build a UI to allow us to accept the data
+
+- Open up the VM and shell out
+public async Task ActiveSync(ShareOperation shareOperation)
+{
+
+}
+
+- go back to the .cs and setup the OnNavigatedTo to make the call to ActiveSync
+	-> Talk about how this page w/ be navigated to because of the OnShareTargetActivated from above
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _shareOperation = (ShareOperation)e.Parameter;
+
+            ((ShareViewModel) DataContext).ShareAsync(_shareOperation);
+        }
+
+- go to ActiveSync and shell out the logic, but first code the .ReportSTarted
+
+        public async Task ActiveSync(ShareOperation shareOperation)
+        {
+            _shareOperation = shareOperation;
+            shareOperation.ReportStarted();
+
+		// logic here
+
+	    _shareOperation.ReportDataRetrieved();
+	}
+
+- now setup a try/catch and explain what we are going to do
+
+	try 
+	}
+
+            }
+            catch (Exception e)
+            {
+                _shareOperation.ReportError(e.Message);
+                RequestDescription = e.Message;
+            }
+
+- now setup show the extension methods created to make determining the type easier
+	DataPackageExtensions.cs
+
+- setup the basic flow to determine what type of data we are getting
+                RequestTitle = _shareOperation.Data.Properties.Title;
+                RequestDescription = _shareOperation.Data.Properties.Description;
+                if (dataPackageView.IsTextMessage())
+                {
+
+                }
+                else if (dataPackageView.IsUrlMessage())
+                {
+
+                }
+                else if ( dataPackageView.IsStorageItemsMessage() )
+                {
+
+                }
+                else if (dataPackageView.IsImageMessage())
+                {
+
+                }
+
+
+- setup the logic to handle a text message
+                if (dataPackageView.IsTextMessage())
+                {
+                    IsTextRequest = true;
+                    TextShareValue = await dataPackageView.GetTextAsync();
+
+                }
+
+- setup for url
+                else if (dataPackageView.IsUrlMessage())
+                {
+                    IsUrlRequest = true;
+                    var foundUri = await dataPackageView.GetUriAsync();
+                    UrlShareValue = foundUri.AbsoluteUri;
+                }
+
+- setup for storage file
+                else if ( dataPackageView.IsStorageItemsMessage() )
+                {
+                    IsStorageRequest = true;
+                    var storageItems = await dataPackageView.GetStorageItemsAsync();
+                    if ( storageItems.Any() )
+                    {
+                        var storageItem = storageItems.First();
+                        if ( storageItem.IsOfType(StorageItemTypes.File) )
+                        {
+
+                            StorageFileName = storageItem.Name;
+
+                            var thumbnail = dataPackageView.Properties.Thumbnail;
+
+                            var thumbnailStream = await thumbnail.OpenReadAsync();
+
+                            ImageShareValue = new BitmapImage();
+                            ImageShareValue.SetSource(thumbnailStream);
+
+                        }                      
+                    }
+                }
+
+- setup for image
+                else if (dataPackageView.IsImageMessage())
+                {
+                    IsImageRequest = true;
+                    
+                    var imageReceived = await dataPackageView.GetBitmapAsync();
+                    
+                    var imageStream = await imageReceived.OpenReadAsync();
+                    
+                    ImageShareValue = new BitmapImage();
+                    ImageShareValue.SetSource(imageStream);
+                    
+                }
+	
+- finally talk about how we can 'report the data share being completed
+	-> Implment the save
+        private void SaveContent()
+        {
+            var quickLink = new QuickLink
+                                {
+                                    Id = "LL.ShareTarget",
+                                    Title = "Share Target"
+                                };
+            _shareOperation.ReportCompleted(quickLink);
+        }
