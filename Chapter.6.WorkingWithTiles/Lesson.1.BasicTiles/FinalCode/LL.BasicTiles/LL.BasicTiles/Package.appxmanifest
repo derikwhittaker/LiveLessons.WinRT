@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="9f97ee09-d4fa-4cff-8021-ebb68725aa49" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.BasicTiles</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.BasicTiles.App">
+      <VisualElements DisplayName="LL Basic Tiles" Logo="BasicTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL Basic Tiles" ForegroundText="dark" BackgroundColor="#464646">
+        <DefaultTile ShowName="noLogos" WideLogo="BasicTiles_3100x150.png" ShortName="Some Short Name here" />
+        <SplashScreen Image="BasicSplash_620x300.png" BackgroundColor="#757575" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

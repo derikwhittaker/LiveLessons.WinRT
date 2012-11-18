@@ -1,0 +1,29 @@
+Basic tiles
+
+1) launch the application with NO tile changes
+	-> point out the default tile on desktop
+	-> point out the default tile in app search
+	-> point out there is not option for larger tile
+
+2) Add the images, run the application
+	-> point out the new tile on desktop
+	-> point out the new tile in app search
+	-> point out there is now an option for larger tile
+		-> show how to switch between the large and small
+		-> Talk about how if you do not put in a large tile you will ONLY get a small one and no option for a large one
+
+6) Go back to package.appxmanifest and add the lock screen
+	-> Do not set the background color
+	-> point out that the splash image does NOT stretch to fill and that you will want to either make it transparent OR change the background color
+
+7) Go back to package.appxmanifest and setup the background color
+	-> #757575
+
+3) Go back to the application and enter value into 'short name'
+	-> Launch the app and show we can provide this
+
+4) Go back to package.appxmanifest and change the 'show name' to only be on wide
+	-> Launch the app and show this only working on wide
+
+5) Go back to package.appxmanifest and change the forground text form light to dark
+	-> Launch the app and show the dark text

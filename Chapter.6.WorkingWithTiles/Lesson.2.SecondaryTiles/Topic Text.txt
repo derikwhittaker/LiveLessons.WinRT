@@ -1,0 +1,179 @@
+Secondar Tiles
+
+* talk about what a secondary tile is and why they are useful
+
+* run the app, show we are going to create a secondary tile which lets us deep link to the given car we want
+
+* open up the detailsPage.xaml and add the app bar
+	-> Show the 'styles' and how they are there by default for many actions
+	-> talk about how we are going to create commands for handling the actions
+
+    <Page.BottomAppBar>
+        <AppBar Background="LightGray" Opacity=".5">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Style="{StaticResource PinAppBarButtonStyle}" Command="{Binding PinCurrentPageCommand}" />
+                <Button Style="{StaticResource UnpinAppBarButtonStyle}" Command="{Binding UnPinCurrentPageCommand}"  Visibility="{Binding IsCurrentCarPinned, Converter={StaticResource b2v}}"/>
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
+
+* Create the base Commands
+
+        private RelayCommand _pinCurrentPageCommand;
+        public RelayCommand PinCurrentPageCommand
+        {
+            get { return _pinCurrentPageCommand ?? (_pinCurrentPageCommand = new RelayCommand(PinCurrentPage)); }
+        }
+
+        private async void PinCurrentPage()
+        {
+          
+        }
+        
+        private RelayCommand _unpinCurrentPageCommand;
+        public RelayCommand UnPinCurrentPageCommand
+        {
+            get { return _unpinCurrentPageCommand ?? (_unpinCurrentPageCommand = new RelayCommand(UnpinCurrentPage)); }
+        }
+
+        private async void UnpinCurrentPage()
+        {
+        }
+
+* implement the Pin Manager
+
+    public interface IPinManager
+    {
+
+        bool IsPinned(string pinnedItemId);
+
+        Task<bool> Pin(string shortName, string description, string tileId, string tileActivationArgs, string tileLogoPath, string smallTileLogoPath);
+        Task<bool> UnPin(string pinnedItemId);
+    }
+
+    public class PinManager : IPinManager
+    {
+        public bool IsPinned(string pinnedItemId)
+        {
+            var result = SecondaryTile.Exists(pinnedItemId);
+
+            return result;
+        }
+
+        public async Task<bool> Pin(string shortName, string description, string tileId, string tileActivationArgs, string tileLogoPath, string smallTileLogoPath)
+        {
+            var logo = new Uri(string.Format("ms-appx:///{0}", tileLogoPath));
+            var smallLogo = new Uri(string.Format("ms-appx:///{0}", smallTileLogoPath));
+
+            var tile = new SecondaryTile(tileId, shortName, description, tileActivationArgs, TileOptions.ShowNameOnLogo, logo);
+
+            tile.ForegroundText = ForegroundText.Light;
+            tile.SmallLogo = smallLogo;
+
+            var result = await tile.RequestCreateAsync();
+
+            return result;
+        }
+
+        public async Task<bool> UnPin(string pinnedItemId)
+        {
+            if (IsPinned(pinnedItemId))
+            {
+                var tile = new SecondaryTile(pinnedItemId);
+                var result = await tile.RequestDeleteAsync();
+
+                return result;
+            }
+
+            return false;
+        }
+    }
+
+* implement the logic behind the pin command
+        private async void PinCurrentPage()
+        {
+            var pinId = buildPinId();
+
+            if (!_pinManager.IsPinned(pinId))
+            {
+                var shortName = string.Format("Car: {0}", SelectedItem.Name);
+                var description = SelectedItem.ShortDescription;
+                var tileActivationArgs = string.Format("DetailsPage={0}|{1}", SelectedItem.Id, SelectedItem.Name).Replace(" ", "");
+                var tileLogoPath = "SecondaryTiles_150x150.png";
+                var smallTileLogoPath = "Assets/SmallLogo.png";
+
+                await _pinManager.Pin(shortName, description, pinId, tileActivationArgs, tileLogoPath, smallTileLogoPath);
+
+                OnPropertyChanged("IsCurrentCarPinned");
+            }
+        }
+	
+	private string buildPinId()
+        {
+            return string.Format(TileIdPattern, SelectedItem.Id, SelectedItem.Name).Replace(" ", "");
+        }
+
+* run the application, show that we can now pin the page, do not click on it, we will work on that in a bit
+
+* implement the logic behind the unpin command
+private async void UnpinCurrentPage()
+        {
+            var pinId = buildPinId();
+
+            if (_pinManager.IsPinned(pinId))
+            {
+                await _pinManager.UnPin(pinId);
+
+                OnPropertyChanged("IsCurrentCarPinned");
+            }
+        }
+
+* immplement the logic to determine which button is shown
+	Visibility="{Binding IsCurrentCarPinned, Converter={StaticResource ib2v}}"
+
+	Visibility="{Binding IsCurrentCarPinned, Converter={StaticResource b2v}}"
+
+* run the app
+
+* time to enable the app to be able to use the deep link
+
+* open the app.xaml.cs
+	-> add to OnLaunched
+
+            if ( !string.IsNullOrEmpty( args.Arguments ) )
+            {
+                //Debugger.Launch();
+                var clearnArgs = args.Arguments.Replace("DetailsPage=", "");
+                var tempArgs = clearnArgs.Split('|');
+
+                if (!tempArgs.Any()) { /* throw exception or something */ }
+
+                var navArgument = int.Parse( tempArgs[0] );
+
+                if (!rootFrame.Navigate(typeof(DetailsPage), navArgument))
+                {
+                    throw new Exception("Failed to create deep link page");
+                }
+            }
+
+* go to DetailsPage.xaml.cs
+	-> talk about LoadState
+
+        protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+        {
+            // TODO: Create an appropriate data model for your problem domain to replace the sample data
+            
+            // LL - Custom Code here
+            var viewModel = ((DetailsViewModel) DataContext);
+            
+            var selctedId = (int) navigationParameter;
+
+            viewModel.SetSelectedItem(selctedId);
+            var foundItem = viewModel.Items.FirstOrDefault(x => x.Id == selctedId);
+
+            itemsViewSource.View.MoveCurrentTo(foundItem);
+
+        }
+
+* talk about debugging and how it can be painful
+

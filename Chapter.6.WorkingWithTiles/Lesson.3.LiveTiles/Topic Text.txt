@@ -1,0 +1,207 @@
+when building a windows 8 application having a beautiful tile is important.  HOwever, it is even more important to 
+make the tile engaging to the user.  Windows 8 offeres you to build live tiles and have these tiles continually update with 
+new information.  You can even update the look and feel of your tile w/ new images, new text and new layouts.  Having your applications 
+tile be live will help to engage your users and give them the feeling that they are always informed in regards to your application.
+
+Secondar Tiles
+
+* talk about what a live tiles are and why they are use full
+	- Talk about how tiles can be updated via:
+		- Static changes (ie things that never really change)
+		- Local chagnes (things that are changed based on your application)
+		- Remote changes (things that are changed from the cloud (not doing in this episode))
+
+* Show some live tiles on the desktop/start screen to show what we are going to do.
+
+* open up the MSDN page which shows ALL the different layouts for the tiles
+	http://msdn.microsoft.com/en-us/library/windows/apps/Hh761491.aspx
+
+* talk about how we are going to use the NotificationExtensions which are created/published by MS
+
+* Open up the Dashboardpage 
+	- Show the XAML and how we are going to simply switch views
+
+* ShowSquareBlockHeader
+        protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileSquareText01();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.TextHeading.Text = this.Header;
+            applicationTile.TextBody1.Text = this.Line1;
+            applicationTile.TextBody2.Text = this.Line2;
+            applicationTile.TextBody3.Text = this.Line3;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowSquareBlockImageOnly
+    public SquareBlockWithImageOnlyViewModel()
+        {
+            this.ImagePath = "Images/LiveTileImage_150x150.png";
+        }
+
+  protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileSquareImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.Image.Src = this.ImagePath;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowSquareBlockWithPeek
+        public SquareBlockWithWithPeekViweModel()
+        {
+            this.ImagePath = "Images/LiveTileImage_150x150.png";
+        }
+
+        protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileSquarePeekImageAndText01();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.Image.Src = this.ImagePath;
+            applicationTile.TextHeading.Text = this.Header;
+            applicationTile.TextBody1.Text = this.Line1;
+            applicationTile.TextBody2.Text = this.Line2;
+            applicationTile.TextBody3.Text = this.Line3;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowWideImageOnly
+	-- DO NOT SHOW w/ SMALL IMAGE
+
+        protected override void CreateTile()
+        {
+            // to start do NOT include a small image
+            // add the .RequireSquareContent = false
+            // then add the small tile
+            var applicationTile = TileContentFactory.CreateTileWideImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.Image.Src = this.ImagePath;
+            
+// SKIP AT FIRST            applicationTile.RequireSquareContent = false;
+            
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowWideTextOnly
+        protected override void CreateTile()
+        {
+            // to start do NOT include a small image
+            // add the .RequireSquareContent = false
+            // then add the small tile
+            var applicationTile = TileContentFactory.CreateTileWideText01();
+            var smallApplicationTile = TileContentFactory.CreateTileSquareImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.TextHeading.Text = this.Header;
+            applicationTile.TextBody1.Text = this.Line1;
+            applicationTile.TextBody2.Text = this.Line2;
+            applicationTile.TextBody3.Text = this.Line3;
+            applicationTile.TextBody4.Text = this.Line4;
+
+            applicationTile.SquareContent = smallApplicationTile;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowWideImageCollection
+        public WideImageCollectionViewModel()
+        {
+            this.ImagePath = "Images/LiveTileImage_310x150.png";
+            this.SmallImagePath = "Images/LiveTileImage_150x150.png";
+            this.SmallImageCollection1Path = "Images/RedSmallSquare.png";
+            this.SmallImageCollection2Path = "Images/GreenSmallSquare.png";
+            this.SmallImageCollection3Path = "Images/BlueSmallSquare.png";
+            this.SmallImageCollection4Path = "Images/BrownSmallSquare.png";
+        }
+
+        protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileWidePeekImageCollection01();
+            var smallApplicationTile = TileContentFactory.CreateTileSquareImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.ImageMain.Src = this.ImagePath;
+            smallApplicationTile.Image.Src = this.SmallImagePath;
+            applicationTile.ImageSmallColumn1Row1.Src = this.SmallImageCollection1Path;
+            applicationTile.ImageSmallColumn1Row2.Src = this.SmallImageCollection2Path;
+            applicationTile.ImageSmallColumn2Row1.Src = this.SmallImageCollection3Path;
+            applicationTile.ImageSmallColumn2Row2.Src = this.SmallImageCollection4Path;
+
+            applicationTile.SquareContent = smallApplicationTile;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowWideImagePeek
+        public WideImagePeekViewModel()
+        {
+            this.ImagePath = "Images/LiveTileImage_310x150.png";            
+        }
+
+        protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileWidePeekImageAndText02();
+            var smallApplicationTile = TileContentFactory.CreateTileSquareImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.Image.Src = this.ImagePath;
+            smallApplicationTile.Image.Src = "Images/LiveTileImage_150x150.png";
+
+            applicationTile.SquareContent = smallApplicationTile;
+            applicationTile.TextBody1.Text = this.Line1;
+            applicationTile.TextBody2.Text = this.Line2;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }
+
+* ShowWideImageWithSmallImage
+        public WideImageWithSmallImageViewModel()
+        {
+            this.ImagePath = "Images/LiveTileImage_310x150.png";
+            this.SmallImagePath = "Images/LiveTileImage_150x150.png";
+        }
+
+        protected override void CreateTile()
+        {
+            var applicationTile = TileContentFactory.CreateTileWideImage();
+            var smallApplicationTile = TileContentFactory.CreateTileSquareImage();
+            var tileUpdater = TileUpdateManager.CreateTileUpdaterForApplication(CoreApplication.Id);
+
+            tileUpdater.Clear();
+
+            applicationTile.Image.Src = this.ImagePath;
+            smallApplicationTile.Image.Src = this.SmallImagePath;
+
+            applicationTile.SquareContent = smallApplicationTile;
+
+            var tileNotification = applicationTile.CreateNotification();
+            tileUpdater.Update(tileNotification);
+        }

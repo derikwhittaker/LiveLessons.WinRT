@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="63cd16f1-d5aa-441c-9941-92b4b7a150d9" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.SecondaryTiles</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.0</OSMinVersion>
+    <OSMaxVersionTested>6.2.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.SecondaryTiles.App">
+      <VisualElements DisplayName="LL.SecondaryTiles" Logo="SecondaryTiles_150x150.png" SmallLogo="Assets\SmallLogo.png" Description="LL.SecondaryTiles" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="noLogos" WideLogo="SecondaryTiles_3100x150.png" />
+        <SplashScreen Image="SecondaryTilesSplash_620x300.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
