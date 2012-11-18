@@ -1,0 +1,57 @@
+When building a windows 8 application it may be common for your application to need to notify the 
+user that some long running, async, proceess has completed.  One way we can do this is with toast notifictions.
+The WinRT system has provided you with the ability to send an in appliction toast with almost no code, but not 
+only can we sent toasts w/ text, but we can attach images as well as schedule them for future deliverly.
+
+1) check to see if toasts are enabled.
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+
+            // Make sure notifications are enabled
+            if (notifier.Setting != NotificationSetting.Enabled)
+            {
+                var dialog = new MessageDialog("Notifications are currently disabled");
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                var dialog = new MessageDialog("Notifications are currently enabled");
+                await dialog.ShowAsync();
+            }   
+
+2) send a plain text toast
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+            var template = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText02);
+
+            var element = template.GetElementsByTagName("text")[0];
+            element.AppendChild(template.CreateTextNode(PlainTextValue));
+
+            var toast = new ToastNotification(template);
+            notifier.Show(toast);
+
+3) Send image toast
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+            var template = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
+
+            var element = template.GetElementsByTagName("text")[0];
+            element.AppendChild(template.CreateTextNode(ImageTextValue));
+
+            var images = template.GetElementsByTagName("image");
+            ((XmlElement)images[0]).SetAttribute("src", "Images/GreenToastSquare.png");
+
+            var toast = new ToastNotification(template);
+            notifier.Show(toast);
+
+4) send future toast
+            var notifier = ToastNotificationManager.CreateToastNotifier();
+            var template = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastImageAndText01);
+
+            var element = template.GetElementsByTagName("text")[0];
+            element.AppendChild(template.CreateTextNode(ImageTextValue));
+
+            var images = template.GetElementsByTagName("image");
+            ((XmlElement)images[0]).SetAttribute("src", "Images/GreenToastSquare.png");
+
+            var date = DateTimeOffset.Now.AddSeconds(10);
+            var scheduledToast = new ScheduledToastNotification(template, date);
+            notifier.AddToSchedule(scheduledToast);
+

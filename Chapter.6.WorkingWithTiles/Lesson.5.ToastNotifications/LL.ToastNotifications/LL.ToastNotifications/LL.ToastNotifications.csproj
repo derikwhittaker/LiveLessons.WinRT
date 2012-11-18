@@ -138,6 +138,11 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Images\GreenToastSquare.png" />
+    <Content Include="PearsonTiles_30x30.png" />
+    <Content Include="ToastNotifcationTiles_150x150.png" />
+    <Content Include="ToastNotificationSplash_620x300.png" />
+    <Content Include="ToastNotificationTiles_310x150.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
