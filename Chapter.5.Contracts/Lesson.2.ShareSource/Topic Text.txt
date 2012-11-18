@@ -1,0 +1,99 @@
+Lets go ahead and learn how to implement the share source contract
+
+1) Show the basic application
+2) show how w/ NO code the app will show the basic 'not sharing' message
+	-> Talk about how sharing is NOT an app wide event, and how sharing 
+		is setup on per page basis.
+
+3) Go to Dashboard.xaml.cs -> show how we can do an immediate fail in case
+	we dont want to share, this may be useful on screens which contain
+	sensitive data
+	
+        private DataTransferManager _dataTransferManager;
+        private void SetupDataTransfer()
+        {
+            _dataTransferManager = DataTransferManager.GetForCurrentView();
+
+            _dataTransferManager.DataRequested += OnDataRequested;
+        }
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            args.Request.FailWithDisplayText("This application does not share data");
+        }
+
+4) show the application w/ nothing being shared.
+
+5) Setup so we can share an text
+        private void OnDataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            var vm = ((DashboardViewModel) DataContext);
+
+            if ( vm.SelectedItem == null )
+            {
+                args.Request.FailWithDisplayText("Nothing was selected to shared.");    
+            }
+            else
+            {
+		var dataPackage = args.Request.Data;
+                ShareText(dataPackage, vm.SelectedItem.Name);
+            }
+        }
+
+        private void ShareText(DataPackage dataPackage, string text)
+        {
+            dataPackage.SetText(text);
+        }
+
+6) run the app and show the error message which is displayed
+
+7) add the logic to setup the title and description
+
+                    var propertySet = dataPackage.Properties;
+                    propertySet.Title = vm.SelectedItem.Name;
+                    //propertySet.Description = vm.SelectedItem.ShortDescription;
+
+8) run the app and this time show it sharing
+
+9) add in the logic to share a URL
+
+        private void ShareUrl(DataPackage dataPackage, string url)
+        {
+            dataPackage.SetUri(new Uri(url));
+        }
+
+10) run the app and this time show it sharing
+
+11) add in the logic to share a file
+
+        private async Task ShareImageAsFileAsync(DashboardViewModel vm, DataPackage dataPackage, DataPackagePropertySet propertySet)
+        {
+            var cleanFileName = vm.SelectedItem.ImagePath.Replace(@"../Images/", "");
+
+            var packageLocation = Windows.ApplicationModel.Package.Current.InstalledLocation;
+            var imagesFolder = await packageLocation.GetFolderAsync("Images");
+            var imageToShare = await imagesFolder.GetFileAsync(cleanFileName);
+            var imageStreamRef = RandomAccessStreamReference.CreateFromFile(imageToShare);
+            
+            dataPackage.SetStorageItems(new List<IStorageItem> {imageToShare});
+            propertySet.Thumbnail = imageStreamRef;
+        }
+
+12) add the deferral logic and explain this
+
+//var deferral = args.Request.GetDeferral();
+
+//deferral.Complete();
+
+13) run the app
+
+14) go back to the code and show that you can share more than what we are showing here
+
+15) show how we can capture 'who' the data is shared with
+_dataTransferManager.TargetApplicationChosen += OnTargetApplicationChosen;    
+
+        void OnTargetApplicationChosen(DataTransferManager sender, TargetApplicationChosenEventArgs args)
+        {
+            var appName = args.ApplicationName;
+        }    
+
+DONE
