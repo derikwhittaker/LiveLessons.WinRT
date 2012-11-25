@@ -138,6 +138,10 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="GridViewSplash_620x300.png" />
+    <Content Include="GridViewTiles_150x150.png" />
+    <Content Include="GridViewTiles_310x150.png" />
+    <Content Include="PearsonTiles_30x30.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
