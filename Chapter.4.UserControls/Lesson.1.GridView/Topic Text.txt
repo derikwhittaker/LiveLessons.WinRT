@@ -102,4 +102,10 @@ ADD:        <DataTemplate x:Key="Plain250x75ItemTemplate">
 
 
 ***********************************
-Custom Headers
+Design time data
+
+* First, lets setup the design time data instance
+xmlns:vm="using:LL.GridView.ViewModels"
+d:Source="{Binding Groups, Source={d:DesignInstance Type=vm:CustomHeaderGridViewModel, IsDesignTimeCreatable=True}}"
+
+

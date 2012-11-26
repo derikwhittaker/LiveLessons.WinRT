@@ -4,15 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{63A87E02-C1CF-492C-997C-8AB73E69FE01}</ProjectGuid>
+    <ProjectGuid>{BBFD49DC-F76D-4838-8007-0D893C65F9CC}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LL.GridView</RootNamespace>
-    <AssemblyName>LL.GridView</AssemblyName>
+    <RootNamespace>LL.ListView</RootNamespace>
+    <AssemblyName>LL.ListView</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>LL.GridView_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>LL.ListView_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -101,7 +101,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\..\..\..\Metro.LL.Common\Metro.LL.Common.csproj">
+    <ProjectReference Include="..\..\..\..\Metro.LL.Common\Metro.LL.Common.csproj">
       <Project>{65c98969-78f7-430b-bc98-35583b9808a7}</Project>
       <Name>Metro.LL.Common</Name>
     </ProjectReference>
@@ -110,31 +110,23 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataModel\DashboardItem.cs" />
-    <Compile Include="DataModel\Item.cs" />
-    <Compile Include="DataModel\ItemGroup.cs" />
+    <Compile Include="ItemsPage.xaml.cs">
+      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SplitPage.xaml.cs">
+      <DependentUpon>SplitPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="ViewModels\DesignTimeDataGridViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
-    <Compile Include="ViewModels\GroupedGridViewModel.cs" />
-    <Compile Include="ViewModels\PlainGridViewModel.cs" />
-    <Compile Include="Views\DesignTimeDataGridViewPage.xaml.cs">
-      <DependentUpon>DesignTimeDataGridViewPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GroupedGridViewPage.xaml.cs">
-      <DependentUpon>GroupedGridViewPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlainGridViewPage.xaml.cs">
-      <DependentUpon>PlainGridViewPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +134,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
-    <None Include="LL.GridView_TemporaryKey.pfx" />
+    <None Include="LL.ListView_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
@@ -152,13 +144,9 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
-    <Content Include="GridViewSplash_620x300.png" />
-    <Content Include="GridViewTiles_150x150.png" />
-    <Content Include="GridViewTiles_310x150.png" />
-    <Content Include="Images\BlueSmallSquare.png" />
-    <Content Include="Images\BrownSmallSquare.png" />
-    <Content Include="Images\GreenSmallSquare.png" />
-    <Content Include="Images\RedSmallSquare.png" />
+    <Content Include="ListViewSplash_620x300.png" />
+    <Content Include="ListViewTiles_150x150.png" />
+    <Content Include="ListViewTiles_310x150.png" />
     <Content Include="PearsonTiles_30x30.png" />
   </ItemGroup>
   <ItemGroup>
@@ -170,24 +158,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DesignTimeDataGridViewPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="ItemsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SplitPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DashboardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\GroupedGridViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlainGridViewPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

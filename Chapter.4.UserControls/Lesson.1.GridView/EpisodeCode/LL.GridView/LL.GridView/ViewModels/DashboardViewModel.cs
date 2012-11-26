@@ -20,7 +20,7 @@ namespace LL.GridView.ViewModels
                                                                {
                                                                    new DashboardItem{ PageType = typeof(PlainGridViewPage), Name = "Plain Grid View", Color = "AliceBlue"},
                                                                    new DashboardItem{ PageType = typeof(GroupedGridViewPage),Name = "Grouped Grid View", Color = "AntiqueWhite"},
-                                                                   new DashboardItem{ PageType = typeof(CustomHeaderGridViewPage),Name = "Custom Group Headers", Color = "Azure"},
+                                                                   new DashboardItem{ PageType = typeof(DesignTimeDataGridViewPage),Name = "Using Design Time Data", Color = "Azure"},
                                                                });
         }
 

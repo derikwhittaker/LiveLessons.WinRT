@@ -20,13 +20,13 @@ namespace LL.GridView.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class CustomHeaderGridViewPage : LL.GridView.Common.LayoutAwarePage
+    public sealed partial class DesignTimeDataGridViewPage : LL.GridView.Common.LayoutAwarePage
     {
-        public CustomHeaderGridViewPage()
+        public DesignTimeDataGridViewPage()
         {
             this.InitializeComponent();
 
-            DataContext = new CustomHeaderGridViewModel();
+            DataContext = new DesignTimeDataGridViewModel();
         }
 
     }

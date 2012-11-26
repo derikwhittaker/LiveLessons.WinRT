@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="e4dae7e2-d6b3-4a9b-a2a6-e135edbcb55f" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.ListView</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.ListView.App">
+      <VisualElements DisplayName="LL.ListView" Logo="ListViewTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.ListView" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="ListViewTiles_310x150.png" />
+        <SplashScreen Image="ListViewSplash_620x300.png" BackgroundColor="#757575" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
