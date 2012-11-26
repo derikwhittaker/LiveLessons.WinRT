@@ -20,14 +20,13 @@ namespace LL.GridView.Views
     /// <summary>
     /// A basic page that provides characteristics common to most applications.
     /// </summary>
-    public sealed partial class DashboardPage : LL.GridView.Common.LayoutAwarePage
+    public sealed partial class GroupedGridViewPage : LL.GridView.Common.LayoutAwarePage
     {
-        public DashboardPage()
+        public GroupedGridViewPage()
         {
             this.InitializeComponent();
 
-            DataContext = new DashboardViewModel();
+            DataContext = new GroupedGridViewModel();
         }
-
     }
 }

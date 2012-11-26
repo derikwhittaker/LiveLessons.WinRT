@@ -110,17 +110,31 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DashboardItem.cs" />
+    <Compile Include="DataModel\Item.cs" />
+    <Compile Include="DataModel\ItemGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
     <Compile Include="Common\BooleanToVisibilityConverter.cs" />
     <Compile Include="Common\BooleanNegationConverter.cs" />
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="ViewModels\CustomHeaderGridViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\GroupedGridViewModel.cs" />
+    <Compile Include="ViewModels\PlainGridViewModel.cs" />
+    <Compile Include="Views\CustomHeaderGridViewPage.xaml.cs">
+      <DependentUpon>CustomHeaderGridViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GroupedGridViewPage.xaml.cs">
+      <DependentUpon>GroupedGridViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlainGridViewPage.xaml.cs">
+      <DependentUpon>PlainGridViewPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +155,10 @@
     <Content Include="GridViewSplash_620x300.png" />
     <Content Include="GridViewTiles_150x150.png" />
     <Content Include="GridViewTiles_310x150.png" />
+    <Content Include="Images\BlueSmallSquare.png" />
+    <Content Include="Images\BrownSmallSquare.png" />
+    <Content Include="Images\GreenSmallSquare.png" />
+    <Content Include="Images\RedSmallSquare.png" />
     <Content Include="PearsonTiles_30x30.png" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +170,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\CustomHeaderGridViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GroupedGridViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlainGridViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

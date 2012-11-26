@@ -1,0 +1,105 @@
+PUT INTRO HERE
+                   
+* Create the basic gridivew tag
+
+<GridView
+            TabIndex="1"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Items}"
+            ItemTemplate="{StaticResource Plain250x75ItemTemplate}"            
+            IsSwipeEnabled="false"
+            />
+
+* Setup the view w/ the data content.  populate the vm
+
+* Now that we can see the default templage, what what do i do if i want to customize the look and fell?  
+what about horizontal items
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+
+* What if i want them to be smaller?.
+
+***********************************
+Grouped items
+* setup the vm
+* show the binding, but DO NOT turn on grouped headers -- run the app
+
+        <CollectionViewSource
+            x:Name="ItemsSource"
+            Source="{Binding Groups}"
+            ItemsPath="Items"/>
+
+<GridView
+            TabIndex="1"
+            Grid.Row="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            ItemsSource="{Binding Source={StaticResource ItemsSource}}"
+            ItemTemplate="{StaticResource Plain250x250ItemTemplate}"            
+            IsSwipeEnabled="false"
+            >
+
+* setup and use the default layout
+        <DataTemplate x:Key="Plain250x250ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImageName}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+* run the app
+
+* add the 
+	IsSourceGrouped="true" to the context
+
+* talk about needing to add the group style, do so now
+            <GridView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid Margin="1,0,0,6">
+                                <TextBlock Text="{Binding Header}" Margin="3,-7,10,10" Style="{StaticResource GroupHeaderTextStyle}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,80,0"/>
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </GridView.GroupStyle>
+
+* talk about how we can manipulate the grouping style by changing values.
+SET:                             <VariableSizedWrapGrid Orientation="Vertical" Margin="0,0,80,0"/>
+ADD:        <DataTemplate x:Key="Plain250x75ItemTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="75">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" 
+                       Height="75" Width="75"
+                       AutomationProperties.Name="{Binding Title}"/>
+
+
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+
+***********************************
+Custom Headers
