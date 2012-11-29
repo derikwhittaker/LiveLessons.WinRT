@@ -1,0 +1,58 @@
+PUT INTRO HERE
+                   
+* Create the Items collection
+            var temp = new List<Item>
+                                           {
+                                                new Item{Title = "Item 1", Description = "Item 1 Description", ImageName = @"../Images/BlueSmallSquare.png"},
+                                                new Item{Title = "Item 2", Description = "Item 2 Description", ImageName = @"../Images/BrownSmallSquare.png"},
+                                                new Item{Title = "Item 3", Description = "Item 3 Description", ImageName = @"../Images/GreenSmallSquare.png"},
+                                                new Item{Title = "Item 4", Description = "Item 4 Description", ImageName = @"../Images/BrownSmallSquare.png"},                                               
+                                           };
+
+            Items = new ObservableCollection<Item>(temp);
+
+* Create the base ListView
+<ListView Grid.Row="1" x:Name="ItemListView"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="None"/>
+
+* run the app, show that by defaul there is NO template
+
+* create the base template inline
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="250">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                                <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                                <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+* show how this works
+
+* next show how we can add items to the list
+        public RelayCommand AddNewItemCommand
+        {
+            get { return _addNewItemCommand ?? ( _addNewItemCommand = new RelayCommand(AddNewItem));  }
+        }
+
+        private void AddNewItem()
+        {
+
+            var item = new Item { Title = "New Item", Description = "New Item Description", ImageName = @"../Images/BlueSmallSquare.png" };
+            Items.Add(item);
+        }

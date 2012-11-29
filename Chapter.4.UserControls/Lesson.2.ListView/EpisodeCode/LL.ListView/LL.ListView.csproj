@@ -110,6 +110,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\DashboardItem.cs" />
+    <Compile Include="DataModel\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -118,9 +120,17 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="ViewModels\BasicListViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\StyledListViewModel.cs" />
+    <Compile Include="Views\BasicListViewPage.xaml.cs">
+      <DependentUpon>BasicListViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StyledListViewPage.xaml.cs">
+      <DependentUpon>StyledListViewPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +148,10 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Images\BlueSmallSquare.png" />
+    <Content Include="Images\BrownSmallSquare.png" />
+    <Content Include="Images\GreenSmallSquare.png" />
+    <Content Include="Images\RedSmallSquare.png" />
     <Content Include="ListViewSplash_620x300.png" />
     <Content Include="ListViewTiles_150x150.png" />
     <Content Include="ListViewTiles_310x150.png" />
@@ -152,7 +166,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\BasicListViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StyledListViewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
