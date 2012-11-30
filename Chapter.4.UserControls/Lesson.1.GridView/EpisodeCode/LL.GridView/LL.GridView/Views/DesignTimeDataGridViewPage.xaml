@@ -44,8 +44,14 @@
                 </StackPanel>
             </Grid>
         </DataTemplate>
-        
 
+        <CollectionViewSource
+            x:Name="ItemsSource"
+            Source="{Binding Groups}"
+            d:Source="{Binding Groups, Source={d:DesignInstance Type=vm:DesignTimeDataGridViewModel, IsDesignTimeCreatable=True}}"
+            ItemsPath="Items"
+            IsSourceGrouped="True"
+            />
     </Page.Resources>
 
     <!--
@@ -75,7 +81,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             ItemsSource="{Binding Source={StaticResource ItemsSource}}"
-            ItemTemplate="{StaticResource Plain250x250ItemTemplate}"            
+            ItemTemplate="{StaticResource Plain250x75ItemTemplate}"            
             IsSwipeEnabled="false"
             >
             <GridView.GroupStyle>

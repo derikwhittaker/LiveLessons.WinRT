@@ -144,4 +144,11 @@ Design time data
 xmlns:vm="using:LL.GridView.ViewModels"
 d:Source="{Binding Groups, Source={d:DesignInstance Type=vm:CustomHeaderGridViewModel, IsDesignTimeCreatable=True}}"
 
+        <CollectionViewSource
+            x:Name="ItemsSource"
+            Source="{Binding Groups}"
+            d:Source="{Binding Groups, Source={d:DesignInstance Type=vm:DesignTimeDataGridViewModel, IsDesignTimeCreatable=True}}"
+            IsSourceGrouped="true"
+            ItemsPath="Items"/>
+
 
