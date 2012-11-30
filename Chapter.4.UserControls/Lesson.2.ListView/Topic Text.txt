@@ -56,3 +56,89 @@ PUT INTRO HERE
             var item = new Item { Title = "New Item", Description = "New Item Description", ImageName = @"../Images/BlueSmallSquare.png" };
             Items.Add(item);
         }
+
+***** STYLES *****
+* Setup the design view
+        <CollectionViewSource
+            x:Name="ItemsSource"
+            Source="{Binding Items}"
+            d:Source="{Binding Items, Source={d:DesignInstance Type=vm:StyledListViewModel, IsDesignTimeCreatable=True}}"
+            />
+
+ItemTemplate="{StaticResource ItemLayout}"
+**** NOTE that i may need to restart the IDE for the design data to work ****
+
+* Extract the data template into a resource and use the item templage
+        <DataTemplate x:Key="ItemLayout">
+            <Grid Width="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
+
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+* show how i can manipuate the template by switching the column numbers for each grid column
+* put them back and rename the template to ItemLayoutImageLeft
+
+* show how i can use an item template selector
+* Create the template selector
+    public class ListItemTemplateSelector : DataTemplateSelector 
+    {
+
+        protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
+        {
+            var asItem = item as Item;
+
+            if ( asItem.ItemType == 1 )
+            {
+                return ImageLeftTemplate;
+            }
+            else
+            {
+                return ImageRightTemplate;
+            }
+        }
+
+        public DataTemplate ImageLeftTemplate { get; set; }
+
+        public DataTemplate ImageRightTemplate { get; set; }
+    }
+
+        <Selectors:ListItemTemplateSelector
+            x:Key="listItemTemplateSelector"
+            ImageLeftTemplate="{StaticResource ItemLayoutImageLeft}"
+            ImageRightTemplate="{StaticResource ItemLayoutImageRight}"
+            />
+
+* create the itemtemplate style
+      <Style x:Key="ListItemStyle" TargetType="ListViewItem">
+            <Setter Property="Height" Value="100" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+
+	ItemContainerStyle="{StaticResource ListItemStyle}"
+
+***** Mention you can use a selector here and it is exactly the same as the template *****
+
+
+
+
+
+
+
+
+
+
+
+
+
+

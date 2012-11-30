@@ -11,5 +11,7 @@
 
         public string ImageName { get; set; }
 
+        public int ItemType { get; set; }
+
     }
 }
