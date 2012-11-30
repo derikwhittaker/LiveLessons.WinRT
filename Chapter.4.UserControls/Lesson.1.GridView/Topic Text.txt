@@ -1,4 +1,8 @@
-PUT INTRO HERE
+When building Windows 8 applications you will notice that the default templates make heavy use of the GridView control.  this is
+done because this control is very versitale, provides a clean layout and can be transformed to meet many usage scenerios.  We are going 
+to take a look at how to use this control.  We will strt off looking at how to use a basic grid view, moving on to look at how 
+to use its grouping ability finally ending up looking at how to use design time preview features of xaml to help you better design
+the look and feel of your grid view.
                    
 * Create the basic gridivew tag
 
@@ -12,7 +16,22 @@ PUT INTRO HERE
             IsSwipeEnabled="false"
             />
 
-* Setup the view w/ the data content.  populate the vm
+* create the basic template -- inline -- Plain250x250ItemTemplate
+
+            <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImageName}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+
+* Setup the view w/ the data content.  show the populated the vm
+	ItemsSource="{Binding Items}"
+
+* run the app
 
 * Now that we can see the default templage, what what do i do if i want to customize the look and fell?  
 what about horizontal items
@@ -22,7 +41,24 @@ what about horizontal items
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
 
-* What if i want them to be smaller?.
+
+* setup a different template -- smaller one -- Plain250x75ItemTemplate
+            <Grid HorizontalAlignment="Left" Width="250" Height="75">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" 
+                       Height="75" Width="75"
+                       AutomationProperties.Name="{Binding Title}"/>
+                
+                
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
 
 ***********************************
 Grouped items
