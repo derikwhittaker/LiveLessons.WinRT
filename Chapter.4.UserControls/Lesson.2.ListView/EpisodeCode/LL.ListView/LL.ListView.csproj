@@ -123,12 +123,16 @@
     <Compile Include="Selectors\ListItemTemplateSelector.cs" />
     <Compile Include="ViewModels\BasicListViewModel.cs" />
     <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\HandleItemSelectionViewModel.cs" />
     <Compile Include="ViewModels\StyledListViewModel.cs" />
     <Compile Include="Views\BasicListViewPage.xaml.cs">
       <DependentUpon>BasicListViewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HandleItemSelectionPage.xaml.cs">
+      <DependentUpon>HandleItemSelectionPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StyledListViewPage.xaml.cs">
       <DependentUpon>StyledListViewPage.xaml</DependentUpon>
@@ -172,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HandleItemSelectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

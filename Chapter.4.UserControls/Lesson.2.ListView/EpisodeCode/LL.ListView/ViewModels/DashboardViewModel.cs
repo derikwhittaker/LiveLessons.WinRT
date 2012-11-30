@@ -19,7 +19,7 @@ namespace LL.ListView.ViewModels
                                                                {
                                                                    new DashboardItem{ PageType = typeof(BasicListViewPage), Name = "Basic List View", Color = "AliceBlue"},
                                                                    new DashboardItem{ PageType = typeof(StyledListViewPage), Name = "Styled List View", Color = "AntiqueWhite"},
-                                                                   new DashboardItem{ PageType = typeof(BasicListViewPage), Name = "Something...", Color = "Azure"},
+                                                                   new DashboardItem{ PageType = typeof(HandleItemSelectionPage), Name = "List View Item Selection", Color = "Azure"},
                                                                });
         }
 
