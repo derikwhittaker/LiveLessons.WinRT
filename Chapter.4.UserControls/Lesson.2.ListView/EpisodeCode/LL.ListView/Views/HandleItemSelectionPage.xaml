@@ -64,6 +64,54 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
 
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="No Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="2" Grid.Column="0"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="None">
+
+            </ListView>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="2" Grid.Column="1"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="Single">
+
+            </ListView>
+
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding SelectedItemText}" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="2" Grid.Column="2"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="Single">
+
+            </ListView>
+
         </Grid>
     </Grid>
 </common:LayoutAwarePage>

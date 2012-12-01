@@ -38,7 +38,34 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+            
+            <Button Grid.Row="0" Content="Add New Item"
+                    Command="{Binding AddNewItemCommand}"
+                    />
 
+            <ListView Grid.Row="1"
+                      ItemsSource="{Binding Items}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="250">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                                <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                                <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                            </StackPanel>
+                        </Grid>                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        
         </Grid>
 
     </Grid>

@@ -39,14 +39,19 @@ namespace LL.ListView.ViewModels
 
         public RelayCommand AddNewItemCommand
         {
-            get { return _addNewItemCommand ?? ( _addNewItemCommand = new RelayCommand(AddNewItem));  }
+            get { return _addNewItemCommand ?? ( _addNewItemCommand = new RelayCommand(AddNewItem)); }
         }
 
         private void AddNewItem()
         {
+            var newItem = new Item
+                              {
+                                  Title = "New Item",
+                                  Description = "New Item Desc",
+                                  ImageName = @"../Images/BrownSmallSquare.png"
+                              };
 
-            var item = new Item { Title = "New Item", Description = "New Item Description", ImageName = @"../Images/BlueSmallSquare.png" };
-            Items.Add(item);
+            Items.Add(newItem);
         }
     }
 }

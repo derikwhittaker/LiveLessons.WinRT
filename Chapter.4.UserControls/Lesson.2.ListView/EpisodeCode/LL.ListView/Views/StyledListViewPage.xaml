@@ -11,8 +11,51 @@
 
     <Page.Resources>
 
+        <DataTemplate x:Key="ListItemLayoutImageLeft">
+            <Grid Width="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
 
-            <CollectionViewSource
+                <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ListItemLayoutImageRight">
+            <Grid Width="250">
+                <Grid.ColumnDefinitions>                    
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="1" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
+
+                <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <Selectors:ListItemTemplateSelector
+            x:Key="listItemTemplateSelector"
+            ImageLeftTemplate="{StaticResource ListItemLayoutImageLeft}"
+            ImageRightTemplate="{StaticResource ListItemLayoutImageRight}"
+            />
+        
+        <Style x:Key="ListItemStyle" TargetType="ListViewItem">
+            <Setter Property="Height" Value="100" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />            
+        </Style>
+
+        <CollectionViewSource
             x:Name="ItemsSource"
             Source="{Binding Items}"
             d:Source="{Binding Items, Source={d:DesignInstance Type=vm:StyledListViewModel, IsDesignTimeCreatable=True}}"
@@ -52,6 +95,36 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
+            <TextBlock  Grid.Row="0" Grid.Column="0" Text="Grid w/ Template Resource" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="1" Grid.Column="0"
+                                      ItemsSource="{Binding Source={StaticResource ItemsSource}}"
+                      ItemTemplate="{StaticResource ListItemLayoutImageRight}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch" >
+                
+            </ListView>
+
+            <TextBlock  Grid.Row="0" Grid.Column="1" Text="List View with Selctors" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="1" Grid.Column="1"
+                        ItemsSource="{Binding Source={StaticResource ItemsSource}}"           
+                      ItemTemplateSelector="{StaticResource listItemTemplateSelector}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch" >
+
+            </ListView>
+
+            <TextBlock  Grid.Row="0" Grid.Column="2" Text="List View with Item Style" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="1" Grid.Column="2"
+                        ItemsSource="{Binding Source={StaticResource ItemsSource}}"           
+                      ItemTemplateSelector="{StaticResource listItemTemplateSelector}"
+                      ItemContainerStyle="{StaticResource ListItemStyle}"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Stretch" >
+
+            </ListView>
 
         </Grid>
 

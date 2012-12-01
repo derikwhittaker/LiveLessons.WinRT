@@ -9,6 +9,8 @@ namespace LL.ListView.ViewModels
     {
         private ObservableCollection<Item> _items;
         private Item _selectedItem;
+        private Item _selectedItem1;
+        private string _selectedItemText;
 
         public HandleItemSelectionViewModel()
         {
@@ -36,5 +38,29 @@ namespace LL.ListView.ViewModels
             }
         }
 
+        public Item SelectedItem
+        {
+            get { return _selectedItem1; }
+            set
+            {
+                _selectedItem1 = value;
+
+                OnPropertyChanged("SelectedItem");
+                OnPropertyChanged("SelectedItemText");
+            }
+        }
+
+        public string SelectedItemText
+        {
+            get
+            {
+                if (SelectedItem == null)
+                {
+                    return "";
+                }
+
+                return string.Format("Selected Item {0}", SelectedItem.Title);
+            }
+        }
     }
 }

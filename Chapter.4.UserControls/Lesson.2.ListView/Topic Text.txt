@@ -1,4 +1,7 @@
-PUT INTRO HERE
+When building windows 8 applications you are going to often need a way to display and list collections of data, many times these collections are going to 
+be long.  The ListView is a great control which allows you to list data in many diffent ways.  Like all other Windows 8 controls we can pretty much
+manipulate the List View to meet all our needs.  We will start off by looking at how to use the listview in a basic scenario, moving on we will learn
+how we can manipulate the styles of a list view and we will end up by looking at how we can handle item selection in the list view.
                
 ***** Basic List View ****
     
