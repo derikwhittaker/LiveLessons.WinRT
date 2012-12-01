@@ -8,6 +8,7 @@ namespace LL.ListView.ViewModels
     public class HandleItemSelectionViewModel : BaseViewModel
     {
         private ObservableCollection<Item> _items;
+        private Item _selectedItem;
 
         public HandleItemSelectionViewModel()
         {
@@ -34,5 +35,6 @@ namespace LL.ListView.ViewModels
                 OnPropertyChanged("Items");
             }
         }
+
     }
 }

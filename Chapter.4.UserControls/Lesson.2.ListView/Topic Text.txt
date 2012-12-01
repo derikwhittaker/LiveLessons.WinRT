@@ -1,5 +1,7 @@
 PUT INTRO HERE
-                   
+               
+***** Basic List View ****
+    
 * Create the Items collection
             var temp = new List<Item>
                                            {
@@ -85,8 +87,59 @@ ItemTemplate="{StaticResource ItemLayout}"
             </Grid>
         </DataTemplate>
 
+* setup the first list box
+            <TextBlock  Grid.Row="0" Grid.Column="0" Text="Grid w/ Template Resource" Style="{StaticResource TitleTextStyle}" Margin="5" />
+            
+            <ListView Grid.Row="1" Grid.Column="0"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Source={StaticResource ItemsSource}}"                  
+                 ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="None">
+
+            </ListView>
+
 * show how i can manipuate the template by switching the column numbers for each grid column
-* put them back and rename the template to ItemLayoutImageLeft
+
+        <DataTemplate x:Key="ItemLayoutImageRight">
+            <Grid Width="250">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Vertical" Grid.Column="0" VerticalAlignment="Center" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}" Height="75">
+                    <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding Description}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+                               Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+                
+                <Image Grid.Column="1" Source="{Binding ImageName}" Stretch="UniformToFill" Height="75" Width="75"/>
+
+
+            </Grid>
+        </DataTemplate>
+
+* setup the send list box
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Grid w/ Template Selector" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="1" Grid.Column="1"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Source={StaticResource ItemsSource}}"                  
+                ItemTemplateSelector="{StaticResource listItemTemplateSelector}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="None">
+
+            </ListView>
 
 * show how i can use an item template selector
 * Create the template selector
@@ -118,6 +171,22 @@ ItemTemplate="{StaticResource ItemLayout}"
             ImageRightTemplate="{StaticResource ItemLayoutImageRight}"
             />
 
+* setup the 3rd list box
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Grid w/ List Item Style" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="1" Grid.Column="2"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Source={StaticResource ItemsSource}}"
+                ItemTemplateSelector="{StaticResource listItemTemplateSelector}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="None">
+
+            </ListView>
+
 * create the itemtemplate style
       <Style x:Key="ListItemStyle" TargetType="ListViewItem">
             <Setter Property="Height" Value="100" />
@@ -129,10 +198,96 @@ ItemTemplate="{StaticResource ItemLayout}"
 
 ***** Mention you can use a selector here and it is exactly the same as the template *****
 
+* Selection
 
+* simple list box w/ No selection
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="No Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
 
+            <ListView Grid.Row="2" Grid.Column="0"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                  SelectionMode="None">
+        
+            </ListView>
 
+* List box w/ single selection
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Single Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
+            
+            <ListView Grid.Row="2" Grid.Column="1"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="Single">
 
+            </ListView>
+
+* List box w/ multi select
+
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Multiple Item Selection" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <ListView Grid.Row="2" Grid.Column="2"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="Multiple">
+
+            </ListView>
+
+* list box w/ selecte item -- binding
+            <TextBlock Grid.Row="0" Grid.Column="3" Text="Bind to Selected Item" Style="{StaticResource TitleTextStyle}" Margin="5" />
+
+            <TextBlock Grid.Row="1" Grid.Column="3" Text="{Binding SelectedItemText}" Style="{StaticResource TitleTextStyle}" Margin="5" />
+            
+            <ListView Grid.Row="2" Grid.Column="3"
+                  Width="300"
+                HorizontalAlignment="Left"
+                Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                ItemsSource="{Binding Items}"                
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                ItemTemplate="{StaticResource ItemLayoutImageLeft}"
+                VerticalAlignment="Stretch" 
+                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+                SelectionMode="None">
+
+            </ListView>
+
+        public Item SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+                OnPropertyChanged("SelectedItem");
+                OnPropertyChanged("SelectedItemText");
+            }
+        }
+
+        public string SelectedItemText
+        {
+            get
+            {
+                if (SelectedItem == null) { return ""; }
+
+                return string.Format("Selected Item {0}", SelectedItem.Title);
+            }
+        }
 
 
 
