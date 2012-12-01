@@ -1,0 +1,102 @@
+PUT INTRO HERE
+               
+***** Basic Flip View ****
+
+* show the base vm
+* setup the base flipview xaml
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Simple Flip View" />
+            
+            <FlipView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Items}" >
+
+            </FlipView>
+
+* launch the app -- show how we are not able to see anything because of the lack of a data template
+
+* Add in the item template
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+		    <Grid VerticalAlignment="Top">
+                        <Image Source="{Binding ImageName}" />
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+
+* run the appliction
+
+*** Styled Flip View ****
+* add the collectionview source
+        <CollectionViewSource
+            x:Name="ItemsSource"
+            Source="{Binding Items}"
+            d:Source="{Binding Items, Source={d:DesignInstance Type=vm:DashboardViewModel, IsDesignTimeCreatable=True}}"
+            />
+
+* add the header label 
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Styled Flip View" 
+                       Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center"
+                       Margin="5,10"/>
+
+* copy the other flip view -- change the itemsSource
+            <FlipView Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Source={StaticResource ItemsSource}}" >
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+		    <Grid VerticalAlignment="Top">
+                        <Image Source="{Binding ImageName}" />
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+            </FlipView>
+
+* update the style to show more content
+                        <Grid VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            
+                            <Border Grid.Row="0" Height="50" Background="Gray" Opacity=".5">
+                                <TextBlock Style="{StaticResource SubtitleTextStyle}" Foreground="White"
+                                           Text="{Binding Title}" VerticalAlignment="Center" />
+                            </Border>
+                            
+                            <Image Grid.Row="1" Source="{Binding ImageName}" />
+                        </Grid>
+
+* change the item tempate to do verticle swips
+                <FlipView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </FlipView.ItemsPanel>
+
+**** Current Item Grid View ****
+* copy the style grid view
+
+* update the flipview
+SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+
+        public Item SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+
+                OnPropertyChanged("SelectedItem");
+            }
+        }
+
+* update the UI to show the name of the select item in the main title
+            <StackPanel Grid.Row="0" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Active Item Flip View" 
+                       Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center"
+                       Margin="5,10"/>
+                
+                <TextBlock Text="{Binding SelectedItem.Title}" 
+                       Style="{StaticResource TitleTextStyle}" HorizontalAlignment="Center"
+                       Margin="5,10"/>
+            </StackPanel>
+
+* point out how 2 flip views will change at the same time since they are using the same collection source
+

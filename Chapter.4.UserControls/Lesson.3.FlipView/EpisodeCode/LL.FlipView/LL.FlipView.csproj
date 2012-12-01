@@ -101,17 +101,17 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\..\..\Metro.LL.Common\Metro.LL.Common.csproj">
+      <Project>{65c98969-78f7-430b-bc98-35583b9808a7}</Project>
+      <Name>Metro.LL.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemsPage.xaml.cs">
-      <DependentUpon>ItemsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SplitPage.xaml.cs">
-      <DependentUpon>SplitPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="DataModel\DashboardItem.cs" />
+    <Compile Include="DataModel\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -120,6 +120,10 @@
     <Compile Include="Common\LayoutAwarePage.cs" />
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="Views\DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -139,6 +143,17 @@
     <Content Include="FlipViewSplash_620x300.png" />
     <Content Include="FlipViewTiles_150x150.png" />
     <Content Include="FlipViewTiles_310x150.png" />
+    <Content Include="Images\AstonMartin_V12Zagato.png" />
+    <Content Include="Images\Audi_R8.png" />
+    <Content Include="Images\Bugatti_Veyron.png" />
+    <Content Include="Images\Corvette_Z06.png" />
+    <Content Include="Images\Ferrari_F12berlinetta.png" />
+    <Content Include="Images\Jaguar_xj.png" />
+    <Content Include="Images\Lamborghini_Aventador.png" />
+    <Content Include="Images\Lotus_ExigeS.png" />
+    <Content Include="Images\Maybach_57.png" />
+    <Content Include="Images\McLaren_MP4.png" />
+    <Content Include="Images\Porsche_Panamera.png" />
     <Content Include="PearsonTiles_30x30.png" />
   </ItemGroup>
   <ItemGroup>
@@ -150,11 +165,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ItemsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SplitPage.xaml">
+    <Page Include="Views\DashboardPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
