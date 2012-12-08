@@ -20,6 +20,19 @@
             d:Source="{Binding Items, Source={d:DesignInstance Type=vm:DashboardViewModel, IsDesignTimeCreatable=True}}"
             />
         
+        <Style x:Key="BigRedBoldTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+        </Style>
+
+        <Style x:Key="BigRedNoralTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BigRedBoldTextStyle}">
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="FontStyle" Value="Italic" />
+        </Style>
+
 
     </Page.Resources>
 
@@ -54,10 +67,21 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 
+                <TextBlock Text="Inline Styles" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" 
+                           Foreground="Red" Margin="5" />
+
+                <TextBlock Grid.Row="1" Text="Local Resource Styles" Style="{StaticResource BigRedBoldTextStyle}" />
+                <TextBlock Grid.Row="2" Text="Another Local Resource Styles" Style="{StaticResource BigRedBoldTextStyle}" />
+
+                <TextBlock Grid.Row="3" Text="Override Local Resource Styles" Style="{StaticResource BigRedBoldTextStyle}" FontStyle="Italic" FontWeight="Normal" />
+                <TextBlock Grid.Row="4" Text="Inherit Local Resource Styles" Style="{StaticResource BigRedNoralTextStyle}"/>
+
+                <TextBlock Grid.Row="5" Text="Global Resource Styles" Style="{StaticResource BiggerBlueNormalTextStyle}"/>
                 
-                
+
             </Grid>
             
         </Grid>

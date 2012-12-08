@@ -13,6 +13,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- Non-brush values that vary across themes -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CustomStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
 
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">

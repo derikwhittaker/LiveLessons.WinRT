@@ -45,5 +45,8 @@ styles in this lesson.  This lesson will focus on a small subset of user control
         <ResourceDictionary Source="CustomStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-
 <TextBlock Grid.Row="4" Text="Glogal Resource Styles" Style="{StaticResource GlobalBigRedBoldTextBlock}" />
+
+* setup colors and brush tyles -- use them
+
+* show how u can use the colors
