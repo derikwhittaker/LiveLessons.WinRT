@@ -1,0 +1,49 @@
+When building any applicaiton you will need a way to customize the look and feel of the fonts, colors, ect.  When building xaml applications
+you have the flexability to pretty much styel any control in any manor you feel fit.  XAML, like HTML has the concept of styles and resources, styles provide the ability
+to globally delcare the look and feel of your appclaition in order to reuse these these assests.  We are going to focus on learning how to use 
+styles in this lesson.  This lesson will focus on a small subset of user controls but the concepts here are applicable to all a controls in xaml
+
+* setup a text block w/ inline
+
+                <TextBlock Grid.Row="0" Text="Inline Styles" HorizontalAlignment="Center"
+                           FontSize="25" FontWeight="Bold" Foreground="Red" Margin="5"/>
+
+* setup the style as a local resource
+<TextBlock Grid.Row="1" Text="Local Resource Styles" Style="{StaticResource BigRedBoldTextBlock}" />
+        <Style x:Key="BigRedBoldTextBlock" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="25 "/>
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Foreground" Value="Red" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+* setup an inherited style
+<TextBlock Grid.Row="2" Text="Inherited Styles" Style="{StaticResource BigBlueBoldTextBlock}" />
+
+        <Style x:Key="BigBlueBoldTextBlock" TargetType="TextBlock" BasedOn="{StaticResource BigRedBoldTextBlock}">
+            <Setter Property="Foreground" Value="Blue" />            
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+
+*override the style
+<TextBlock Grid.Row="3" Text="Overidden Styles" Style="{StaticResource BigBlueBoldTextBlock}" FontSize="36" />
+
+* setup the global style
+* create CustomStyles.xaml
+    <Style x:Key="GlobalBigRedBoldTextBlock" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="32 "/>
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontStyle" Value="Italic" />
+        <Setter Property="Foreground" Value="Red" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+    </Style>
+
+* setup the merge dictionary
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CustomStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+
+<TextBlock Grid.Row="4" Text="Glogal Resource Styles" Style="{StaticResource GlobalBigRedBoldTextBlock}" />
