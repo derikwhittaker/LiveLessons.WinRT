@@ -1,0 +1,64 @@
+When building Windows 8 applications you are more than likely going to have the need to use the application bar.  The application bar is the 
+preferred way to provide ways for the user to 'control' or 'interact' with your application.  This is because the bar can be customized to 
+meet pretty much any need and simply 'gets out of your way' when it is not in use.
+
+* show how to setup the basic app bar
+	-- show the top -- comment this out
+	-- show the bottom
+
+	<AppBar Background="Blue" IsSticky="True" IsOpen="{Binding ShowAppBar, Mode=TwoWay}" >
+
+* Launch the app
+	-- show how we can have it be a color
+	-- show how it is NOT stick
+
+* make it sticky
+	IsSticky="True"
+
+* show how we can put any type of controls in the app bar
+          <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"/>
+		    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+		<Button Grid.Column="0" Content="Click Me" />
+                <Image Grid.Column="1" Source="../Images/GreenSmallSquare.png" Width="50" Height="50" />
+            </Grid>
+
+* show you can toggle the visiblity 
+	IsOpen="{Binding ShowAppBar, Mode=TwoWay}" 
+
+* show the app bar styles in the .xaml file
+
+* add 3 buttons
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource NextAppBarButtonStyle}"  />
+                    <Button Style="{StaticResource PreviousAppBarButtonStyle}" />
+                    <Button Style="{StaticResource FavoriteAppBarButtonStyle}" />
+                </StackPanel>
+
+* run the app
+
+* add the ability to command and show visibility
+	Command="{Binding HandleNextClickCommand}"
+	 Visibility="{Binding IsPreviousVisible, Converter={StaticResource b2v}}"
+
+
+* run the app
+
+* add the transition
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition/>
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
+
+* run the app
+
+
+
+
+
+

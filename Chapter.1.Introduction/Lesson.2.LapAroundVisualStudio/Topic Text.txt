@@ -1,0 +1,32 @@
+With the release of windows 8 has come an update to Visual Studio 2012. THis update is required in order to allow
+developers the ability to develop Windows 8 applications.  This update includes, amongst other things templates
+to allow you to build windows 8 appliction, an emulator to help you build and test your windows 8 applications 
+and many new features to simply make your life easier as a developer.  One caviet to this is that in order to build 
+windows 8 applications YOU must be running windows 8.
+
+*Start w/ a blank start screen
+click 'New Project'
+point out the Windows store applictions and explain each of them
+
+* create a grid appliction
+
+* run the application
+point out the default template and how it uses the grid view	
+	talk about how win8 apps are built with touchability in mind from the go
+
+* select a the group title, show how it uses the 'group details view'
+* go back
+* select an item, show how it shows the details for the selected item
+
+* close the application
+* talk about the package.appxmanifest file
+
+* open up the grouped items page
+* point out how there are multiple controls in the default template and this is to support the
+	different visual states - full, snapped, filled
+	talk about how it uses visual states
+
+* open the device pane
+	point out you can change the visual state in design mode to make developing and design apps easier
+
+* finally lanuch the app but this time use the emulator
