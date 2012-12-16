@@ -46,6 +46,7 @@ here.
 * run the app
 
 * talk about how we can listen to navigation events in order to do something important
+	* open the layoutawarepage
 
 * setup the nav events        
         public RelayCommand SimpleNavigationWithEventsCommand
