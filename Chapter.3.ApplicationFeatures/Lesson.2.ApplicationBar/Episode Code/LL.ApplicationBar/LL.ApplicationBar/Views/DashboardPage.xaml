@@ -11,9 +11,36 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-
+        <common:BooleanToVisibilityConverter x:Key="b2v" />
+        
     </Page.Resources>
-
+    
+    <!--<Page.TopAppBar></Page.TopAppBar>-->
+    <Page.BottomAppBar>
+        <AppBar Background="Blue" IsSticky="True" IsOpen="{Binding ShowAppBar, Mode=TwoWay}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="Click Me" />
+                <Image Grid.Column="1" Source="../Images/GreenSmallSquare.png" Width="50" Height="50" />
+                
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource NextAppBarButtonStyle}" Command="{Binding HandleNextClickCommand}" />
+                    <Button Style="{StaticResource PreviousAppBarButtonStyle}" Visibility="{Binding ShowAppBarButton, Converter={StaticResource b2v}}"/>
+                    <Button Style="{StaticResource FavoriteAppBarButtonStyle}"         />
+                    <StackPanel.ChildrenTransitions>
+                        <TransitionCollection>
+                            <AddDeleteThemeTransition />
+                        </TransitionCollection>
+                    </StackPanel.ChildrenTransitions>
+                </StackPanel>            
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+    
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title
@@ -34,6 +61,9 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding PageTitle}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
+        <Button Content="Toggle App Bar" HorizontalAlignment="Left"
+                Command="{Binding ShowAppBarCommand}"
+                Margin="493,482,0,0" Grid.Row="1" VerticalAlignment="Top"/>
 
     </Grid>
 </common:LayoutAwarePage>

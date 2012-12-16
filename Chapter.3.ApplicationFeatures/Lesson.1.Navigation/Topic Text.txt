@@ -1,0 +1,106 @@
+When building a Windows 8 application it is almost a given that you are gonig to have multiple pages inside your app and
+its also a given you will need to navigate between these pages.  The question is how do you handle this navigation?  How do you pass
+parameters or values between pages and finally how do you do this inside your view model?  This is exactly what we are going to look 
+here.
+
+* setup the dashboard vm to take the frame
+            var frame = Window.Current.Content as Frame;
+            DataContext = new DashboardViewModel(frame);
+
+* setup the dashboard vm to navigate to the first page
+	* talk about how we are going to use the _currentFrame.navigate
+	* talk about how with Win 8 the typcial navigation is view first, not view model first
+
+        public RelayCommand SimpleNavigationCommand
+        {
+            get { return _simpleNavigationCommand ?? (_simpleNavigationCommand = new RelayCommand(SimpleNavigation)); }
+        }
+        
+        private void SimpleNavigation()
+        {
+            _currentFrame.Navigate(typeof (SimpleNavigationPage));
+        }
+
+* run the application
+
+* time to look at some of the build in features such as goBack / goFoward
+
+* Add the logic to go forward
+        public RelayCommand SimpleNavigationWithForwardCommand
+        {
+            get
+            {
+                return _simpleNavigationWithForwardCommand ??
+                       (_simpleNavigationWithForwardCommand = new RelayCommand(SimpleNavigationWithForward));
+            }
+        }
+
+        private void SimpleNavigationWithForward()
+        {
+            if ( _currentFrame.CanGoForward )
+            {
+                _currentFrame.GoForward();
+            }
+        }
+
+* run the app
+
+* talk about how we can listen to navigation events in order to do something important
+
+* setup the nav events        
+        public RelayCommand SimpleNavigationWithEventsCommand
+        {
+            get { return _simpleNavigationWithEventsCommand ?? (_simpleNavigationWithEventsCommand = new RelayCommand(SimpleNavigationWithEvents)); }
+        }
+
+        private void SimpleNavigationWithEvents()
+        {
+            _currentFrame.Navigated += (sender, args) => { Debug.WriteLine("Navigation Completed"); };
+            _currentFrame.Navigating += (sender, args) => { Debug.WriteLine("Navigation In Progress"); };
+            
+            _currentFrame.Navigate(typeof(SimpleNavigationPage));
+        }
+
+* run the app
+
+* talk about how we can pass values from page to page
+
+* setup the command
+
+        public RelayCommand SimpleNavigationWithArgumentsCommand
+        {
+            get { return _simpleNavigationWithArgumentsCommand ?? (_simpleNavigationWithArgumentsCommand = new RelayCommand(SimpleNavigationWithArguments)); }
+        }
+
+        private void SimpleNavigationWithArguments()
+        {
+            _currentFrame.Navigate(typeof(ArgumentNavigationPage), "Some Value");
+        }
+
+* talk about how we have to get these values
+	_frame.Navigated += (sender, args) =>
+                                    {
+                                        PassedArgument = args.Parameter.ToString();
+                                    };
+
+* run the app
+
+* now put a break point in this event and navigate to another page.  talk about how this will first for ALL navigation
+
+* fix the issue
+
+_frame.Navigated += HandleNavigated;
+
+        private void HandleNavigated(object sender, NavigationEventArgs args)
+        {
+            if ((args.NavigationMode == NavigationMode.New || args.NavigationMode == NavigationMode.Forward)
+                && args.SourcePageType == typeof(ArgumentNavigationPage))
+            {
+                PassedArgument = args.Parameter.ToString();
+            }
+            else
+            {
+                _frame.Navigated -= HandleNavigated;
+            }
+        }
+
