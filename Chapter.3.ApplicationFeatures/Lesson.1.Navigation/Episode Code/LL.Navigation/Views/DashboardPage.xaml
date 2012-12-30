@@ -35,10 +35,10 @@
         </Grid>
 
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="25" HorizontalAlignment="Center">
-            <!--<Button Content="Simple Navigation" Command="{Binding SimpleNavigationCommand}" Margin="5" Width="250" />-->
-            <!--<Button Content="Navigation Stack" Command="{Binding SimpleNavigationWithForwardCommand}" Margin="5" Width="250" />-->
-            <!--<Button Content="Navigation Events" Command="{Binding SimpleNavigationWithEventsCommand}" Margin="5" Width="250" />-->
-            <!--<Button Content="Navigation With Arguments" Command="{Binding SimpleNavigationWithArgumentsCommand}" Margin="5" Width="250" />-->
+            <Button Content="Simple Navigation" Command="{Binding SimpleNavigationCommand}" Margin="5" Width="250" />
+            <Button Content="Navigation Stack" Command="{Binding SimpleNavigationWithForwardCommand}" Margin="5" Width="250" />
+            <Button Content="Navigation Events" Command="{Binding SimpleNavigationWithEventsCommand}" Margin="5" Width="250" />
+            <Button Content="Navigation With Arguments" Command="{Binding SimpleNavigationWithArgumentsCommand}" Margin="5" Width="250" />
         </StackPanel>
     </Grid>
 </common:LayoutAwarePage>

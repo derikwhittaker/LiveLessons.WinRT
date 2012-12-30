@@ -78,7 +78,7 @@ here.
             _currentFrame.Navigate(typeof(ArgumentNavigationPage), "Some Value");
         }
 
-* talk about how we have to get these values
+* talk about how we have to get these values in the ctr
 	_frame.Navigated += (sender, args) =>
                                     {
                                         PassedArgument = args.Parameter.ToString();
@@ -91,6 +91,13 @@ here.
 * fix the issue
 
 _frame.Navigated += HandleNavigated;
+
+       
+        public string PassedArgument
+        {
+            get { return _passedArgument; }
+            set { _passedArgument = value; OnPropertyChanged("PassedArgument"); }
+        }
 
         private void HandleNavigated(object sender, NavigationEventArgs args)
         {
