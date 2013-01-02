@@ -1,0 +1,3 @@
+
+* show the viewstate code which is added by the template
+* create 3 visual groups and give them colors so we can illustrate how this works
