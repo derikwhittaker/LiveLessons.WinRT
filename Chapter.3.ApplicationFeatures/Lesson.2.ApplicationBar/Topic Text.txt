@@ -1,3 +1,23 @@
+Introduction
+When building Windows 8 applications you are more than likely going to have the need to use the application bar.  The application bar is the 
+preferred way to provide ways for the user to 'control' or 'interact' with your application.  This is because the bar can be customized to 
+meet pretty much any need and simply 'gets out of your way' when it is not in use.
+
+* We are going to learn how to setup a basic application bar
+* We are gonig to learn how an application bar can be placed on the top or the bottom of the screen
+* We are going to learn how we can make the app bar sticky or non-sticky
+* we are going to learn how to place user controls on the application bar
+* we are going to learn how to use smooth transitions w/ our controls to meet application guidelines
+
+Summary
+In this lesson we learned about how to application bar inside or application
+* We learned how to setup a basic application bar
+* We learned how an application bar can be placed on the top or the bottom of the screen
+* We learned how we can make the app bar sticky or non-sticky
+* we learned how to place user controls on the application bar
+* we learned how to use smooth transitions w/ our controls to meet application guidelines
+
+
 When building Windows 8 applications you are more than likely going to have the need to use the application bar.  The application bar is the 
 preferred way to provide ways for the user to 'control' or 'interact' with your application.  This is because the bar can be customized to 
 meet pretty much any need and simply 'gets out of your way' when it is not in use.

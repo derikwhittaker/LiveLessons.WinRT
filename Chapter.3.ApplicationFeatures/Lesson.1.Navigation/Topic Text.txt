@@ -1,19 +1,17 @@
 Introduction
-When talking about the MVVM pattern one constant is the ability to remove need for using the code behind and the want to use the 
-viewmodel to handle any ui interaction.  The mvvm pattern allows this in many ways and one way is via Commanding.  Commanding
-is a way for your viewmodel to handle a user action request such as pressing a button. 
+When building a Windows 8 application it is almost a given that you are gonig to have multiple pages inside your app and
+its also a given you will need to navigate between these pages.  The question is how do you handle this navigation?  How do you pass
+parameters or values between pages and finally how do you do this inside your view model?
 
-* We are going to learn about the ICommand interface and how this interface is used to handle user interaction in the viewmodel
-* We are gonig to learn how to handle basic commands, ones with no arguments
-* We are going to learn how to handle commands which require arguments
-* We are going to learn how to use the CanExecute feature of ICommand to enable/disable the action based on data in the view model
+* We are going to learn how to use the built in stack navigation features such as GoForward/GoBack
+* We are gonig to learn how to use navigation events such as Navigated and Navigating
+* We are going to learn how to pass values between views during navigation
 
 Summary
-In this lesson we learned about how commanding in XAML based applications works.
-* we learned about the ICommand interface and how it allows for commanding
-* we learned about how to use the ICommand interface to handle basic commands
-* we learned how to handle commands which require user arguments
-* we learned how to use the Can Execute ability of ICommand to enable/disable the action based on view model state
+In this lesson we learned about how to navigate between pages in a xaml based application
+* we learned how to use the Navigation Stack to navigate based on history
+* we learned how to handle and use navigation events 
+* we learned how to pass data between views during navigation.
 
 
 When building a Windows 8 application it is almost a given that you are gonig to have multiple pages inside your app and
