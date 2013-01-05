@@ -1,3 +1,18 @@
+Introduction
+
+When building windows 8 applications one of the really cool controls is the flip view.  This is great because it allows your users to 'flip' through data by swipping from side to side or up and down.  With 
+the flip view you can each item in your view contain similuare data or competly different data.
+
+* We are going to learn how to use a basic flip view
+* We are gonig to learn how to change and manipulated the styles of the fip view
+* We are going to learn how to handle user selection of items in the flip view.
+
+Summary
+In this lesson we learned about the flip view and how to use it within our application
+* We learned how to use a basic flip view
+* We learned how to change and manipulated the styles of the flip view
+* We learned how to handle user selection of items in the flip view.
+
 When building windows 8 applications one of the really cool controls is the flip view.  This is great because it allows your users to 'flip' through data by swipping.  You can have each
 item in the viwe have different data.  we will start off by loooking at the basic ways to use a flip view.  We will then move on to how we can add custom
 styling to the control and finally take a look at how we can get the current item which is being shown in the view and use that to populate other data.
