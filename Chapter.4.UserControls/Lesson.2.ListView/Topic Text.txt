@@ -1,6 +1,20 @@
+Introduction
+
 When building windows 8 applications you are going to often need a way to display and list collections of data, many times these collections are going to 
 be long.  The ListView is a great control which allows you to list data in many diffent ways.  Like all other Windows 8 controls we can pretty much
-manipulate the List View to meet all our needs.  We will start off by looking at how to use the listview in a basic scenario, moving on we will learn
+manipulate the List View to meet all our needs. 
+
+* We are going to learn how to use a basic grid view
+* We are gonig to learn how to change and manipulated the styles of the list view
+* We are going to learn how to handle user selection of items in the list view.
+
+Summary
+In this lesson we learned about the List view and how to use it within our application
+* We learned how to use a basic grid view
+* We learned how to change and manipulated the styles of the list view
+* We learned how to handle user selection of items in the list view.
+
+ We will start off by looking at how to use the listview in a basic scenario, moving on we will learn
 how we can manipulate the styles of a list view and we will end up by looking at how we can handle item selection in the list view.
                
 ***** Basic List View ****
