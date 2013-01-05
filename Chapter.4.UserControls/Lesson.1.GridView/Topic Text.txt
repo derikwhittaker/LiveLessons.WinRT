@@ -1,3 +1,18 @@
+Introduction
+When building Windows 8 applications you will notice that the default templates make heavy use of the GridView control.  this is
+done because this control is very versitale, provides a clean layout and can be transformed to meet many usage scenerios.  We are going 
+to take a look at how to use this control. 
+
+* We are going to learn how to use a basic grid view
+* We are gonig to learn how to use the grouping functionality of the Grid View
+* We are going to learn how to use the design time ability of the Grid View
+
+Summary
+In this lesson we learned about the grid view and how to use it within our application
+* We learned how to use a basic grid view
+* We learned how to use the grouping functionality of the Grid View
+* We learned how to use the design time ability of the Grid View
+
 When building Windows 8 applications you will notice that the default templates make heavy use of the GridView control.  this is
 done because this control is very versitale, provides a clean layout and can be transformed to meet many usage scenerios.  We are going 
 to take a look at how to use this control.  We will strt off looking at how to use a basic grid view, moving on to look at how 
