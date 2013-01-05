@@ -1,7 +1,19 @@
+Introduction
 When building any applicaiton you will need a way to customize the look and feel of the fonts, colors, ect.  When building xaml applications
 you have the flexability to pretty much styel any control in any manor you feel fit.  XAML, like HTML has the concept of styles and resources, styles provide the ability
-to globally delcare the look and feel of your appclaition in order to reuse these these assests.  We are going to focus on learning how to use 
-styles in this lesson.  This lesson will focus on a small subset of user controls but the concepts here are applicable to all a controls in xaml
+to globally delcare the look and feel of your appclaition in order to reuse these these assests.
+
+* We are going to learn how to create reusable styles for our application
+* We are gonig to learn how styles can be either local or global 
+* We are going to learn how to inherit styles
+* We are going to learn how to overright pre defined styles
+
+Summary
+In this lesson we learned about styles and how styles can reduce the amount of design information in our views.
+* We are going to learn how to create reusable styles for our application
+* We are gonig to learn how styles can be either local or global 
+* We are going to learn how to inherit styles
+* We are going to learn how to overright pre defined styles
 
 * setup a text block w/ inline
 
