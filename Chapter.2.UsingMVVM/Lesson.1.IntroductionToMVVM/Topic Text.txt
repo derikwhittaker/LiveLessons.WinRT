@@ -1,7 +1,26 @@
+Introduction
+When building a XAML based windows 8 application the accepted best design practic is to use the MVVM pattern.  The MVVM pattern stands for Model-View-ViewModel.  The idea is that with these 3
+layers you will be able to incorporate better seperation of concerns by having a well defined view which is decoupled from the Model and is wired together by the viewmodel.  in MVVM you can 
+think of the View as your XAML page, the Model as the data which is 'important' and the ViewModel as the controller which projects the Model unto the view. 
+
+* we are going to learn how MVVM advocates not using the code behind of the view at all cost, but rather it pushes you to use a view model
+* we are going to learn how to move from non-MVVM code to MVVM based code by doing a bit of refactoring.
+
+
+Summary
+
+In this lesson we learned about the MVVM pattern, we learned that MVVM stands for Model-View-Viewmodel and we learned about each of its 3 parts.  
+* we learned that the driving force behind MVVM is in fact the viewmodel as this is the glue which binds the UI to the data
+* we learned how to move from non-mvvm based code to mvvm based code
+
+
+
 When build a XAML based windows 8 application the accepted best design practic is to use the MVVM pattern.  The MVVM pattern stands for Model-View-ViewModel.  The idea is that with these 3
 layers you will be able to incorporate better seperation of concerns by having a well defined view which is decoupled from the Model and is wired together by the viewmodel.  in MVVM you can 
 think of the View as your XAML page, the Model as the data which is 'important' and the ViewModel as the controller which projects the Model unto the view.  Like any design pattern
 there are many ways it can be implemented.  We will take an intro look here at the basics of mvvm
+
+
 
                    
 

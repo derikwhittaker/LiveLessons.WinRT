@@ -1,7 +1,17 @@
+Introduction
 One of the really powerful features of any XAML based enviornment is the binding engine.  The binding engine allows for a very simply and elegant way to get
 data out of your VM and displayed on the UI.  Binding in MVVM is the glue which allows for us to no longer need the code behind or do manual
 data mapping between UI elements and VM properties.  However, like most great technology features binding can be both simple and complex.  we are going to look
 at different ways which we can use binding inside our Windows 8 application.
+
+* We are going to learn about INotifyPropertyChanged which is the magic which allows Binding to be so powerful
+* we are going to learn about the Datacontext, specifiacally we are going to learn this is how the view and viewmodel communicate
+
+Summary
+In this lesson we learned about how the binding engine works in XAL based applications and how we can use Binding to build extensible applications
+* we learned about INotifyPrpertyChanged and how that single interface is responsbile for the magic behind binding
+* we learned about the Datacontext and how the data context is what facailitates the communication between the view and the viewmodel
+
 
 * talk about what binding is and explain how it works
 * show the VM and talk about INotifyPropertyChanged
