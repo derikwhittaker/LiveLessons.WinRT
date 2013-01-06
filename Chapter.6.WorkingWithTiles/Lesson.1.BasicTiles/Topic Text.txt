@@ -1,3 +1,19 @@
+Introduction
+Windows applications have had icons dating back to Windows 3.1, but it was not until Windows 8 tha the icon was re-imagined and updated.  Windows 8 has brought us the concept
+of the tile, more importantly it has given us live tiles.  Tiles give your application to engage and inform the user without the need for them to even open your application.  
+
+* We are going to learn how setup and use each of the tile sizes
+* We are gonig to learn how change the background colors for your tiles
+* We are going to learn how change the text for each of your tiles
+
+Summary
+In this lesson we learned the basics on Tiles, we focused on how to setup and customize our basic tiles.
+
+* We learned how setup and use each of the tile sizes
+* We learned how change the background colors for your tiles
+* We learned how change the text for each of your tiles
+
+
 Basic tiles
 
 1) launch the application with NO tile changes

@@ -1,3 +1,22 @@
+Introduction
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the Share target contract into your applicaiton.  Using the share Target enables your application
+to recieve data from external applications
+
+* We are going to learn how to enable your application to be a share target
+* We are gonig to learn how to define what  data your application can accpet
+* We are going to learn how to recieve and process the shared data
+* We are going to Learn how to acknowledge the share source that you have recieved the data
+
+Summary
+In this lesson we learned about the search target and how we can use this contract inside your application
+
+* We learned how to enable your application to be a share target
+* We learned how to define what  data your application can accpet
+* We learned how to recieve and process the shared data
+* We learned how to acknowledge the share source that you have recieved the data
+	
 - How to setup your application to be able to be both a source and share taget.  
 	- Source Target is an application which can expose its contents to be shared with other applications
 	- Share target is an application which is enabled to reach into other applications in order to 'grab' data from those other applications.

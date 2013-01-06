@@ -1,3 +1,22 @@
+Introduction
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the Share source contract into your applicaiton.  Using the share source enables your application
+to define and share data with other applications.
+
+* We are going to learn how to enable your application to be a share source
+* We are gonig to learn how to share simple data such as text or urls
+* We are going to learn how to share complex data such as images
+* We are going to Learn how to handle the acknowledgement that the share transaction is completed
+
+Summary
+In this lesson we learned about the search contract and how we can use this contract inside your application
+
+* We learned how to enable your application to be a share source
+* We learned how to share simple data such as text or urls
+* We learned how to share complex data such as images
+* We learned how to handle the acknowledgement that the share transaction is completed
+
 Lets go ahead and learn how to implement the share source contract
 
 1) Show the basic application

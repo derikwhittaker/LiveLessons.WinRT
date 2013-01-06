@@ -1,3 +1,22 @@
+Introduction
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the search contract into your applicaiton
+
+* We are going to learn how to enable your application to handle seaching
+* We are gonig to learn how to handle search requests from within your application
+* We are going to learn how to handle search requests from outside your application
+* We are going to learn how to provide search suggestions to your uses to help them narrow down their search
+
+Summary
+In this lesson we learned about the search contract and how we can use this contract inside your application
+
+* We learned how to enable your application to handle seaching
+* We learned how to handle search requests from within your application
+* We learned how to handle search requests from outside your application
+* We learned how to provide search suggestions to your uses to help them narrow down their search
+
+
 Topics
 - How to handle search activation
 - Handle searching
