@@ -1,3 +1,19 @@
+Introduction
+Windows applications have had icons dating back to Windows 3.1, but it was not until Windows 8 tha the icon was re-imagined and updated.  Windows 8 has brought us the concept
+of the tile, more importantly it has given us live tiles.  One of the really great new abilities w/ tiles is to create secondary tiles, these are tiles which can be used
+to deep link into your application and open a specific page rather then open to the main screen of the application.
+
+* We are going to learn how create a secondary tile
+* We are gonig to learn how pin and unpin a secondar tile programatically
+* We are going to learn how handle the selection of a secondary tile
+
+Summary
+In this lesson we learned how to create and use a secondary tile
+
+* We learned how create a secondary tile
+* We learned how pin and unpin a secondar tile programatically
+* We learned how handle the selection of a secondary tile
+
 Secondar Tiles
 
 * talk about what a secondary tile is and why they are useful

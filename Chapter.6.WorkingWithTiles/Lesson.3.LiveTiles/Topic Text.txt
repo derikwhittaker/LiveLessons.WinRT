@@ -1,7 +1,19 @@
-when building a windows 8 application having a beautiful tile is important.  HOwever, it is even more important to 
-make the tile engaging to the user.  Windows 8 offeres you to build live tiles and have these tiles continually update with 
+Introduction
+Windows applications have had icons dating back to Windows 3.1, but it was not until Windows 8 tha the icon was re-imagined and updated.  Windows 8 has brought us the concept
+of the tile, more importantly it has given us live tiles.  Live tiles offer you the ability to build tiles which continually update with 
 new information.  You can even update the look and feel of your tile w/ new images, new text and new layouts.  Having your applications 
 tile be live will help to engage your users and give them the feeling that they are always informed in regards to your application.
+
+* We are going to learn how create a simple live tile 
+* We are gonig to learn how create tiles with different looks based on tile size
+* We are going to learn how to update the content of a live tile inside your application
+
+Summary
+In this lesson we learned how to create and use a live tiles
+
+* We learned how create a simple live tile 
+* We learned how create tiles with different looks based on tile size
+* We learned how to update the content of a live tile inside your application
 
 Secondar Tiles
 
