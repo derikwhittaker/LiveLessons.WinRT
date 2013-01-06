@@ -10,7 +10,7 @@ to recieve data from external applications
 * We are going to Learn how to acknowledge the share source that you have recieved the data
 
 Summary
-In this lesson we learned about the search target and how we can use this contract inside your application
+In this lesson we learned about the share target and how we can use this contract inside your application
 
 * We learned how to enable your application to be a share target
 * We learned how to define what  data your application can accpet
