@@ -1,5 +1,19 @@
-In a previous lesson we took a look at how to create live tiles in our appliction.  Now we r going to take a look at how to take these tiles
-to the next level.  we are going to look at how to create scheduled tlive tile content as well as how to view the queue of updates for tiles.
+Introduction
+Windows applications have had icons dating back to Windows 3.1, but it was not until Windows 8 tha the icon was re-imagined and updated.  Windows 8 has brought us the concept
+of the tile, more importantly it has given us live tiles.  Apart from being able to create Live tiles and tiles which change data content based on the state of your application
+windows 8 developers also have the ability to schedule updates to their tiles. The ability to schedule an update will allow you to push data to a tile based on time sensitve
+information
+ 
+* We are going to learn how to setup a Live Tile to update at some point in the future
+* We are gonig to learn how to query the system for a list of tiles which are schedule to update in the future
+* We are going to learn how to setup future tiles to expire based on a setting
+
+Summary
+In this lesson we learned how to schedule, maintain and expire live tile updates
+
+* We learned how to setup a Live Tile to update at some point in the future
+* We learned how to query the system for a list of tiles which are schedule to update in the future
+* We learned how to setup future tiles to expire based on a setting
 
 Advanced Tiles
 

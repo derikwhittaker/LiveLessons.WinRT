@@ -1,7 +1,21 @@
+Introduction
 When building a windows 8 application it may be common for your application to need to notify the 
 user that some long running, async, proceess has completed.  One way we can do this is with toast notifictions.
 The WinRT system has provided you with the ability to send an in appliction toast with almost no code, but not 
 only can we sent toasts w/ text, but we can attach images as well as schedule them for future deliverly.
+ 
+* We are going to learn how determine if toast notifications are enabled for your application
+* We are gonig to learn how send a plain text toast
+* We are gonig to learn how send a toast with an associated image
+* We are gonig to learn how schedule a toast to be sent at a point in the future
+
+Summary
+In this lesson we learned how to create and schedule toast notifications
+
+* We learned how determine if toast notifications are enabled for your application
+* We learned how send a plain text toast
+* We learned how send a toast with an associated image
+* We learned how schedule a toast to be sent at a point in the future
 
 1) check to see if toasts are enabled.
             var notifier = ToastNotificationManager.CreateToastNotifier();
