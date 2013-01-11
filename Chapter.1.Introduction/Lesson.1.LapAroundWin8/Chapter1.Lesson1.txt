@@ -4,6 +4,7 @@ but to many they see this as an opprutunity, an opprutunity to learn new technol
 applications.  We are going to take a quick lap around windows 8 and take a look at many of the new features we will be talking about during our up coming lessons.
 
 * we are going to learn about some of the overall design changes in Windows 8
+* we are going to learn how live tiles will chagne the way you communicate w/ your users
 * we are going to Learn how the system charms and contracts are used
 * we are going to Learn how application bars are used
 * we are going to Learn how application state is used to change the layout of your application
@@ -13,6 +14,29 @@ Summary
 
 In this lesson we took a quick lap around windows 8 and took a look at some of the new features and abilitys we will be exploring during our up coming lessons
 * we learned about some of the overall design changes in Windows 8
+* we learned how live tiles will chagne the way you communicate w/ your users
 * we learned how the system charms and contracts are used
 * we learned how application bars are used
 * we learned how application state is used to change the layout of your application
+
+
+* start on the start screen -- talk how this is just is total redesign
+	* show swipping w/ touch
+	* show swipping w/ mouse
+	* show how you can pan/zoom	
+	* show how you can move icons around
+
+* point out live tiles, talk about how live tiles will change the way you communicate w/ your users
+	* change tile size
+	* turn off the live nature
+
+* show the charm bar
+* show how to switch between applications
+
+* show the application bar in IE
+	* show how to use it w/ finger
+	* show how to use it w/ mouse
+	* point out you can do pretty much antyhing you want in the app bar	
+
+* show application state
+	

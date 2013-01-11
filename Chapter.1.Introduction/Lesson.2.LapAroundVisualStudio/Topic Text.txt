@@ -1,8 +1,22 @@
+Introduction
 With the release of windows 8 has come an update to Visual Studio 2012. THis update is required in order to allow
-developers the ability to develop Windows 8 applications.  This update includes, amongst other things templates
-to allow you to build windows 8 appliction, an emulator to help you build and test your windows 8 applications 
-and many new features to simply make your life easier as a developer.  One caviet to this is that in order to build 
+developers the ability to develop Windows 8 applications.  Like ever release of visual studio there are hundreds, maybe even thousands of new features to explore
+however we are going to focus on some of the features which are going to make building windows 8 applications easy as cake.  One caviet to this is that in order to build 
 windows 8 applications YOU must be running windows 8.
+
+* we are going to learn about the new project templates available for windows 8 development
+* we are going to learn about how to setup our first project
+* we are going to learn about how you change the maifest settings for your application
+* we are going to learn how to use the built in emulator for windows 8 applications
+
+Summary
+
+In this lesson we took a quick lap around visual studio 2012 paying attention to some of the many new features available to use to help make
+building windows 8 applications easier.
+* we learned about the new project templates available for windows 8 development
+* we learned about how to setup our first project
+* we learned about how you change the maifest settings for your application
+* we learned how to use the built in emulator for windows 8 applications
 
 *Start w/ a blank start screen
 click 'New Project'
