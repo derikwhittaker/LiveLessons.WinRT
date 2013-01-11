@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.SettingsContract.App">
-      <VisualElements DisplayName="LL.SettingsContract" Logo="SettingsContractTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.SettingsContract" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" WideLogo="SettingsContractTiles_310x150.png" />
-        <SplashScreen Image="SuspensionSplash_620x300.png" BackgroundColor="#757575" />
+      <VisualElements DisplayName="LL.SettingsContract" Logo="SettingsTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.SettingsContract" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="SettingsTiles_310x150.png" />
+        <SplashScreen Image="SettingsSplash_620x300.png" BackgroundColor="#757575" />
       </VisualElements>
     </Application>
   </Applications>
