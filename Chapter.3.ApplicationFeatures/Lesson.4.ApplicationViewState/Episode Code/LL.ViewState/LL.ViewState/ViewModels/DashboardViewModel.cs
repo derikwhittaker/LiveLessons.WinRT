@@ -10,7 +10,7 @@ namespace LL.ViewState.ViewModels
     {
         public DashboardViewModel()
         {
-            PageTitle = "View State";
+            PageTitle = "Learning to use View State";
         }
     }
 }

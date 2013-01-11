@@ -1,7 +1,7 @@
-﻿using LL.ViewState.Common;
+﻿using LL.SuspensionState.Common;
 
 using System;
-using LL.ViewState.Views;
+using LL.SuspensionState.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
-namespace LL.ViewState
+namespace LL.SuspensionState
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
