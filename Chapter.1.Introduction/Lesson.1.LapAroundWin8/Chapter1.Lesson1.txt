@@ -1,0 +1,18 @@
+Introduction
+With the release of Windows 8 developers have an entire new ecosystem to learn in regards to building windows applications.  To some developers this may be frustrating
+but to many they see this as an opprutunity, an opprutunity to learn new technolot, as an opprutunity to reach new audiances or as an opprutunity to build new and exciting
+applications.  We are going to take a quick lap around windows 8 and take a look at many of the new features we will be talking about during our up coming lessons.
+
+* we are going to learn about some of the overall design changes in Windows 8
+* we are going to Learn how the system charms and contracts are used
+* we are going to Learn how application bars are used
+* we are going to Learn how application state is used to change the layout of your application
+
+
+Summary
+
+In this lesson we took a quick lap around windows 8 and took a look at some of the new features and abilitys we will be exploring during our up coming lessons
+* we learned about some of the overall design changes in Windows 8
+* we learned how the system charms and contracts are used
+* we learned how application bars are used
+* we learned how application state is used to change the layout of your application
