@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="3e1ddbca-cc23-4afe-8b96-a19097c4b61d" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>LL.Accelerometer</DisplayName>
+    <PublisherDisplayName>Derik</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.Accelerometer.App">
+      <VisualElements DisplayName="LL.Accelerometer" Logo="AccelerometerTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.Accelerometer" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="AccelerometerTiles_310x150.png" />
+        <SplashScreen Image="AccelerometerSplash_620x300.png" BackgroundColor="#757575" />
+      </VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
