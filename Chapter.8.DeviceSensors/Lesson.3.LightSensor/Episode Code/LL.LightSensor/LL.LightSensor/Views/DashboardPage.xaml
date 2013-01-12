@@ -7,10 +7,30 @@
     xmlns:common="using:LL.LightSensor.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:Converters="using:Metro.LL.Common.Converters" mc:Ignorable="d">
 
     <Page.Resources>
+        <Converters:BooleanToVisibilityConverter x:Key="b2v" />
+        <Converters:BooleanToVisibilityConverter x:Key="ib2v" FalseValue="Visible" TrueValue="Collapsed" />
     </Page.Resources>
+    
+    <Page.BottomAppBar>
+        <AppBar>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource PollPlayAppBarButtonStyle}" Visibility="{Binding IsPolling, Converter={StaticResource ib2v}}" Command="{Binding TogglePollingCommand}" />
+                <Button Style="{StaticResource PollPauseAppBarButtonStyle}" Visibility="{Binding IsPolling, Converter={StaticResource b2v}}" Command="{Binding TogglePollingCommand}" />
+
+                <Button Style="{StaticResource EventPlayAppBarButtonStyle}" Visibility="{Binding IsEventing, Converter={StaticResource ib2v}}" Command="{Binding ToggleEventingCommand}" />
+                <Button Style="{StaticResource EventPauseAppBarButtonStyle}" Visibility="{Binding IsEventing, Converter={StaticResource b2v}}" Command="{Binding ToggleEventingCommand}" />
+
+                <!--<StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>-->
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
 
     <!--
         This grid acts as a root panel for the page that defines two rows:
