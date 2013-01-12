@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="3e1ddbca-cc23-4afe-8b96-a19097c4b61d" Publisher="CN=Derik" Version="1.0.0.0" />
+  <Identity Name="3e1ddbca-cc23-4afe-8b96-a19097c4b61c" Publisher="CN=Derik" Version="1.0.0.0" />
   <Properties>
     <DisplayName>LL.Gyrometer</DisplayName>
     <PublisherDisplayName>Derik</PublisherDisplayName>

@@ -12,7 +12,8 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>LL.ViewState_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>LL.LightSensor_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>66F0DFFB9B269806563753DE5288FB7FFD15DCF4</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -128,7 +129,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
-    <None Include="LL.ViewState_TemporaryKey.pfx" />
+    <None Include="LL.LightSensor_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />

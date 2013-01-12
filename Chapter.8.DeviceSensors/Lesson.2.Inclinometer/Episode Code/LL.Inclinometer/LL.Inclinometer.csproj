@@ -12,7 +12,8 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>LL.ViewState_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>LL.Inclinometer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>3F9F857DA25D9038EC5B86BBC587A4C96233B432</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -121,6 +122,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
+    <None Include="LL.Inclinometer_TemporaryKey.pfx" />
     <None Include="LL.ViewState_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
