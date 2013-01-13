@@ -1,0 +1,41 @@
+http://msdn.microsoft.com/en-us/library/dd319008(VS.85).aspx
+
+Introduction
+When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
+One of the many sensors you can use a developer is the light sensor.  the light sensor can be used to get a reading on the ambient light level
+in Lux Value.  But what is a Lux level?  Lux readings are directly proportional to the energy per square meter that is absorbed per second. 
+Human perception of light levels is not so straightforward. Human perception of light is complicated because our eyes are constantly adjusting 
+and other biological processes are affecting our perception. However, we can think of this perception from a simplified perspective by creating 
+several ranges of interest with known upper and lower thresholds.
+
+* we are going to learn how to attach to the light sensor
+* we are going to learn how to deteremine if the light sensor is available on your users device
+* we are going to learn how to get Lux values via eventing
+* we are going to learn how to get Lux values via polling
+
+Summary
+In this lesson we learned how to use the built in light sensor on your users device to get the Lux readin
+* we learned how to attach to the light sensor
+* we learned how to deteremine if the light sensor is available on your users device
+* we learned how to get Lux values via eventing
+* we learned how to get Lux values via polling
+
+
+* setup the light sensor
+	* create using block because of nameing issues
+	using Sensor = Windows.Devices.Senors;
+
+	private Sensor.LightSensor _lightSensor;
+
+        private void SetupLightSensor()
+        {
+            _lightSensor = Sensor.LightSensor.GetDefault();
+
+            if (_lightSensor == null)
+            {
+                LuxLums = "Your current device does not suppor the light sensor";
+            }
+        }
+
+* how to setup polling
+	
