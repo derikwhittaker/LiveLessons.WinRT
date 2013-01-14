@@ -26,7 +26,7 @@ namespace LL.LightSensor.Views
         {
             this.InitializeComponent();
 
-            DataContext = new DashboardViewModel(Window.Current.Dispatcher);
+            DataContext = new DashboardViewModel();
         }
     }
 }

@@ -20,6 +20,7 @@ In this lesson we learned how to use the built in light sensor on your users dev
 * we learned how to get Lux values via eventing
 * we learned how to get Lux values via polling
 
+* show http://msdn.microsoft.com/en-us/library/dd319008(VS.85).aspx which explains the value of Lux
 
 * setup the light sensor
 	* create using block because of nameing issues
