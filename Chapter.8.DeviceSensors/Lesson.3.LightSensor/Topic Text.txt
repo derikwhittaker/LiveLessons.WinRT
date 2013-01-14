@@ -37,5 +37,90 @@ In this lesson we learned how to use the built in light sensor on your users dev
             }
         }
 
-* how to setup polling
-	
+* how to setup eventing
+	* create a method called SetupEventing
+        private void SetupEventing(bool enableEventing)
+        {
+            if (enableEventing)
+            {
+                _lightSensor.ReadingChanged += LightSensorOnReadingChanged;
+                _lightSensor.ReportInterval = 100;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _lightSensor.ReadingChanged -= LightSensorOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+	* setup the handler, but with NO thread safty first
+        private void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+		var lightSensorReading = args.Reading;
+		LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+                Brightness = lightSensorReading.IlluminanceInLux / 100;
+
+        }
+
+	Call Setup() from the ToggleEventing
+
+* Add the thread safty
+	public DashboardViewModel( CoreDispatcher dispatcher )
+        {
+            _dispatcher = dispatcher;
+            PageTitle = "Learning to use Light Sensor";
+            
+            SetupLightSensor();
+        }
+
+        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+            // when doing this for real show the thread event
+
+
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                         {
+                                                                             var lightSensorReading = args.Reading;
+
+                                                                             LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+                                                                             Brightness = lightSensorReading.IlluminanceInLux / 100;
+                                                                         });
+
+        }
+
+* setup the polling
+	* create the timer
+	private DispatcherTimer _dispatcherTimer;
+
+	* create the setuppolling method
+        private void SetupPolling(bool enablePolling)
+        {
+            if ( enablePolling )
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                _dispatcherTimer.Stop();
+                _dispatcherTimer = null;
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            var lightSensorReading = _lightSensor.GetCurrentReading();
+
+            LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+            Brightness = lightSensorReading.IlluminanceInLux / 100;
+        }
+
+	SetupPolling(IsPolling);

@@ -50,8 +50,13 @@
 
         <Grid Grid.Row="1">
             <StackPanel Orientation="Vertical" Margin="0,50,0,25">
-                <Ellipse Width="350" Height="350" Fill="Yellow" Opacity="{Binding Brightness}" />  
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25">
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,25,0,50">
+                    <TextBlock Text="Current Reading Style:" Margin="0,0,5,0" Style="{StaticResource HeaderTextStyle}" />
+                    <TextBlock Text="{Binding CurrentReadingStyle}"  Style="{StaticResource HeaderTextStyle}" />
+                </StackPanel>
+                <Ellipse Width="250" Height="250" Fill="Yellow" Opacity="{Binding Brightness}" />  
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,25">
                     <TextBlock Text="Lux Lums:" Margin="0,0,5,0" Style="{StaticResource HeaderTextStyle}" />
                     <TextBlock Text="{Binding LuxLums}" Style="{StaticResource HeaderTextStyle}"/>
                 </StackPanel>

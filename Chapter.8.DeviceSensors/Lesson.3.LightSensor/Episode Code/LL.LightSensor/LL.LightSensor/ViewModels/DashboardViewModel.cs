@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Sensor = Windows.Devices.Sensors;
 
 namespace LL.LightSensor.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
+        private readonly CoreDispatcher _dispatcher;
         private Sensor.LightSensor _lightSensor;
 
         private bool _isEventing;
@@ -18,9 +21,13 @@ namespace LL.LightSensor.ViewModels
         private RelayCommand _toggleEventingCommand;
         private double _brightness = .1;
         private string _luxLums;
+        private string _currentReadingStyle;
 
-        public DashboardViewModel()
+        private DispatcherTimer _dispatcherTimer;
+
+        public DashboardViewModel( CoreDispatcher dispatcher )
         {
+            _dispatcher = dispatcher;
             PageTitle = "Learning to use Light Sensor";
             
             SetupLightSensor();
@@ -41,18 +48,55 @@ namespace LL.LightSensor.ViewModels
             if (enableEventing)
             {
                 _lightSensor.ReadingChanged += LightSensorOnReadingChanged;
+                _lightSensor.ReportInterval = 100;
+                CurrentReadingStyle = "Eventing";
             }
             else
             {
                 _lightSensor.ReadingChanged -= LightSensorOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
             }
         }
 
-        private void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        private void SetupPolling(bool enablePolling)
         {
-            var lightSensorReading = args.Reading;
+            if ( enablePolling )
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
 
-            LuxLums = lightSensorReading.IlluminanceInLux.ToString("{0,5:0.00}");
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                _dispatcherTimer.Stop();
+                _dispatcherTimer = null;
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            var lightSensorReading = _lightSensor.GetCurrentReading();
+
+            LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+            Brightness = lightSensorReading.IlluminanceInLux / 100;
+        }
+
+        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                         {
+                                                                             var lightSensorReading = args.Reading;
+
+                                                                             LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+                                                                             Brightness = lightSensorReading.IlluminanceInLux / 100;
+                                                                         });
+
         }
 
         public RelayCommand TogglePollingCommand
@@ -64,6 +108,8 @@ namespace LL.LightSensor.ViewModels
         {
             IsPolling = !IsPolling;
             IsEventing = false;
+
+            SetupPolling(IsPolling);
         }
 
         public RelayCommand ToggleEventingCommand
@@ -89,6 +135,12 @@ namespace LL.LightSensor.ViewModels
         {
             get { return _isPolling; }
             set { _isPolling = value; OnPropertyChanged("IsPolling"); }
+        }
+
+        public string CurrentReadingStyle
+        {
+            get { return _currentReadingStyle; }
+            set { _currentReadingStyle = value; OnPropertyChanged("CurrentReadingStyle"); }
         }
 
         public double Brightness
