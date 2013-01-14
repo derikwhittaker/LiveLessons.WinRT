@@ -34,7 +34,25 @@ namespace LL.LightSensor.ViewModels
             {
                 LuxLums = "Your current device does not suppor the light sensor";
             }
+        }
 
+        private void SetupEventing(bool enableEventing)
+        {
+            if (enableEventing)
+            {
+                _lightSensor.ReadingChanged += LightSensorOnReadingChanged;
+            }
+            else
+            {
+                _lightSensor.ReadingChanged -= LightSensorOnReadingChanged;
+            }
+        }
+
+        private void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+            var lightSensorReading = args.Reading;
+
+            LuxLums = lightSensorReading.IlluminanceInLux.ToString("{0,5:0.00}");
         }
 
         public RelayCommand TogglePollingCommand
@@ -57,6 +75,8 @@ namespace LL.LightSensor.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
+
+            SetupEventing(IsEventing);
         }
 
         public bool IsEventing
@@ -74,13 +94,13 @@ namespace LL.LightSensor.ViewModels
         public double Brightness
         {
             get { return _brightness; }
-            set { _brightness = value; }
+            set { _brightness = value; OnPropertyChanged("Brightness"); }
         }
 
         public string LuxLums
         {
             get { return _luxLums; }
-            set { _luxLums = value; }
+            set { _luxLums = value; OnPropertyChanged("LuxLums"); }
         }
     }
 }
