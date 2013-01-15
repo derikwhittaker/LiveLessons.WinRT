@@ -46,7 +46,9 @@
             <TextBlock Grid.Column="1" Text="{Binding PageTitle}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
-        <Image Grid.Row="1" Source="{Binding CapturedImage}" Width="1024" Height="576" />
-        
+        <!--<Image Grid.Row="1" Source="{Binding CapturedImage}" Visibility="{Binding ShowPicture, Converter={StaticResource b2v}}" Width="1024" Height="576" />-->
+
+        <ContentControl Grid.Row="1" Content="{Binding CapturedMedia}" Visibility="{Binding ShowVideo, Converter={StaticResource b2v}}" Width="1024" Height="576" />
+
     </Grid>
 </common:LayoutAwarePage>
