@@ -26,7 +26,14 @@ namespace LL.Inclinometer.Views
         {
             this.InitializeComponent();
 
-            DataContext = new DashboardViewModel();
+            DataContext = new DashboardViewModel(Window.Current.Dispatcher);
+
+            this.Loaded += (sender, args) =>
+                {
+                    var width = EllipseCanvas.ActualWidth;
+                    var height = EllipseCanvas.ActualHeight;
+                    ((DashboardViewModel)DataContext).SetupDefaultLocation(width, height);
+                };
         }
     }
 }
