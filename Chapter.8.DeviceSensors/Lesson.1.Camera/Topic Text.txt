@@ -1,0 +1,16 @@
+Introduction
+When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
+One of the many sensors you can use a developer is the camera.  with the prevalance of mobile devices whether its a phone, a tablet or laptop it is almost a given that each
+of them are going to have a camera, some may even have multiple camera's.  We are going to take a look at how to use the camera on your windows 8 device to 
+allow your users the ability to take pictures
+
+* we are going to learn how to enable access to the camera
+* we are going to learn how to take pictures and handle the results
+* we are going to learn how to capture video and handle the results
+
+Summary
+In this lesson we learned how to use the built in camera on your users device to be able to take a picture
+* we learned how to enable access to the camera
+* we learned how to take pictures and handle the results
+* we learned how to capture video and handle the results
+
