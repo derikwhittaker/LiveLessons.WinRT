@@ -19,9 +19,13 @@
         <DefaultTile ShowName="allLogos" WideLogo="CameraTiles_310x150.png" />
         <SplashScreen Image="CameraSplash_620x300.png" BackgroundColor="#757575" />
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.cameraSettings" />
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="webcam" />
   </Capabilities>
 </Package>

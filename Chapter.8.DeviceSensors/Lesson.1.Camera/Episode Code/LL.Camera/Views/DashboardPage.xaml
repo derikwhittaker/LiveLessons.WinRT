@@ -7,10 +7,23 @@
     xmlns:common="using:LL.Camera.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:Converters="using:Metro.LL.Common.Converters" mc:Ignorable="d">
 
     <Page.Resources>
+        <Converters:BooleanToVisibilityConverter x:Key="b2v" />
+        <Converters:BooleanToVisibilityConverter x:Key="ib2v" FalseValue="Visible" TrueValue="Collapsed" />
     </Page.Resources>
+
+    <Page.BottomAppBar>
+        <AppBar>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource PicturesAppBarButtonStyle}" Command="{Binding TakePictureCommand}" />
+
+                <Button Style="{StaticResource VideoAppBarButtonStyle}" Command="{Binding TakeVideoCommand}" />
+
+            </StackPanel>
+        </AppBar>
+    </Page.BottomAppBar>
 
     <!--
         This grid acts as a root panel for the page that defines two rows:
@@ -33,34 +46,7 @@
             <TextBlock Grid.Column="1" Text="{Binding PageTitle}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
-        <VisualStateManager.VisualStateGroups>
-
-            <!-- Visual states reflect the application's view state -->
-            <VisualStateGroup x:Name="ApplicationLightSensors">
-                <VisualState x:Name="FullScreenLandscape"/>
-                <VisualState x:Name="Filled"/>
-
-                <!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
-                <VisualState x:Name="FullScreenPortrait">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-
-                <!-- The back button and title have different styles when snapped -->
-                <VisualState x:Name="Snapped">
-                    <Storyboard>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="backButton" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedBackButtonStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
-                            <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
-                        </ObjectAnimationUsingKeyFrames>
-                    </Storyboard>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        <Image Grid.Row="1" Source="{Binding CapturedImage}" Width="1024" Height="576" />
+        
     </Grid>
 </common:LayoutAwarePage>
