@@ -1,0 +1,128 @@
+Introduction
+When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
+One of the many sensors you can use a developer is the inclinometer.  The inclinometer is a sensor which allows you to measure the movement of
+the device in terms of Pitch, Roll and Yaw, or more simply rotation on the X, Y and Z axis.  With this inclinometer you could build interesting
+augemented reality applications which react to the movement of the device.
+
+* we are going to learn how to attach to the inclinometer sensor
+* we are going to learn how to deteremine if the inclinometer is available on your users device
+* we are going to learn how to get Pitch, Roll and Yaw readings via eventing
+* we are going to learn how to get Pitch, Roll and Yaw readings via Polling
+
+Summary
+In this lesson we learned how to use the built in light sensor on your users device to get the Lux readin
+* we learned how to attach to the inclinometer sensor
+* we learned how to deteremine if the inclinometer is available on your users device
+* we learned how to get Pitch, Roll and Yaw readings via eventing
+* we learned how to get Pitch, Roll and Yaw readings via Polling
+
+* setup the sensor
+	* create using block because of nameing issues
+	using Sensor = Windows.Devices.Senors;
+
+	private Sensor.Inclinometer _inclinometer;
+
+        private void SetupSensor()
+        {
+            _inclinometer = Sensor.Inclinometer.GetDefault();
+
+            if (_inclinometer == null)
+            {
+                // tell the user they dont have an inclinometer on the device
+            }
+            else
+            {
+                _lastPitchDegrees = _inclinometer.GetCurrentReading().PitchDegrees;
+            }
+        }
+
+* how to setup eventing
+	* create a method called SetupEventing
+      	private void SetupEventing(bool enableEventing)
+        {
+            if (enableEventing)
+            {
+                _inclinometer.ReadingChanged += InclinometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _inclinometer.ReadingChanged -= InclinometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void InclinometerOnReadingChanged(Sensor.Inclinometer sender, Sensor.InclinometerReadingChangedEventArgs args)
+        {
+		PitchDegrees = args.Reading.PitchDegrees;
+                RollDegrees = args.Reading.RollDegrees;
+                YawDegrees = args.Reading.YawDegrees;
+
+		SetupNewLocation();
+        }
+
+	* call the setup methods
+            SetupPolling(IsPolling);
+            SetupEventing(IsEventing);
+
+* Add the thread safty
+	public DashboardViewModel( CoreDispatcher dispatcher )
+        {
+            _dispatcher = dispatcher;
+            PageTitle = "Learning to use Light Sensor";
+            
+            SetupLightSensor();
+        }
+
+        private async void InclinometerOnReadingChanged(Sensor.Inclinometer sender, Sensor.InclinometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    PitchDegrees = args.Reading.PitchDegrees;
+                    RollDegrees = args.Reading.RollDegrees;
+                    YawDegrees = args.Reading.YawDegrees;
+
+                    SetupNewLocation();
+                });
+        }
+
+* setup the polling
+	* create the timer
+	private DispatcherTimer _dispatcherTimer;
+
+	* create the setuppolling method
+
+        private void SetupPolling(bool enablePolling)
+        {
+            if (enablePolling)
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                _dispatcherTimer.Stop();
+                _dispatcherTimer = null;
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            var currentReading = _inclinometer.GetCurrentReading();
+
+            PitchDegrees = currentReading.PitchDegrees;
+            RollDegrees = currentReading.RollDegrees;
+            YawDegrees = currentReading.YawDegrees;
+
+            SetupNewLocation();
+        }
+
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);

@@ -49,9 +49,16 @@
         </Grid>
 
         <Canvas Grid.Row="1" x:Name="EllipseCanvas">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Move Left" Command="{Binding MoveLeftCommand}" />
-                <Button Content="Move Down" Command="{Binding MoveDownCommand}" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="Pitch Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding PitchDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="Roll Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding RollDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="Yaw Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding YawDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+
+                <TextBlock Text="Current Reading Style" Margin="100,10,5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding CurrentReadingStyle}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
             </StackPanel>
 
             <Ellipse Width="150" Height="150" Fill="White" Canvas.Left="{Binding CanvasLeft}" Canvas.Top="{Binding CanvasTop}" />
