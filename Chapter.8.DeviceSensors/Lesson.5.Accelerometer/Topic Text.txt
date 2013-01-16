@@ -1,127 +1,19 @@
-http://msdn.microsoft.com/en-us/library/dd319008(VS.85).aspx
-
 Introduction
 When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
-One of the many sensors you can use a developer is the light sensor.  the light sensor can be used to get a reading on the ambient light level
-in Lux Value.  But what is a Lux level?  Lux readings are directly proportional to the energy per square meter that is absorbed per second. 
-Human perception of light levels is not so straightforward. Human perception of light is complicated because our eyes are constantly adjusting 
-and other biological processes are affecting our perception. However, we can think of this perception from a simplified perspective by creating 
-several ranges of interest with known upper and lower thresholds.
+One of the many sensors you can use a developer is the Accelerometer sensor.  the Accelerometer sensor can be used to get a acceleration force of the device
+on the x y and z axis, or basicaly measure how fast it is moving in any given direction.  This information can be used to move objects around on the screen.  
+One of the more common usages for the gyrometer is in games. With this sensor you can allow the users to control the game play by simply tilting the device.
 
-* we are going to learn how to attach to the light sensor
-* we are going to learn how to deteremine if the light sensor is available on your users device
-* we are going to learn how to get Lux values via eventing
-* we are going to learn how to get Lux values via polling
+* we are going to learn how to attach to the Accelerometer sensor
+* we are going to learn how to deteremine if the Accelerometer sensor is available on your users device
+* we are going to learn how to get X Y and Z acceleration data values via eventing
+* we are going to learn how to get X Y and Z acceleration shack values via eventing
+* we are going to learn how to get X Y and Z acceleration values  via polling
 
 Summary
-In this lesson we learned how to use the built in light sensor on your users device to get the Lux readin
-* we learned how to attach to the light sensor
-* we learned how to deteremine if the light sensor is available on your users device
-* we learned how to get Lux values via eventing
-* we learned how to get Lux values via polling
-
-* show http://msdn.microsoft.com/en-us/library/dd319008(VS.85).aspx which explains the value of Lux
-
-* setup the light sensor
-	* create using block because of nameing issues
-	using Sensor = Windows.Devices.Senors;
-
-	private Sensor.LightSensor _lightSensor;
-
-        private void SetupLightSensor()
-        {
-            _lightSensor = Sensor.LightSensor.GetDefault();
-
-            if (_lightSensor == null)
-            {
-                LuxLums = "Your current device does not suppor the light sensor";
-            }
-        }
-
-* how to setup eventing
-	* create a method called SetupEventing
-        private void SetupEventing(bool enableEventing)
-        {
-            if (enableEventing)
-            {
-                _lightSensor.ReadingChanged += LightSensorOnReadingChanged;
-                _lightSensor.ReportInterval = 100;
-                CurrentReadingStyle = "Eventing";
-            }
-            else
-            {
-                _lightSensor.ReadingChanged -= LightSensorOnReadingChanged;
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-	* setup the handler, but with NO thread safty first
-        private void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
-        {
-		var lightSensorReading = args.Reading;
-		LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
-                Brightness = lightSensorReading.IlluminanceInLux / 100;
-
-        }
-
-	Call Setup() from the ToggleEventing
-
-* Add the thread safty
-	public DashboardViewModel( CoreDispatcher dispatcher )
-        {
-            _dispatcher = dispatcher;
-            PageTitle = "Learning to use Light Sensor";
-            
-            SetupLightSensor();
-        }
-
-        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
-        {
-            // when doing this for real show the thread event
-
-
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                                                                         {
-                                                                             var lightSensorReading = args.Reading;
-
-                                                                             LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
-                                                                             Brightness = lightSensorReading.IlluminanceInLux / 100;
-                                                                         });
-
-        }
-
-* setup the polling
-	* create the timer
-	private DispatcherTimer _dispatcherTimer;
-
-	* create the setuppolling method
-        private void SetupPolling(bool enablePolling)
-        {
-            if ( enablePolling )
-            {
-                _dispatcherTimer = new DispatcherTimer();
-                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
-                _dispatcherTimer.Tick += DispatcherTimerOnTick;
-
-                _dispatcherTimer.Start();
-
-                CurrentReadingStyle = "Polling";
-            }
-            else
-            {
-                _dispatcherTimer.Stop();
-                _dispatcherTimer = null;
-
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-        private void DispatcherTimerOnTick(object sender, object o)
-        {
-            var lightSensorReading = _lightSensor.GetCurrentReading();
-
-            LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
-            Brightness = lightSensorReading.IlluminanceInLux / 100;
-        }
-
-	SetupPolling(IsPolling);
+In this lesson we learned how to use the built in Accelerometer sensor on your users device to get the acceleration forces of the device on the X Y and Z axis
+* we learned how to attach to the Accelerometer sensor
+* we learned how to deteremine if the Accelerometer sensor is available on your users device
+* we learned how to get X Y and Z acceleration values via eventing
+* we learned how to get X Y and Z acceleration shack values via eventing
+* we learned how to get X Y and Z acceleration values  via polling
