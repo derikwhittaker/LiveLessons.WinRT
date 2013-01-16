@@ -406,6 +406,29 @@
         Uncomment any style you reference (as not all may be required).
     -->
 
+
+    <Style x:Key="PollPlayAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PlayAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Start Polling"/>
+        <Setter Property="Content" Value="&#xE102;"/>
+    </Style>
+    <Style x:Key="PollPauseAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PauseAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Pause Polling"/>
+        <Setter Property="Content" Value="&#xE103;"/>
+    </Style>
+
+    <Style x:Key="EventPlayAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PlayAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Start Eventing"/>
+        <Setter Property="Content" Value="&#xE102;"/>
+    </Style>
+    <Style x:Key="EventPauseAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PauseAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Pause Eventing"/>
+        <Setter Property="Content" Value="&#xE103;"/>
+    </Style>
+
     <!--
     
     <Style x:Key="SkipBackAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
