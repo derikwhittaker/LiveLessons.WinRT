@@ -1,7 +1,7 @@
 
 Introduction
-When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
-One of the many sensors you can use a developer is the Gyrometer sensor.  the Gyrometer sensor can be used to get a angular velocity of the device
+When building Windows 8 applications you may need to access some of the many available sensors and hardware features which are available on users devices.
+One of the many sensors and features in which a developer can access is Gyrometer sensor.  the Gyrometer sensor can be used to get a angular velocity of the device
 on the x y and z axis.  This information can be used to move objects around on the screen.  One of the more common usages for the gyrometer is in games. 
 with this sensor you can allow the users to control the game play by simply tilting the device.
 

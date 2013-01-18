@@ -1,6 +1,6 @@
 Introduction
-When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
-One of the many sensors you can use a developer is the inclinometer.  The inclinometer is a sensor which allows you to measure the movement of
+When building Windows 8 applications you may need to access some of the many available sensors and hardware features which are available on users devices.
+One of the many sensors and features in which a developer can access is inclinometer.  The inclinometer is a sensor which allows you to measure the movement of
 the device in terms of Pitch, Roll and Yaw, or more simply rotation on the X, Y and Z axis.  With this inclinometer you could build interesting
 augemented reality applications which react to the movement of the device.
 
@@ -10,7 +10,7 @@ augemented reality applications which react to the movement of the device.
 * we are going to learn how to get Pitch, Roll and Yaw readings via Polling
 
 Summary
-In this lesson we learned how to use the built in light sensor on your users device to get the Lux readin
+In this lesson we learned how to use the built in inclinometer sensor on your users device to get the  Pitch, Roll and Yaw movement of the device
 * we learned how to attach to the inclinometer sensor
 * we learned how to deteremine if the inclinometer is available on your users device
 * we learned how to get Pitch, Roll and Yaw readings via eventing

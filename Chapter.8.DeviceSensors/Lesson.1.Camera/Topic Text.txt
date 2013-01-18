@@ -1,6 +1,6 @@
 Introduction
-When building Windows 8 applications you may need to access some of the many available sensors which may be on your users device.
-One of the many sensors you can use a developer is the camera.  with the prevalance of mobile devices whether its a phone, a tablet or laptop it is almost a given that each
+When building Windows 8 applications you may need to access some of the many available sensors and hardware features which are available on users devices.
+One of the many sensors and features in which a developer can access is the camera.  with the prevalance of mobile devices whether its a phone, a tablet or laptop it is almost a given that each
 of them are going to have a camera, some may even have multiple camera's.  We are going to take a look at how to use the camera on your windows 8 device to 
 allow your users the ability to take pictures
 
@@ -14,3 +14,86 @@ In this lesson we learned how to use the built in camera on your users device to
 * we learned how to take pictures and handle the results
 * we learned how to capture video and handle the results
 
+
+* enable the camera
+	- open the manifest file
+		- Camera Settings Declarations
+		- Webcam capabilities		(video)
+		- Microphone capabilities 	(video)
+
+
+* show the xaml, show how we are going to take the photo/video via the app bar
+	- show the picture/ box
+
+* create the ability to take a picture
+        private async void TakePicture()
+        {
+            ShowPicture = true;
+            ShowVideo = false;
+            var cameraCaptureUi = new CameraCaptureUI();
+            
+            cameraCaptureUi.PhotoSettings.CroppedAspectRatio = new Size(4, 3);
+            cameraCaptureUi.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Png;
+            cameraCaptureUi.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
+
+            var picture = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Photo);
+
+
+        }
+
+* run the app and step through
+
+* need to do something w/ the picture now
+	- show the xaml and where we are going to display the pic
+
+            if ( picture != null )
+            {
+                var image = new BitmapImage();
+                using ( var pictureStream = await picture.OpenReadAsync())
+                {
+                    image.SetSource(pictureStream);
+
+                    CapturedImage = image;
+                }
+            }
+
+* run the app
+
+* setup to take video
+
+        private async void TakeVideo()
+        {
+            ShowVideo = true;
+            ShowPicture = false;
+            
+            var cameraCaptureUi = new CameraCaptureUI();
+            cameraCaptureUi.VideoSettings.Format = CameraCaptureUIVideoFormat.Mp4;
+
+            var video = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Video);
+        }
+
+* run the app
+
+* do somehting w/ the video -- this will fail
+	- show the xaml and where we are going to display the video
+        private IRandomAccessStream _videoStream;
+        private async void TakeVideo()
+        {
+            if ( video != null )
+            {
+                _videoStream = await video.OpenAsync(FileAccessMode.Read);
+
+                CapturedMedia = new MediaElement {AutoPlay = true};
+		CapturedMedia.SetSource(_videoStream, "video/mp4");
+
+            }
+        }
+
+* fix the issue
+               CapturedMedia.Loaded += (sender, args) =>
+                                            {
+                                                CapturedMedia.SetSource(_videoStream, "video/mp4");
+                                                CapturedMedia.Play();
+                                            };
+
+* run the app

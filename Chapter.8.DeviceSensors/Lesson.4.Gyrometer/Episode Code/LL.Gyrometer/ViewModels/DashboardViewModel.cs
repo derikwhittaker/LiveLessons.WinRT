@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using Windows.UI.Core;
+using Windows.UI.Xaml;
 using Sensor = Windows.Devices.Sensors;
 
 namespace LL.Gyrometer.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
+        private DispatcherTimer _dispatcherTimer;
         private readonly CoreDispatcher _dispatcher;
         private bool _isEventing;
         private bool _isPolling;
@@ -36,10 +38,6 @@ namespace LL.Gyrometer.ViewModels
         private int _canvasTop;
         private int _defaultLeft;
         private int _defaultTop;
-        private RelayCommand _moveXCommand;
-        private RelayCommand _moveXNegatveCommand;
-        private RelayCommand _moveYCommand;
-        private RelayCommand _moveZCommand;
 
         public void SetupDefaultLocation(double canvasWidth, double canvasHeight)
         {
@@ -60,9 +58,6 @@ namespace LL.Gyrometer.ViewModels
 
             var yMovement = CalculateMovement(YAxisReading, _lastYAxisReading);
             CanvasTop = CanvasTop + yMovement;
-
-            var zMovement = CalculateMovement(ZAxisReading, _lastZAxisReading);
-            EllipseSize = EllipseSize + zMovement;
             
             _lastXAxisReading = XAxisReading;
             _lastYAxisReading = YAxisReading;
@@ -117,6 +112,39 @@ namespace LL.Gyrometer.ViewModels
             });            
         }
 
+        private void SetupPolling(bool enablePolling)
+        {
+            if (enablePolling)
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                if (_dispatcherTimer != null)
+                {
+                    _dispatcherTimer.Stop();
+                    _dispatcherTimer = null;
+                }
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            XAxisReading = _gyrometer.GetCurrentReading().AngularVelocityX;
+            YAxisReading = _gyrometer.GetCurrentReading().AngularVelocityY;
+            ZAxisReading = _gyrometer.GetCurrentReading().AngularVelocityZ;
+
+            SetupNewLocation();
+        }
+
         private void SetupSensor()
         {
             _gyrometer = Sensor.Gyrometer.GetDefault();
@@ -136,6 +164,9 @@ namespace LL.Gyrometer.ViewModels
         {
             IsPolling = !IsPolling;
             IsEventing = false;
+
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);
         }
 
         public RelayCommand ToggleEventingCommand
@@ -147,6 +178,9 @@ namespace LL.Gyrometer.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
+
+            SetupPolling(IsPolling);
+            SetupEventing(IsEventing);
         }
 
         public bool IsEventing
@@ -202,6 +236,7 @@ namespace LL.Gyrometer.ViewModels
             get { return _canvasTop; }
             set { _canvasTop = value; OnPropertyChanged("CanvasTop"); }
         }
+<<<<<<< HEAD
 
         // testing
         public RelayCommand MoveXCommand
@@ -249,5 +284,8 @@ namespace LL.Gyrometer.ViewModels
             }
         }
 
+=======
+        
+>>>>>>> Post Recording Camera
     }
 }

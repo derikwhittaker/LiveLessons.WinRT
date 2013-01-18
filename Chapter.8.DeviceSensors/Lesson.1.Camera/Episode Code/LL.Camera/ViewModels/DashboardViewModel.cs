@@ -34,19 +34,19 @@ namespace LL.Camera.ViewModels
         {
             get { return _takeVideoCommand ?? (_takeVideoCommand = new RelayCommand(TakeVideo));  }
         }
-        
+
         private IRandomAccessStream _videoStream;
         private async void TakeVideo()
         {
-            ShowVideo = true;
             ShowPicture = false;
-            
-            var cameraCaptureUi = new CameraCaptureUI();
-            cameraCaptureUi.VideoSettings.Format = CameraCaptureUIVideoFormat.Mp4;
+            ShowVideo = true;
 
-            var video = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Video);
+            var cameraCaptureUI = new CameraCaptureUI();
+            cameraCaptureUI.VideoSettings.Format = CameraCaptureUIVideoFormat.Mp4;
 
-            if ( video != null )
+            var video = await cameraCaptureUI.CaptureFileAsync(CameraCaptureUIMode.Video);
+
+            if ( video != null)
             {
                 _videoStream = await video.OpenAsync(FileAccessMode.Read);
 
@@ -57,27 +57,26 @@ namespace LL.Camera.ViewModels
                                                 CapturedMedia.Play();
                                             };
             }
+
         }
 
         private async void TakePicture()
         {
             ShowPicture = true;
             ShowVideo = false;
-            var cameraCaptureUi = new CameraCaptureUI();
-            
-            cameraCaptureUi.PhotoSettings.CroppedAspectRatio = new Size(4, 3);
-            cameraCaptureUi.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Png;
-            cameraCaptureUi.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
 
-            // show this once done w/ initial demo
-            //cameraCaptureUi.PhotoSettings.AllowCropping = false;
+            var cameraCaptureUI = new CameraCaptureUI();
 
-            var picture = await cameraCaptureUi.CaptureFileAsync(CameraCaptureUIMode.Photo);
+            cameraCaptureUI.PhotoSettings.CroppedAspectRatio = new Size(4,3);
+            cameraCaptureUI.PhotoSettings.MaxResolution = CameraCaptureUIMaxPhotoResolution.HighestAvailable;
+            cameraCaptureUI.PhotoSettings.Format = CameraCaptureUIPhotoFormat.Png;
+
+            var picture = await cameraCaptureUI.CaptureFileAsync(CameraCaptureUIMode.Photo);
 
             if ( picture != null )
             {
                 var image = new BitmapImage();
-                using ( var pictureStream = await picture.OpenReadAsync())
+                using(var pictureStream = await  picture.OpenReadAsync())
                 {
                     image.SetSource(pictureStream);
 

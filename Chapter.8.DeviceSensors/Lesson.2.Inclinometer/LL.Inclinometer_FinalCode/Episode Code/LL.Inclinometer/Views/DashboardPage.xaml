@@ -1,10 +1,10 @@
 ﻿<common:LayoutAwarePage
     x:Name="pageRoot"
-    x:Class="LL.Gyrometer.Views.DashboardPage"
+    x:Class="LL.Inclinometer.Views.DashboardPage"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:common="using:LL.Gyrometer.Common"
+    xmlns:common="using:LL.Inclinometer.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Converters="using:Metro.LL.Common.Converters"
@@ -18,7 +18,6 @@
     <Page.BottomAppBar>
         <AppBar>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-
                 <Button Style="{StaticResource EventPlayAppBarButtonStyle}" Visibility="{Binding IsEventing, Converter={StaticResource ib2v}}" Command="{Binding ToggleEventingCommand}" />
                 <Button Style="{StaticResource EventPauseAppBarButtonStyle}" Visibility="{Binding IsEventing, Converter={StaticResource b2v}}" Command="{Binding ToggleEventingCommand}" />
                 
@@ -51,19 +50,19 @@
 
         <Canvas Grid.Row="1" x:Name="EllipseCanvas">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Text="X Axis" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
-                <TextBlock Text="{Binding XAxisReading}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
-                <TextBlock Text="Y Axis" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
-                <TextBlock Text="{Binding YAxisReading}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
-                <TextBlock Text="Z Axis" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
-                <TextBlock Text="{Binding ZAxisReading}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="Pitch Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding PitchDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="Roll Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding RollDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="Yaw Degress" Margin="5,10" Style="{StaticResource TitleTextStyle}" />
+                <TextBlock Text="{Binding YawDegrees}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
 
                 <TextBlock Text="Current Reading Style" Margin="100,10,5,10" Style="{StaticResource TitleTextStyle}" />
                 <TextBlock Text="{Binding CurrentReadingStyle}" Margin="5,10,15,10" Style="{StaticResource TitleTextStyle}" />
-
             </StackPanel>
 
-            <Ellipse Width="{Binding EllipseSize}" Height="{Binding EllipseSize}" Fill="White" Canvas.Left="{Binding CanvasLeft}" Canvas.Top="{Binding CanvasTop}" />
+            <Ellipse Width="150" Height="150" Fill="White" Canvas.Left="{Binding CanvasLeft}" Canvas.Top="{Binding CanvasTop}" />
         </Canvas>
+        
     </Grid>
 </common:LayoutAwarePage>
