@@ -219,7 +219,7 @@ namespace LL.Gyrometer.ViewModels
             {
                 return _moveXNegatveCommand ?? (_moveXNegatveCommand = new RelayCommand(() =>
                 {
-                    XAxisReading = XAxisReading - 1;
+                        XAxisReading = XAxisReading - 1;
                     SetupNewLocation();
                 }));
             }
