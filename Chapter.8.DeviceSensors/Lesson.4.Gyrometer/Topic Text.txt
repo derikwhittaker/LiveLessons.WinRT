@@ -16,3 +16,97 @@ In this lesson we learned how to use the built in Gyrometer sensor on your users
 * we learned how to deteremine if the Gyrometer sensor is available on your users device
 * we learned how to get X Y and Z angles values via eventing
 * we learned how to get X Y and Z angles values via polling
+
+* show the UI
+
+* setup the gyrometer
+
+	private Sensor.Gyrometer _gyrometer;
+
+	private void SetupSensor()
+        {
+            _gyrometer = Sensor.Gyrometer.GetDefault();
+
+            if (_gyrometer == null)
+            {
+                // there is no grometer on this device.....
+            }
+        }
+
+	SetupSensor();
+
+* setup the core dispatcher
+
+	public DashboardViewModel(CoreDispatcher dispatcher)
+
+	DataContext = new DashboardViewModel(Window.Current.Dispatcher);
+
+* setup the eventing
+
+
+        private void SetupEventing(bool enableEventing)
+        {
+            if (enableEventing)
+            {
+                _gyrometer.ReadingChanged += GyrometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _gyrometer.ReadingChanged -= GyrometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void GyrometerOnReadingChanged(Sensor.Gyrometer sender, Sensor.GyrometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                XAxisReading = args.Reading.AngularVelocityX;
+                YAxisReading = args.Reading.AngularVelocityY;
+                ZAxisReading = args.Reading.AngularVelocityZ;
+
+                SetupNewLocation();
+            });            
+        }
+
+
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);
+
+* run the app
+
+* setup polling
+
+        private void SetupPolling(bool enablePolling)
+        {
+            if (enablePolling)
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                if (_dispatcherTimer != null)
+                {
+                    _dispatcherTimer.Stop();
+                    _dispatcherTimer = null;
+                }
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            XAxisReading = _gyrometer.GetCurrentReading().AngularVelocityX;
+            YAxisReading = _gyrometer.GetCurrentReading().AngularVelocityY;
+            ZAxisReading = _gyrometer.GetCurrentReading().AngularVelocityZ;
+
+            SetupNewLocation();
+        }
