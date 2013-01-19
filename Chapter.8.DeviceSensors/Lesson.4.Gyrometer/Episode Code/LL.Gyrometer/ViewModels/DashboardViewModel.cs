@@ -26,12 +26,9 @@ namespace LL.Gyrometer.ViewModels
         private double _zAxisReading;
         private string _currentReadingStyle;
 
-        public DashboardViewModel(CoreDispatcher dispatcher)
+        public DashboardViewModel()
         {
-            _dispatcher = dispatcher;
             PageTitle = "Learning to use Gyrometer";
-
-            SetupSensor();
         }
 
         private int _canvasLeft;
@@ -50,7 +47,6 @@ namespace LL.Gyrometer.ViewModels
 
         private double _lastXAxisReading = 0;
         private double _lastYAxisReading = 0;
-        private double _lastZAxisReading = 0;
         public void SetupNewLocation()
         {
             var xMovement = CalculateMovement(XAxisReading, _lastXAxisReading);
@@ -61,7 +57,6 @@ namespace LL.Gyrometer.ViewModels
             
             _lastXAxisReading = XAxisReading;
             _lastYAxisReading = YAxisReading;
-            _lastZAxisReading = ZAxisReading;
         }
         private int CalculateMovement(double current, double last)
         {
@@ -85,76 +80,6 @@ namespace LL.Gyrometer.ViewModels
             return returnValue * 5;
         }
 
-
-        private void SetupEventing(bool enableEventing)
-        {
-            if (enableEventing)
-            {
-                _gyrometer.ReadingChanged += GyrometerOnReadingChanged;
-                CurrentReadingStyle = "Eventing";
-            }
-            else
-            {
-                _gyrometer.ReadingChanged -= GyrometerOnReadingChanged;
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-        private async void GyrometerOnReadingChanged(Sensor.Gyrometer sender, Sensor.GyrometerReadingChangedEventArgs args)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                XAxisReading = args.Reading.AngularVelocityX;
-                YAxisReading = args.Reading.AngularVelocityY;
-                ZAxisReading = args.Reading.AngularVelocityZ;
-
-                SetupNewLocation();
-            });            
-        }
-
-        private void SetupPolling(bool enablePolling)
-        {
-            if (enablePolling)
-            {
-                _dispatcherTimer = new DispatcherTimer();
-                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
-                _dispatcherTimer.Tick += DispatcherTimerOnTick;
-
-                _dispatcherTimer.Start();
-
-                CurrentReadingStyle = "Polling";
-            }
-            else
-            {
-                if (_dispatcherTimer != null)
-                {
-                    _dispatcherTimer.Stop();
-                    _dispatcherTimer = null;
-                }
-
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-        private void DispatcherTimerOnTick(object sender, object o)
-        {
-            XAxisReading = _gyrometer.GetCurrentReading().AngularVelocityX;
-            YAxisReading = _gyrometer.GetCurrentReading().AngularVelocityY;
-            ZAxisReading = _gyrometer.GetCurrentReading().AngularVelocityZ;
-
-            SetupNewLocation();
-        }
-
-        private void SetupSensor()
-        {
-            _gyrometer = Sensor.Gyrometer.GetDefault();
-
-            if (_gyrometer == null)
-            {
-                // there is no grometer on this device.....
-            }
-        }
-
         public RelayCommand TogglePollingCommand
         {
             get { return _togglePollingCommand ?? (_togglePollingCommand = new RelayCommand(TogglePolling)); }
@@ -165,8 +90,6 @@ namespace LL.Gyrometer.ViewModels
             IsPolling = !IsPolling;
             IsEventing = false;
 
-            SetupEventing(IsEventing);
-            SetupPolling(IsPolling);
         }
 
         public RelayCommand ToggleEventingCommand
@@ -178,9 +101,6 @@ namespace LL.Gyrometer.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
-
-            SetupPolling(IsPolling);
-            SetupEventing(IsEventing);
         }
 
         public bool IsEventing
@@ -236,56 +156,6 @@ namespace LL.Gyrometer.ViewModels
             get { return _canvasTop; }
             set { _canvasTop = value; OnPropertyChanged("CanvasTop"); }
         }
-<<<<<<< HEAD
 
-        // testing
-        public RelayCommand MoveXCommand
-        {
-            get { return _moveXCommand ?? (_moveXCommand = new RelayCommand(() =>
-                {
-                    XAxisReading = XAxisReading + 1;
-                    SetupNewLocation();
-                }));  }
-        }
-
-        public RelayCommand MoveXNegativeCommand
-        {
-            get
-            {
-                return _moveXNegatveCommand ?? (_moveXNegatveCommand = new RelayCommand(() =>
-                {
-                        XAxisReading = XAxisReading - 1;
-                    SetupNewLocation();
-                }));
-            }
-        }
-
-        public RelayCommand MoveYCommand
-        {
-            get { return _moveYCommand ?? (_moveYCommand = new RelayCommand(() =>
-                {
-                    {
-                        YAxisReading = YAxisReading + 1;
-                        SetupNewLocation();
-                    }
-                })); }
-        }
-
-
-        public RelayCommand MoveZCommand
-        {
-            get
-            {
-                return _moveZCommand ?? (_moveZCommand = new RelayCommand(() =>
-                {
-                    ZAxisReading = ZAxisReading + 1;
-                    SetupNewLocation();
-                }));
-            }
-        }
-
-=======
-        
->>>>>>> Post Recording Camera
     }
 }
