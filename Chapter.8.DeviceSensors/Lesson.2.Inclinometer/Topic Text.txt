@@ -66,6 +66,7 @@ In this lesson we learned how to use the built in inclinometer sensor on your us
             SetupEventing(IsEventing);
 
 * Add the thread safty
+	Window.Current.Core...
 	public DashboardViewModel( CoreDispatcher dispatcher )
         {
             _dispatcher = dispatcher;

@@ -13,10 +13,14 @@ namespace LL.Inclinometer.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
+        private DispatcherTimer _dispatcherTimer;
+        private readonly CoreDispatcher _dispatcher;
         private bool _isEventing;
         private bool _isPolling;
         private RelayCommand _togglePollingCommand;
         private RelayCommand _toggleEventingCommand;
+
+        private Sensor.Inclinometer _inclinometer;
         
         private int _canvasLeft;
         private int _canvasTop;
@@ -27,9 +31,85 @@ namespace LL.Inclinometer.ViewModels
         private float _yawDegress;
         private int _ellipseSize = 150;
 
-        public DashboardViewModel()
+        public DashboardViewModel( CoreDispatcher dispatcher )
         {
+            _dispatcher = dispatcher;
             PageTitle = "Learning to use Inclinometer";
+
+            SetupSensor();
+        }
+
+        private void SetupSensor()
+        {
+            _inclinometer = Sensor.Inclinometer.GetDefault();
+
+            if( _inclinometer == null )
+            {
+                // tell user they don't have an inclinometer
+            }
+
+        }
+
+        private void SetupEventing(bool enableEventing)
+        {
+            if( enableEventing)
+            {
+                _inclinometer.ReadingChanged += InclinometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _inclinometer.ReadingChanged -= InclinometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void InclinometerOnReadingChanged(Sensor.Inclinometer sender, Sensor.InclinometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                          {
+                                                                              PitchDegrees = args.Reading.PitchDegrees;
+                                                                              RollDegrees = args.Reading.RollDegrees;
+                                                                              YawDegrees = args.Reading.YawDegrees;
+
+                                                                              SetupNewLocation();
+                                                                          });
+
+        }
+
+        private void SetupPolling(bool enablePolling)
+        {
+            if( enablePolling)
+            {
+                _dispatcherTimer = new DispatcherTimer();
+                _dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 1);
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                if(_dispatcherTimer != null )
+                {
+                    _dispatcherTimer.Stop();
+
+                }
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            var reading = _inclinometer.GetCurrentReading();
+
+            PitchDegrees = reading.PitchDegrees;
+            RollDegrees = reading.RollDegrees;
+            _yawDegress = reading.YawDegrees;
+
+            SetupNewLocation();
         }
 
         public void SetupDefaultLocation(double canvasWidth, double canvasHeight)
@@ -89,6 +169,10 @@ namespace LL.Inclinometer.ViewModels
         {
             IsPolling = !IsPolling;
             IsEventing = false;
+
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);
+            
         }
 
         public RelayCommand ToggleEventingCommand
@@ -100,6 +184,9 @@ namespace LL.Inclinometer.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
+
+            SetupPolling(IsPolling);
+            SetupEventing(IsEventing);
         }
 
         public bool IsEventing

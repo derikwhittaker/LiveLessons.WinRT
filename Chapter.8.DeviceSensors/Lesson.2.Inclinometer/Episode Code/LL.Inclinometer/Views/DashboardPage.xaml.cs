@@ -1,4 +1,5 @@
 ﻿using LL.Inclinometer.ViewModels;
+using Windows.UI.Xaml;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 
@@ -12,8 +13,8 @@ namespace LL.Inclinometer.Views
         public DashboardPage()
         {
             this.InitializeComponent();
-
-            DataContext = new DashboardViewModel();
+            
+            DataContext = new DashboardViewModel(Window.Current.Dispatcher);
 
             // need to do this simply to allow us to center the ellipse
             Loaded += (sender, args) =>
