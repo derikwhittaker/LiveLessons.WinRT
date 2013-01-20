@@ -14,7 +14,7 @@ namespace LL.Gyrometer.Views
         {
             this.InitializeComponent();
 
-            DataContext = new DashboardViewModel();
+            DataContext = new DashboardViewModel(Window.Current.Dispatcher);
 
             this.Loaded += (sender, args) =>
                 {

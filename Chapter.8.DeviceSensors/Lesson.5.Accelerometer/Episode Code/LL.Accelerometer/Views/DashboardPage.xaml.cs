@@ -26,7 +26,7 @@ namespace LL.Accelerometer.Views
         {
             this.InitializeComponent();
 
-            DataContext = new DashboardViewModel();
+            DataContext = new DashboardViewModel(Window.Current.Dispatcher);
 
             // need to do this simply to allow us to center the ellipse
             Loaded += (sender, args) =>

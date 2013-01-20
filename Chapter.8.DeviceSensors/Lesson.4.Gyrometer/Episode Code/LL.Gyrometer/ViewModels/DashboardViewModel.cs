@@ -12,23 +12,96 @@ namespace LL.Gyrometer.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
-        private DispatcherTimer _dispatcherTimer;
         private readonly CoreDispatcher _dispatcher;
+        private Sensor.Gyrometer _gyrometer;
         private bool _isEventing;
         private bool _isPolling;
         private int _ellipseSize = 150;
         private RelayCommand _togglePollingCommand;
         private RelayCommand _toggleEventingCommand;
 
-        private Sensor.Gyrometer _gyrometer;
         private double _xAxisReading;
         private double _yAxisReading;
         private double _zAxisReading;
         private string _currentReadingStyle;
 
-        public DashboardViewModel()
+        public DashboardViewModel(CoreDispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
             PageTitle = "Learning to use Gyrometer";
+
+            SetupSensor();
+        }
+
+        private void SetupSensor()
+        {
+            _gyrometer = Sensor.Gyrometer.GetDefault();
+
+            if ( _gyrometer == null )
+            {
+                // this is no gyrometer...
+            }
+        }
+
+        private void SetupEventing(bool enableEventing)
+        {
+            if(enableEventing)
+            {
+                _gyrometer.ReadingChanged += GyrometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _gyrometer.ReadingChanged -= GyrometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void GyrometerOnReadingChanged(Sensor.Gyrometer sender, Sensor.GyrometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                          {
+                                                                              XAxisReading = args.Reading.AngularVelocityX;
+                                                                              YAxisReading = args.Reading.AngularVelocityY;
+                                                                              ZAxisReading = args.Reading.AngularVelocityZ;
+
+                                                                              SetupNewLocation();
+                                                                          });
+        }
+
+        private DispatcherTimer _dispatcherTimer;
+        private void SetupPolling(bool enablePolling)
+        {
+            if ( enablePolling )
+            {
+                _dispatcherTimer = new DispatcherTimer
+                                       {
+                                           Interval = new TimeSpan(0, 0, 0, 3)
+                                       };
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+                _dispatcherTimer.Start();
+            CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                if( _dispatcherTimer != null )
+                {
+                    _dispatcherTimer.Start();
+                    _dispatcherTimer = null;
+                }
+
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            XAxisReading = _gyrometer.GetCurrentReading().AngularVelocityX;
+            YAxisReading = _gyrometer.GetCurrentReading().AngularVelocityY;
+            ZAxisReading = _gyrometer.GetCurrentReading().AngularVelocityZ;
+            
+
+            SetupNewLocation();
         }
 
         private int _canvasLeft;
@@ -90,6 +163,9 @@ namespace LL.Gyrometer.ViewModels
             IsPolling = !IsPolling;
             IsEventing = false;
 
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);
+            
         }
 
         public RelayCommand ToggleEventingCommand
@@ -101,6 +177,9 @@ namespace LL.Gyrometer.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
+
+            SetupPolling(IsPolling);
+            SetupEventing(IsEventing);
         }
 
         public bool IsEventing

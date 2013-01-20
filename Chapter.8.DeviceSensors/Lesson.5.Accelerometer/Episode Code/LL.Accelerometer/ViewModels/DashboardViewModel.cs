@@ -12,6 +12,8 @@ namespace LL.Accelerometer.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
+        private readonly CoreDispatcher _dispatcher;
+        private Sensor.Accelerometer _accelerometer;
         private bool _isEventing;
         private bool _isShaking;
         private int _ellipseSize = 150;
@@ -23,10 +25,73 @@ namespace LL.Accelerometer.ViewModels
         private double _zAcceleration;
         private string _currentReadingStyle;
 
-        public DashboardViewModel()
+        public DashboardViewModel(CoreDispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
             PageTitle = "Learning to use Accelerometer";
 
+            SetupSensor();
+        }
+
+        private void SetupSensor()
+        {
+            _accelerometer = Sensor.Accelerometer.GetDefault();
+
+            if ( _accelerometer == null )
+            {
+                // tell user no accelerometer
+            }
+        }
+
+        private void SetupEventing(bool enableEventing)
+        {
+            if ( enableEventing )
+            {
+                _accelerometer.ReadingChanged += AccelerometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _accelerometer.ReadingChanged -= AccelerometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void AccelerometerOnReadingChanged(Sensor.Accelerometer sender, Sensor.AccelerometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+                () =>
+                    {
+                        XAcceleration = args.Reading.AccelerationX;
+                        YAcceleration = args.Reading.AccelerationY;
+                        ZAcceleration = args.Reading.AccelerationZ;
+
+                        SetupNewLocation();
+                    });
+        }
+
+        private void SetupShaken(bool enableShaking)
+        {
+            if ( enableShaking )
+            {
+                _accelerometer.Shaken += AccelerometerOnShaken;
+                ShakeCount = 0;
+                CurrentReadingStyle = "Shaking";
+            }
+            else
+            {
+                _accelerometer.Shaken -= AccelerometerOnShaken;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void AccelerometerOnShaken(Sensor.Accelerometer sender, Sensor.AccelerometerShakenEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                       () =>
+                                           {
+                                               ShakeCount = ShakeCount + 1;
+                                           });
         }
 
         private int _canvasLeft;
@@ -93,7 +158,11 @@ namespace LL.Accelerometer.ViewModels
         private void ToggleShake()
         {
             IsShaking = !IsShaking;
-            IsEventing = false;            
+            IsEventing = false;
+
+            SetupEventing(IsEventing);
+            SetupShaken(IsShaking);
+            
         }
 
         public RelayCommand ToggleEventingCommand
@@ -105,6 +174,9 @@ namespace LL.Accelerometer.ViewModels
         {
             IsEventing = !IsEventing;
             IsShaking = false;
+
+            SetupShaken(IsShaking);
+            SetupEventing(IsEventing);
         }
 
         public bool IsEventing
