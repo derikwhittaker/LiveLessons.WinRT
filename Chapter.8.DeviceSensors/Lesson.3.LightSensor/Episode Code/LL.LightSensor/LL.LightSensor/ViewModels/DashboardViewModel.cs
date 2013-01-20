@@ -12,6 +12,8 @@ namespace LL.LightSensor.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
+        private readonly CoreDispatcher _dispatcher;
+        private Sensor.LightSensor _lightSensor;
         private bool _isEventing;
         private bool _isPolling;
         private RelayCommand _togglePollingCommand;
@@ -21,10 +23,79 @@ namespace LL.LightSensor.ViewModels
         private string _currentReadingStyle;
 
 
-        public DashboardViewModel()
+        public DashboardViewModel(CoreDispatcher dispatcher)
         {
+            _dispatcher = dispatcher;
             PageTitle = "Learning to use Light Sensor";
-            
+         
+            SetupSensor();
+        }
+
+        private void SetupSensor()
+        {
+            _lightSensor = Sensor.LightSensor.GetDefault();
+
+            if (_lightSensor == null)
+            {
+                
+                // tell user no device
+            }
+    }
+        private void SetupEventing(bool enableEventing)
+        {
+            if ( enableEventing )
+            {
+                _lightSensor.ReadingChanged += LightSensorOnReadingChanged;
+                _lightSensor.ReportInterval = 100;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _lightSensor.ReadingChanged -= LightSensorOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                          {
+                                                                              var lightReading = args.Reading;
+                                                                              LuxLums = string.Format("{0,5:0.00}", lightReading.IlluminanceInLux);
+                                                                              Brightness = lightReading.IlluminanceInLux / 100;
+                                                                          });
+        }
+
+        private DispatcherTimer _dispatcherTimer;
+        private void SetupPolling(bool enablePolling)
+        {
+            if ( enablePolling)
+            {
+                _dispatcherTimer = new DispatcherTimer
+                                       {
+                                           Interval = new TimeSpan(0,0,0,5),
+                                       };
+                _dispatcherTimer.Tick += DispatcherTimerOnTick;
+                _dispatcherTimer.Start();
+
+                CurrentReadingStyle = "Polling";
+            }
+            else
+            {
+                if ( _dispatcherTimer != null )
+                {
+                    _dispatcherTimer.Stop();
+                    _dispatcherTimer = null;
+                }
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private void DispatcherTimerOnTick(object sender, object o)
+        {
+            var lightReading = _lightSensor.GetCurrentReading();
+            LuxLums = string.Format("{0,5:0.00}", lightReading.IlluminanceInLux);
+            Brightness = lightReading.IlluminanceInLux / 100;            
         }
 
         public RelayCommand TogglePollingCommand
@@ -36,6 +107,10 @@ namespace LL.LightSensor.ViewModels
         {
             IsPolling = !IsPolling;
             IsEventing = false;
+
+            SetupEventing(IsEventing);
+            SetupPolling(IsPolling);
+            
         }
 
         public RelayCommand ToggleEventingCommand
@@ -47,6 +122,10 @@ namespace LL.LightSensor.ViewModels
         {
             IsEventing = !IsEventing;
             IsPolling = false;
+
+            SetupPolling(IsPolling);
+            SetupEventing(IsEventing);
+            
         }
 
         public bool IsEventing

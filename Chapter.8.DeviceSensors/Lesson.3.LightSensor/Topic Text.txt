@@ -37,6 +37,31 @@ In this lesson we learned how to use the built in light sensor on your users dev
             }
         }
 
+
+* Add the thread safty
+	public DashboardViewModel( CoreDispatcher dispatcher )
+        {
+            _dispatcher = dispatcher;
+            PageTitle = "Learning to use Light Sensor";
+            
+            SetupLightSensor();
+        }
+
+        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
+        {
+            // when doing this for real show the thread event
+
+
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                         {
+                                                                             var lightSensorReading = args.Reading;
+
+                                                                             LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
+                                                                             Brightness = lightSensorReading.IlluminanceInLux / 100;
+                                                                         });
+
+        }
+
 * how to setup eventing
 	* create a method called SetupEventing
         private void SetupEventing(bool enableEventing)
@@ -64,30 +89,6 @@ In this lesson we learned how to use the built in light sensor on your users dev
         }
 
 	Call Setup() from the ToggleEventing
-
-* Add the thread safty
-	public DashboardViewModel( CoreDispatcher dispatcher )
-        {
-            _dispatcher = dispatcher;
-            PageTitle = "Learning to use Light Sensor";
-            
-            SetupLightSensor();
-        }
-
-        private async void LightSensorOnReadingChanged(Sensor.LightSensor sender, Sensor.LightSensorReadingChangedEventArgs args)
-        {
-            // when doing this for real show the thread event
-
-
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-                                                                         {
-                                                                             var lightSensorReading = args.Reading;
-
-                                                                             LuxLums = string.Format("{0,5:0.00}", lightSensorReading.IlluminanceInLux);
-                                                                             Brightness = lightSensorReading.IlluminanceInLux / 100;
-                                                                         });
-
-        }
 
 * setup the polling
 	* create the timer
