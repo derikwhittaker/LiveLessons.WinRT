@@ -405,7 +405,26 @@
         An AppBarButton Style is provided for each of the glyphs in the Segoe UI Symbol font.  
         Uncomment any style you reference (as not all may be required).
     -->
-
+    <Style x:Key="EventPlayAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PlayAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Play Eventing"/>
+        <Setter Property="Content" Value="&#xE102;"/>
+    </Style>
+    <Style x:Key="EventPauseAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PauseAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Pause Eventing"/>
+        <Setter Property="Content" Value="&#xE103;"/>
+    </Style>
+    <Style x:Key="ShakePlayAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PlayAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Play Shake"/>
+        <Setter Property="Content" Value="&#xE102;"/>
+    </Style>
+    <Style x:Key="ShakePauseAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="PauseAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Pause Shake"/>
+        <Setter Property="Content" Value="&#xE103;"/>
+    </Style>
     <!--
     
     <Style x:Key="SkipBackAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">

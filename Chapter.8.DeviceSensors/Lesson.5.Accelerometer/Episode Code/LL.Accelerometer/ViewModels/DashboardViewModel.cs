@@ -12,25 +12,21 @@ namespace LL.Accelerometer.ViewModels
 {
     public class DashboardViewModel : Metro.LL.Common.BaseViewModel
     {
-        private readonly CoreDispatcher _dispatcher;
         private bool _isEventing;
         private bool _isShaking;
         private int _ellipseSize = 150;
         private RelayCommand _toggleShakeCommand;
         private RelayCommand _toggleEventingCommand;
 
-        private Sensor.Accelerometer _accelerometer;
-        private double _xAxisReading;
-        private double _yAxisReading;
-        private double _zAxisReading;
+        private double _xAcceleration;
+        private double _yAcceleration;
+        private double _zAcceleration;
         private string _currentReadingStyle;
 
-        public DashboardViewModel(CoreDispatcher dispatcher)
+        public DashboardViewModel()
         {
-            _dispatcher = dispatcher;
             PageTitle = "Learning to use Accelerometer";
 
-            SetupSensor();
         }
 
         private int _canvasLeft;
@@ -50,20 +46,22 @@ namespace LL.Accelerometer.ViewModels
         private double _lastXAxisReading = 0;
         private double _lastYAxisReading = 0;
         private double _lastZAxisReading = 0;
+        private int _shakeCount;
+
         public void SetupNewLocation()
         {
-            var xMovement = CalculateMovement(XAxisReading, _lastXAxisReading);
+            var xMovement = CalculateMovement(XAcceleration, _lastXAxisReading);
             CanvasLeft = CanvasLeft + xMovement;
 
-            var yMovement = CalculateMovement(YAxisReading, _lastYAxisReading);
+            var yMovement = CalculateMovement(YAcceleration, _lastYAxisReading);
             CanvasTop = CanvasTop + yMovement;
 
-            var zMovement = CalculateMovement(ZAxisReading, _lastZAxisReading);
+            var zMovement = CalculateMovement(ZAcceleration, _lastZAxisReading);
             EllipseSize = EllipseSize + zMovement;
 
-            _lastXAxisReading = XAxisReading;
-            _lastYAxisReading = YAxisReading;
-            _lastZAxisReading = ZAxisReading;
+            _lastXAxisReading = XAcceleration;
+            _lastYAxisReading = YAcceleration;
+            _lastZAxisReading = ZAcceleration;
         }
         private int CalculateMovement(double current, double last)
         {
@@ -84,66 +82,9 @@ namespace LL.Accelerometer.ViewModels
                 returnValue = absMovement > 1 ? (int)movement : -1;
             }
 
-            return returnValue * 5;
+            return returnValue * 10;
         }
-
-
-        private void SetupEventing(bool enableEventing)
-        {
-            if (enableEventing)
-            {
-                _accelerometer.ReadingChanged += AccelerometerOnReadingChanged;
-                CurrentReadingStyle = "Eventing";
-            }
-            else
-            {
-                _accelerometer.ReadingChanged -= AccelerometerOnReadingChanged;
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-        private async void AccelerometerOnReadingChanged(Sensor.Accelerometer sender, Sensor.AccelerometerReadingChangedEventArgs args)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-            {
-                XAxisReading = args.Reading.AccelerationX;
-                YAxisReading = args.Reading.AccelerationY;
-                ZAxisReading = args.Reading.AccelerationZ;
-
-                SetupNewLocation();
-            });
-        }
-
-        private void SetupShaking(bool enableShaking)
-        {
-            if (enableShaking)
-            {
-                _accelerometer.Shaken += AccelerometerOnShaken;
-                CurrentReadingStyle = "Shaking";
-            }
-            else
-            {
-                _accelerometer.Shaken -= AccelerometerOnShaken;
-                CurrentReadingStyle = "Stopped";
-            }
-        }
-
-        private void AccelerometerOnShaken(Sensor.Accelerometer sender, Sensor.AccelerometerShakenEventArgs args)
-        {
-            
-        }
-
-
-        private void SetupSensor()
-        {
-            _accelerometer = Sensor.Accelerometer.GetDefault();
-
-            if (_accelerometer == null)
-            {
-                // there is no grometer on this device.....
-            }
-        }
-
+        
         public RelayCommand ToggleShakeCommand
         {
             get { return _toggleShakeCommand ?? (_toggleShakeCommand = new RelayCommand(ToggleShake)); }
@@ -152,7 +93,7 @@ namespace LL.Accelerometer.ViewModels
         private void ToggleShake()
         {
             IsShaking = !IsShaking;
-            IsEventing = false;
+            IsEventing = false;            
         }
 
         public RelayCommand ToggleEventingCommand
@@ -178,22 +119,28 @@ namespace LL.Accelerometer.ViewModels
             set { _isShaking = value; OnPropertyChanged("IsShaking"); }
         }
 
-        public double XAxisReading
+        public int ShakeCount
         {
-            get { return _xAxisReading; }
-            set { _xAxisReading = value; OnPropertyChanged("XAxisReading"); }
+            get { return _shakeCount; }
+            set { _shakeCount = value; OnPropertyChanged("ShakeCount"); }
         }
 
-        public double YAxisReading
+        public double XAcceleration
         {
-            get { return _yAxisReading; }
-            set { _yAxisReading = value; OnPropertyChanged("YAxisReading"); }
+            get { return _xAcceleration; }
+            set { _xAcceleration = value; OnPropertyChanged("XAcceleration"); }
         }
 
-        public double ZAxisReading
+        public double YAcceleration
         {
-            get { return _zAxisReading; }
-            set { _zAxisReading = value; OnPropertyChanged("ZAxisReading"); }
+            get { return _yAcceleration; }
+            set { _yAcceleration = value; OnPropertyChanged("YAcceleration"); }
+        }
+
+        public double ZAcceleration
+        {
+            get { return _zAcceleration; }
+            set { _zAcceleration = value; OnPropertyChanged("ZAcceleration"); }
         }
 
         public string CurrentReadingStyle

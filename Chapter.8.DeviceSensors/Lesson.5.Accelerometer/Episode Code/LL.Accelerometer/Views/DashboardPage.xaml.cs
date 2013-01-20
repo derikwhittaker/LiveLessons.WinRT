@@ -27,6 +27,14 @@ namespace LL.Accelerometer.Views
             this.InitializeComponent();
 
             DataContext = new DashboardViewModel();
+
+            // need to do this simply to allow us to center the ellipse
+            Loaded += (sender, args) =>
+            {
+                var width = EllipseCanvas.ActualWidth;
+                var height = EllipseCanvas.ActualHeight;
+                ((DashboardViewModel)DataContext).SetupDefaultLocation(width, height);
+            };
         }
     }
 }

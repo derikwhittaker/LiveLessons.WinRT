@@ -16,3 +16,92 @@ In this lesson we learned how to use the built in Accelerometer sensor on your u
 * we learned how to get X Y and Z acceleration values via eventing
 * we learned how to get X Y and Z acceleration shack values via eventing
 * we learned how to get X Y and Z acceleration values  via polling
+
+* show the UI
+
+* setup the sensor
+	private Sensor.Accelerometer _accelerometer;
+
+        private void SetupSensor()
+        {
+            _accelerometer = Sensor.Accelerometer.GetDefault();
+
+            if (_accelerometer == null)
+            {
+                // there is no grometer on this device.....
+            }
+        }
+
+
+* setup the constructor to take the dispatcher
+
+        public DashboardViewModel(CoreDispatcher dispatcher)
+        {
+            _dispatcher = dispatcher;
+            PageTitle = "Learning to use Accelerometer";
+
+        }
+
+* pass in the dispatcher
+	DataContext = new DashboardViewModel(Window.Current.Dispatcher);
+
+* setup the eventing
+
+        private void SetupEventing(bool enableEventing)
+        {
+            if (enableEventing)
+            {
+                _accelerometer.ReadingChanged += AccelerometerOnReadingChanged;
+                CurrentReadingStyle = "Eventing";
+            }
+            else
+            {
+                _accelerometer.ReadingChanged -= AccelerometerOnReadingChanged;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void AccelerometerOnReadingChanged(Sensor.Accelerometer sender, Sensor.AccelerometerReadingChangedEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            {
+                XAcceleration = args.Reading.AccelerationX;
+                YAcceleration = args.Reading.AccelerationY;
+                ZAcceleration = args.Reading.AccelerationZ;
+
+                SetupNewLocation();
+            });
+        }
+
+	* add the setup call to the command method
+
+* run the app
+
+* setup the shake
+      private void SetupShaking(bool enableShaking)
+        {
+            if (enableShaking)
+            {
+                _accelerometer.Shaken += AccelerometerOnShaken;
+                CurrentReadingStyle = "Shaking";
+                ShakeCount = 0;
+            }
+            else
+            {
+                _accelerometer.Shaken -= AccelerometerOnShaken;
+                CurrentReadingStyle = "Stopped";
+            }
+        }
+
+        private async void AccelerometerOnShaken(Sensor.Accelerometer sender, Sensor.AccelerometerShakenEventArgs args)
+        {
+            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                                                                          {
+                                                                              ShakeCount = ShakeCount + 1;                                                                  
+                                                                          });
+            
+        }
+
+	* add the setup call to the command method
+
+* run the app
