@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="LL.SettingsContract.Views.SettingsFlyoutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LL.SettingsContract.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="768"
+    d:DesignWidth="646">
+
+    <UserControl.Resources>
+  
+    </UserControl.Resources>
+
+    <Border Background="Black" BorderBrush="White" BorderThickness="1,0,0,0">
+        <Grid VerticalAlignment="Stretch">
+
+            <!-- Root grid definition -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- Header area for panel -->
+            <Grid Background="#00b2f0" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0" Margin="40, 32, 17, 13">
+                    <Button Click="BackClicked" Margin="0,3,0,0"  Style="{StaticResource SettingsBackButtonStyle}"/>
+                    <TextBlock Margin="10,0,0,0" FontFamily="Segoe UI" FontWeight="SemiLight" FontSize="24.6667" Text="Settings" Foreground="White"/>
+                    <!---->
+                </StackPanel>
+            </Grid>
+
+            <!-- Settings Panel Content -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+
+                <Grid Margin="40,33,40,39" VerticalAlignment="Top" Grid.RowSpan="3">
+
+                    <StackPanel x:Name="FlyoutContent">
+                        <ToggleSwitch 
+                                      Header="Enable Application Bar" 
+                                      HorizontalAlignment="Left" 
+                                      HorizontalContentAlignment="Left" 
+                                      IsOn="{Binding EnableApplicationBar, Mode=TwoWay}"
+                                      OffContent="Disable" OnContent="Enable">                            
+                        </ToggleSwitch>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+    </Border>
+</Page>

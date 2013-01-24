@@ -1,0 +1,129 @@
+Introduction
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the Settings contract into your applicaiton.  This contract allows your application to expose its
+settings via the Settings charm and give users a consistant experiance across all Windows 8 applications
+
+* We are going to learn how to get access to the Settings pane for the current view
+* We are gonig to learn how to define which settings options are available for the current view
+* We are going to learn how to launch our settings pane and manipuate controls on the view
+
+Summary
+In this lesson we learned about the settings contract and how we can use this to expose application or page level settings
+to our user in a consistant way
+
+* We learned how to get access to the Settings pane for the current view
+* We learned how to define which settings options are available for the current view
+* We learnedhow to launch our settings pane and manipuate controls on the view
+	
+
+* Get access to the Settings pane for the current view
+	* talk about how the OnSettingsCommandsRequested; method will be invoked EACH time the user clicks the settings charm
+		show this
+
+        private void EnableSettings()
+        {
+            if (!_commandsAreEnabled)
+            {
+                SettingsPane.GetForCurrentView().CommandsRequested += OnSettingsCommandsRequested;
+                _commandsAreEnabled = true;
+            }
+            else
+            {
+                SettingsPane.GetForCurrentView().CommandsRequested -= OnSettingsCommandsRequested;
+                _commandsAreEnabled = false;
+            }
+        }
+
+        private void OnSettingsCommandsRequested(SettingsPane settingsPane,
+                                              SettingsPaneCommandsRequestedEventArgs eventArgs)
+        {
+            
+        }
+* Setup the about setting
+
+        private void OnSettingsCommandsRequested(SettingsPane settingsPane,
+                                              SettingsPaneCommandsRequestedEventArgs eventArgs)
+        {
+            var aboutCommandHandler = new UICommandInvokedHandler(OnAboutCommandInvoker);
+            var aboutPage = new SettingsCommand("aboutPage", "About", aboutCommandHandler);          
+
+	    eventArgs.Request.ApplicationCommands.Add(aboutPage);  
+        }
+
+        private void OnAboutCommandInvoker(IUICommand command)
+        {
+            
+        }
+
+* setup the settings command
+	take a look at the Settings VM
+
+        private void OnSettingsCommandsRequested(SettingsPane settingsPane,
+                                              SettingsPaneCommandsRequestedEventArgs eventArgs)
+        {
+            var settingsCommandHandler = new UICommandInvokedHandler(OnSettingsCommandInvoker);
+            var settingsPage = new SettingsCommand("settingsPage", "Settings", settingsCommandHandler );
+
+            eventArgs.Request.ApplicationCommands.Add(settingsPage);      
+        }
+
+        private Popup settingsPopup;
+        private double settingsWidth = 646;
+        private Rect windowBounds = Window.Current.Bounds;
+
+        private void OnSettingsCommandInvoker(IUICommand command)
+        {
+            settingsPopup = new Popup();
+            settingsPopup.Closed += SettingsPopupOnClosed;
+            Window.Current.Activated += OnWindowActivated;
+            settingsPopup.IsLightDismissEnabled = true;
+            settingsPopup.Width = settingsWidth;
+            settingsPopup.Height = windowBounds.Height;
+
+            // Create a SettingsFlyout the same dimenssions as the Popup.
+            var mypane = new SettingsFlyoutPage
+                {
+                    DataContext = this.Settings
+                };
+
+            mypane.Width = settingsWidth;
+            mypane.Height = windowBounds.Height;
+
+            settingsPopup.Child = mypane;
+
+            settingsPopup.SetValue(Canvas.LeftProperty, SettingsPane.Edge == SettingsEdgeLocation.Right ? (windowBounds.Width - settingsWidth) : 0);
+            settingsPopup.SetValue(Canvas.TopProperty, 0);
+            settingsPopup.IsOpen = true;
+        }
+
+        private void OnWindowActivated(object sender, WindowActivatedEventArgs e)
+        {
+            if (e.WindowActivationState == CoreWindowActivationState.Deactivated)
+            {
+                settingsPopup.IsOpen = false;
+            }
+        }
+
+        private void SettingsPopupOnClosed(object sender, object o)
+        {
+            Window.Current.Activated -= OnWindowActivated;
+        }
+
+* show the settings view, point out the toggle switch is bound to the VM
+* show the button click event which closes the popup
+
+* run the app
+	* point out how the settings pane does NOT transition well
+	* add the transition
+
+            settingsPopup.ChildTransitions = new TransitionCollection();
+            settingsPopup.ChildTransitions.Add(new PaneThemeTransition()
+            {
+                Edge = (SettingsPane.Edge == SettingsEdgeLocation.Right) ?
+                       EdgeTransitionLocation.Right :
+                       EdgeTransitionLocation.Left
+            });
+
+* run the app
+	* have it function as expected
