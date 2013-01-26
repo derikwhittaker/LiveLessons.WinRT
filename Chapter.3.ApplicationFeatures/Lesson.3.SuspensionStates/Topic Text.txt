@@ -1,0 +1,51 @@
+http://msdn.microsoft.com/en-US/library/windows/apps/xaml/Hh465115
+http://code.msdn.microsoft.com/windowsapps/App-activating-and-ec15b168
+
+Introduction
+When building windows 8 application developers must understand and utilize the application life cycle events in order to give their users a greate
+experiance.  These events allow us to know when an application is starting, when it is being suspended and when it is resuming from a suspended state.
+Knowing how to react to these events will allow you to build applications that users can trust and feel good using.  We are going to take a look at
+each of these 3 events in detail and understand the importance these event play in building windows 8 applications.
+
+* We are going to learn how to about the 3 different life cycle states of an application
+	* Launching the applciation - this is when it is opened/started
+	* Suspending - this is when the application is lost focus and the OS will reclame any system resources and potentially shut down your application
+	* Resuming - this is when an applciation is restarted from a suspended state
+* We are gonig to learn how to handle and debug each of the 3 life cycle states inside of VIsual studio
+* We are going to learn how to use each life cycle state in order to save the current state of your application and use that state at a later time
+
+Summary
+In this lesson we learned about the settings contract and how we can use this to expose application or page level settings
+to our user in a consistant way
+
+* We learned about the 3 different life cycle states of an application
+	* Launching the applciation - this is when it is opened/started
+	* Suspending - this is when the application is lost focus and the OS will reclame any system resources and potentially shut down your application
+	* Resuming - this is when an applciation is restarted from a suspended state
+* We learned how to handle and debug each of the 3 life cycle states inside of VIsual studio
+* We learned how to use each life cycle state in order to save the current state of your application and use that state at a later time
+	
+
+
+* talk about the 3 parts of the application life cycle
+	* Launching
+	* Suspending
+	* Resuming
+
+* walk though the template and how it sets up OnSuspending for you.
+	* mention that this code will ONLY manage your location within the application
+		and NOT your data
+	* mention you have a total of 5 seconds to complete any saving
+	* point out what the deferral does
+
+* launch the app with NO debugger and show it going to suspension mode
+	* via the task manager
+* launch the application again but with the debugger attached and try to get it to suspend
+	* explain why it will not suspend
+	* explain that we cannot really debug these actions because of this but they have provided
+		a way. 
+		* right click the menu and select 'Debug Location'
+		* point out the options
+		* run the app and show how these work
+
+* Start w/ coding of the suspend
