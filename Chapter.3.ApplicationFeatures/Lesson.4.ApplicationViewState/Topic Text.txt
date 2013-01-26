@@ -1,3 +1,21 @@
+Introduction
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the Settings contract into your applicaiton.  This contract allows your application to expose its
+settings via the Settings charm and give users a consistant experiance across all Windows 8 applications
+
+* We are going to learn about each of the 3 available View States which need to be supported in a windows 8 application
+* We are gonig to learn how to setup and support the Full Screen state, this the default state your app will open to
+* We are going to learn how to setup and support the Snapped state, this is when your app is snapped to the narrow region of the screen
+* We are going to learn how to setup and support the Filled state, this is when your app is snapped to the large region of the screen
+
+Summary
+In this lesson we learned about the 3 available view states which are supported in windows 8 applications
+
+* We learned about each of the 3 available View States which need to be supported in a windows 8 application
+* We learned how to setup and support the Full Screen state, this the default state your app will open to
+* We learned how to setup and support the Snapped state, this is when your app is snapped to the narrow region of the screen
+* We learned how to setup and support the Filled state, this is when your app is snapped to the large region of the screen
 
 * show the viewstate code which is added by the template
 * create 3 visual groups and give them colors so we can illustrate how this works
