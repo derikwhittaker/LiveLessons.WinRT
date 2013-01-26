@@ -51,8 +51,12 @@ to our user in a consistant way
 
 
 * add the resume event handler
-* show the IResumable interface
+* create the IResumable interface
 	* add it to our underlying VM
+    public interface IResumable
+    {
+        void Resume();
+    }
 
 * create the OnResume code
         private void OnResuming(object sender, object o)

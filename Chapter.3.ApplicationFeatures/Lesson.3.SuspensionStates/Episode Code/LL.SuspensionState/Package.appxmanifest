@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.ApplicationLifeCycle.App">
-      <VisualElements DisplayName="LL.SuspensionState" Logo="SuspensionStateTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.ApplicationLifeCycle" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="LL.ApplicationLifeCycle" Logo="SuspensionStateTiles_150x150.png" SmallLogo="PearsonTiles_30x30.png" Description="LL.ApplicationLifeCycle" ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" WideLogo="SuspensionStateTiles_310x150.png" />
         <SplashScreen Image="SuspensionSplash_620x300.png" BackgroundColor="#757575" />
       </VisualElements>

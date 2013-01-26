@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LL.SuspensionState", "LL.SuspensionState.csproj", "{D2AF5E10-2D88-4EAE-A33F-1B8DD8AE74CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LL.ApplicationLifeCycle", "LL.ApplicationLifeCycle.csproj", "{D2AF5E10-2D88-4EAE-A33F-1B8DD8AE74CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Metro.LL.Common", "..\..\..\..\Metro.LL.Common\Metro.LL.Common.csproj", "{65C98969-78F7-430B-BC98-35583B9808A7}"
 EndProject
