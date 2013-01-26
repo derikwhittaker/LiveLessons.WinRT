@@ -1,9 +1,9 @@
 ﻿<Application
-    x:Class="LL.SuspensionState.App"
+    x:Class="LL.ApplicationLifeCycle.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:LL.SuspensionState"
-    xmlns:localData="using:LL.SuspensionState.Data">
+    xmlns:local="using:LL.ApplicationLifeCycle"
+    xmlns:localData="using:LL.ApplicationLifeCycle.Data">
 
     <Application.Resources>
         <ResourceDictionary>

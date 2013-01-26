@@ -1,7 +1,8 @@
-﻿using LL.SuspensionState.Common;
-
+﻿using System.Diagnostics;
+using LL.ApplicationLifeCycle.Common;
+using LL.ApplicationLifeCycle.ViewModels;
+using LL.ApplicationLifeCycle.Views;
 using System;
-using LL.SuspensionState.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -9,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
-namespace LL.SuspensionState
+namespace LL.ApplicationLifeCycle
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -24,7 +25,10 @@ namespace LL.SuspensionState
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += OnResuming;
         }
+
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -34,6 +38,7 @@ namespace LL.SuspensionState
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+          
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -89,6 +94,23 @@ namespace LL.SuspensionState
             var deferral = e.SuspendingOperation.GetDeferral();
             await SuspensionManager.SaveAsync();
             deferral.Complete();
+        }
+
+        private void OnResuming(object sender, object o)
+        {
+            var asFrame = Window.Current.Content as Frame;
+
+            var layoutAwarePageContent = ((LayoutAwarePage) asFrame.Content);
+
+            if (layoutAwarePageContent != null)
+            {
+                if (layoutAwarePageContent.DataContext is IResumable)
+                {
+                    var asIResumable = ((IResumable) layoutAwarePageContent.DataContext);
+                    asIResumable.Resume();
+                }
+            }
+
         }
     }
 }

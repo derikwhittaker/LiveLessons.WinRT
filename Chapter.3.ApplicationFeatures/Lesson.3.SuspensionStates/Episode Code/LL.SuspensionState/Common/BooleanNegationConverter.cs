@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace LL.SuspensionState.Common
+namespace LL.ApplicationLifeCycle.Common
 {
     /// <summary>
     /// Value converter that translates true to false and vice versa.

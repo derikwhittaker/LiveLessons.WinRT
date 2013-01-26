@@ -2,35 +2,30 @@ http://msdn.microsoft.com/en-US/library/windows/apps/xaml/Hh465115
 http://code.msdn.microsoft.com/windowsapps/App-activating-and-ec15b168
 
 Introduction
-When building windows 8 application developers must understand and utilize the application life cycle events in order to give their users a greate
-experiance.  These events allow us to know when an application is starting, when it is being suspended and when it is resuming from a suspended state.
-Knowing how to react to these events will allow you to build applications that users can trust and feel good using.  We are going to take a look at
-each of these 3 events in detail and understand the importance these event play in building windows 8 applications.
+With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
+give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
+these common tasks.  We are going to take a look at how you can integrate the Settings contract into your applicaiton.  This contract allows your application to expose its
+settings via the Settings charm and give users a consistant experiance across all Windows 8 applications
 
-* We are going to learn how to about the 3 different life cycle states of an application
-	* Launching the applciation - this is when it is opened/started
-	* Suspending - this is when the application is lost focus and the OS will reclame any system resources and potentially shut down your application
-	* Resuming - this is when an applciation is restarted from a suspended state
-* We are gonig to learn how to handle and debug each of the 3 life cycle states inside of VIsual studio
-* We are going to learn how to use each life cycle state in order to save the current state of your application and use that state at a later time
+* We are going to learn how to get access to the Settings pane for the current view
+* We are gonig to learn how to define which settings options are available for the current view
+* We are going to learn how to launch our settings pane and manipuate controls on the view
 
 Summary
 In this lesson we learned about the settings contract and how we can use this to expose application or page level settings
 to our user in a consistant way
 
-* We learned about the 3 different life cycle states of an application
-	* Launching the applciation - this is when it is opened/started
-	* Suspending - this is when the application is lost focus and the OS will reclame any system resources and potentially shut down your application
-	* Resuming - this is when an applciation is restarted from a suspended state
-* We learned how to handle and debug each of the 3 life cycle states inside of VIsual studio
-* We learned how to use each life cycle state in order to save the current state of your application and use that state at a later time
+* We learned how to get access to the Settings pane for the current view
+* We learned how to define which settings options are available for the current view
+* We learnedhow to launch our settings pane and manipuate controls on the view
 	
-
-
 * talk about the 3 parts of the application life cycle
 	* Launching
 	* Suspending
 	* Resuming
+
+* walk though and take a look at the Launching event
+	* point out how the prior execution state is provided via an arg and you can handle them if needed.
 
 * walk though the template and how it sets up OnSuspending for you.
 	* mention that this code will ONLY manage your location within the application
@@ -40,12 +35,38 @@ to our user in a consistant way
 
 * launch the app with NO debugger and show it going to suspension mode
 	* via the task manager
+
 * launch the application again but with the debugger attached and try to get it to suspend
 	* explain why it will not suspend
 	* explain that we cannot really debug these actions because of this but they have provided
 		a way. 
 		* right click the menu and select 'Debug Location'
 		* point out the options
-		* run the app and show how these work
+		* run the app and show how each of the states work these work
 
-* Start w/ coding of the suspend
+* now lets wire up and talk about the resume event
+	* this is not needed to re-hidrate our previous state as the generated state manager wll
+		handle this for you.
+	* this can be used to possible rebuild your application data if it is populated via a remote source, such as web server or remote API
+
+
+* add the resume event handler
+* show the IResumable interface
+	* add it to our underlying VM
+
+* create the OnResume code
+        private void OnResuming(object sender, object o)
+        {
+            var asFrame = Window.Current.Content as Frame;
+
+            var layoutAwarePageContent = ((LayoutAwarePage) asFrame.Content);
+
+            if (layoutAwarePageContent != null)
+            {
+                if (layoutAwarePageContent.DataContext is IResumable)
+                {
+                    var asIResumable = ((IResumable) layoutAwarePageContent.DataContext);
+                    asIResumable.Resume();
+                }
+            }
+        }
