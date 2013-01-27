@@ -43,12 +43,12 @@ to our user in a consistant way
 * Setup the about setting
 
         private void OnSettingsCommandsRequested(SettingsPane settingsPane,
-                                              SettingsPaneCommandsRequestedEventArgs eventArgs)
+                                              SettingsPaneCommandsRequestedEventArgs args)
         {
             var aboutCommandHandler = new UICommandInvokedHandler(OnAboutCommandInvoker);
             var aboutPage = new SettingsCommand("aboutPage", "About", aboutCommandHandler);          
 
-	    eventArgs.Request.ApplicationCommands.Add(aboutPage);  
+	    args.Request.ApplicationCommands.Add(aboutPage);  
         }
 
         private void OnAboutCommandInvoker(IUICommand command)

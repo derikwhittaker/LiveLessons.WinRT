@@ -22,8 +22,7 @@ namespace LL.SettingsContract.Views
             if (parent != null)
             {
                 parent.IsOpen = false;
-            }
-
+            }         
         }
     }
 }
