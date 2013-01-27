@@ -110,6 +110,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataModel\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -121,6 +122,9 @@
     <Compile Include="ViewModels\DashboardViewModel.cs" />
     <Compile Include="Views\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemsPage1.xaml.cs">
+      <DependentUpon>ItemsPage1.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +146,17 @@
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
     <Content Include="Assets\WideLogo.scale-100.png" />
+    <Content Include="Images\AstonMartin_V12Zagato.png" />
+    <Content Include="Images\Audi_R8.png" />
+    <Content Include="Images\Bugatti_Veyron.png" />
+    <Content Include="Images\Corvette_Z06.png" />
+    <Content Include="Images\Ferrari_F12berlinetta.png" />
+    <Content Include="Images\Jaguar_xj.png" />
+    <Content Include="Images\Lamborghini_Aventador.png" />
+    <Content Include="Images\Lotus_ExigeS.png" />
+    <Content Include="Images\Maybach_57.png" />
+    <Content Include="Images\McLaren_MP4.png" />
+    <Content Include="Images\Porsche_Panamera.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -155,6 +170,10 @@
     <Page Include="Views\DashboardPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ItemsPage1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

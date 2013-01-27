@@ -17,5 +17,16 @@ In this lesson we learned about the 3 available view states which are supported 
 * We learned how to setup and support the Snapped state, this is when your app is snapped to the narrow region of the screen
 * We learned how to setup and support the Filled state, this is when your app is snapped to the large region of the screen
 
-* show the viewstate code which is added by the template
-* create 3 visual groups and give them colors so we can illustrate how this works
+* run the base application
+	* talk how the default is the full screen
+	* snap another application
+	
+* open the page, show how the viewstate manager is used
+	* talk about how we use the view manager to know what state we are currently
+	* open the LayoutawarePage.cs file.  show how this base class is used in conjuction w/ the view state manager to know when state changes
+
+* ask the question, how do we easily test this?  Do we have to do  trial and error?  Meaning do we have to make some UI changes
+	run the application see how it looks and repeat?  NO, fotunatly we can use some built in features of Visual Studio to 
+	allow us to simplify the amount of effort it takes to handle view states
+	
+	* Show how we can force the app at design time into a given view state via the Device toolbar
