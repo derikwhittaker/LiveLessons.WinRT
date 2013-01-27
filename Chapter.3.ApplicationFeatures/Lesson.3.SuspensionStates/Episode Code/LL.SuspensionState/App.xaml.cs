@@ -25,6 +25,7 @@ namespace LL.ApplicationLifeCycle
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.Resuming += OnResuming;
         }
 
 
@@ -94,6 +95,20 @@ namespace LL.ApplicationLifeCycle
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+        
+        private void OnResuming(object sender, object o)
+        {
+            var asFrame = Window.Current.Content as Frame;
+            var layoutAwarePageContent = ((LayoutAwarePage)asFrame.Content);
 
+            if( layoutAwarePageContent != null )
+            {
+                if (layoutAwarePageContent.DataContext is IResumable)
+                {
+                    var asIResumable = ((IResumable) layoutAwarePageContent.DataContext);
+                    asIResumable.Resume();
+                }
+            }
+        }
     }
 }

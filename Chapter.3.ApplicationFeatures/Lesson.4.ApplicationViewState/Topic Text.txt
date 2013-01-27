@@ -1,8 +1,7 @@
 Introduction
-With the introduction of Windows 8 developers now have the ability to utilize the various contracts, such as the search, share and settings contracts.  These contracts
-give your application the ability to appear integrated with both the core operating system, they also give your uses a consistant experiance between applications to perform
-these common tasks.  We are going to take a look at how you can integrate the Settings contract into your applicaiton.  This contract allows your application to expose its
-settings via the Settings charm and give users a consistant experiance across all Windows 8 applications
+When building windows 8 applications developers are going to need to understand that their applciation can be put into any of 3 view states. These views states are Full,
+Snapped and filled.  They are also going to need to know that each of these states will require their attention in order to give their users a great user experiance.  Developers
+will need to make the decision how each state should be supported, but they must be supported.
 
 * We are going to learn about each of the 3 available View States which need to be supported in a windows 8 application
 * We are gonig to learn how to setup and support the Full Screen state, this the default state your app will open to

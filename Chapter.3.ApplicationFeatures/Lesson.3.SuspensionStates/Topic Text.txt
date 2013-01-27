@@ -23,22 +23,15 @@ In this lesson we learned about the 3 life cycle states your application can go.
 * We learned how to handle and debug each of the life cycle states
 * We learned how to use each state inside our application.
 	
-* talk about the 3 parts of the application life cycle
-	* Launching
-	* Suspending
-	* Resuming
+* so how do we handle and work with the 3 different life cycle events?  Fortucnatily for use the default template for windows 8 applications
+does much of the heavy lifting for use.
+
+* launch the app with NO debugger and show it going to suspension mode
+	* via the task manager
 
 * walk though and take a look at the Launching event
 	* point out how the prior execution state is provided via an arg and you can handle them if needed.
 
-* walk though the template and how it sets up OnSuspending for you.
-	* mention that this code will ONLY manage your location within the application
-		and NOT your data
-	* mention you have a total of 5 seconds to complete any saving
-	* point out what the deferral does
-
-* launch the app with NO debugger and show it going to suspension mode
-	* via the task manager
 
 * launch the application again but with the debugger attached and try to get it to suspend
 	* explain why it will not suspend
@@ -47,6 +40,13 @@ In this lesson we learned about the 3 life cycle states your application can go.
 		* right click the menu and select 'Debug Location'
 		* point out the options
 		* run the app and show how each of the states work these work
+
+* walk though the template and how it sets up OnSuspending for you.
+	* mention that this code will ONLY manage your location within the application
+		and NOT your data
+	* mention you have a total of 5 seconds to complete any saving
+	* point out what the deferral does
+
 
 * now lets wire up and talk about the resume event
 	* this is not needed to re-hidrate our previous state as the generated state manager wll
