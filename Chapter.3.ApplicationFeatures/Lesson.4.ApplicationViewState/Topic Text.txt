@@ -19,14 +19,136 @@ In this lesson we learned about the 3 available view states which are supported 
 
 * run the base application
 	* talk how the default is the full screen
-	* snap another application
-	
-* open the page, show how the viewstate manager is used
-	* talk about how we use the view manager to know what state we are currently
-	* open the LayoutawarePage.cs file.  show how this base class is used in conjuction w/ the view state manager to know when state changes
+	* snap another application (cocktail flow)
+	* talk about how cocktail flow will change its layout based on which visual state the app is in
+		* move between fill and snapped and full
+
+* go back to the app
+
+
+* Add the default view grid and style
+	* point out the name is important here as this is how the visualstatemanager will interact w/ the control
+        <GridView            
+            x:Name="fullItemGridView"
+            AutomationProperties.AutomationId="ItemsGridView"
+            AutomationProperties.Name="Items"
+            TabIndex="1"
+            Grid.Row="1"
+            Margin="0,-4,0,0"
+            Padding="116,0,116,46"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemTemplate="{StaticResource FullGroupedItemsDataTemplate}"
+            SelectionMode="None"
+            IsItemClickEnabled="True"
+            />
+
+
+        <DataTemplate x:Key="FullGroupedItemsDataTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="250">
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding ShortDescription}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+* Show the screen in design view
+
+* run the application and show how we see the same grid in all 3 views
+	* talk about how this is bad
+	* show the visual state manager
+		* talk about how we use the view manager to know what state we are currently
+		* open the LayoutawarePage.cs file.  show how this base class is used in conjuction w/ the view state manager to know when state changes
+
+* go to the visual statemanager and add the logic to show/hide the grid based on state
+	* FullScreenLandscape
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="fullItemGridView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+	* Filled / Snapped
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="fullItemGridView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
 
 * ask the question, how do we easily test this?  Do we have to do  trial and error?  Meaning do we have to make some UI changes
 	run the application see how it looks and repeat?  NO, fotunatly we can use some built in features of Visual Studio to 
 	allow us to simplify the amount of effort it takes to handle view states
 	
 	* Show how we can force the app at design time into a given view state via the Device toolbar
+
+
+
+* add the filled view 
+        <FlipView
+            x:Name="filledItemFlipView"
+            Grid.Row="1"
+            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemTemplate="{StaticResource FilledFlipViewItemsDataTemplate}"
+            />
+
+
+        <DataTemplate x:Key="FilledFlipViewItemsDataTemplate">
+            <Grid HorizontalAlignment="Center" Width="750" Height="500">
+                <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                </Border>
+                <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding ShortDescription}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+
+	* Filled 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="filledItemFlipView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+	* FullScreenLandscape / Snapped
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="filledItemFlipView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>
+
+
+* add the snapped view
+
+
+        <ListView
+            x:Name="snappedItemListView"
+            Grid.Row="1"
+            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemTemplate="{StaticResource SnappedItemsDataTemplate}"
+            />
+
+        <DataTemplate x:Key="SnappedItemsDataTemplate">
+            <Grid HorizontalAlignment="Left" Width="250" Height="125">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImagePath}" Stretch="UniformToFill"/>
+                </Border>
+                <StackPanel Grid.Column="1" VerticalAlignment="Stretch" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                    <TextBlock Text="{Binding ShortDescription}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+
+	* Snapped
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="snappedItemListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+                        </ObjectAnimationUsingKeyFrames>     
+
+	* FullScreenLandscape / Filled 
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="snappedItemListView" Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+                        </ObjectAnimationUsingKeyFrames>     
