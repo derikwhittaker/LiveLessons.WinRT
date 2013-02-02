@@ -1,6 +1,7 @@
 Introduction
-When building windows 8 applications developers are going to need to understand that their applciation can be put into any of 3 view states. These views states are Full,
-Snapped and filled.  They are also going to need to know that each of these states will require their attention in order to give their users a great user experiance.  Developers
+When building windows 8 applications developers are going to need to understand that their applciation can be put into any of 3 view states. These views states are Full, when the view
+occupies the entire screen, Snapped, when the screen is pinned to one edge or the other and filled, which is about 2/3rds the screen and is visible when another application is snapped. 
+You are also going to need to know that each of these states will require your attention in order to give their users a great user experiance.  Developers
 will need to make the decision how each state should be supported, but they must be supported.
 
 * We are going to learn about each of the 3 available View States which need to be supported in a windows 8 application
