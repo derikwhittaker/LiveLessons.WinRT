@@ -1,4 +1,6 @@
 ﻿using LL.VSM.ViewModels;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 

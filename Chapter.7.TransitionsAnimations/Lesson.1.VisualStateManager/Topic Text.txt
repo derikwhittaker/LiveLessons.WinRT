@@ -1,0 +1,134 @@
+Introduction
+When building Windows 8 applications the user experiance should be one of the most important features you pay attention to.  It is important that you create
+a user interface and user experiance that is both smooth and compelling.  This is where the Visual State Manager comes into play.  The visual state manager is the 
+way you can control the visual experiance of your application as its state changes.  With the Visual State Manager you can do things like change visual appearance
+when a control is clicked or when it is disabled
+
+* We are going to learn how to use the visual state manager and understand its role in building xaml based applications
+* We are gonig to learn how to take a 3rd party control and change its visual behavior by using the V S M
+* We are going to learn how to use the V S M when building and styling your own custom controls
+
+Summary
+In this lesson we learned the role the V S M plays in controlling the visual appearance of your applciation
+* We learned how to use the visual state manager and understand its role in building xaml based applications
+* We learned how to take a 3rd party control and change its visual behavior by using the V S M
+* We learned how to use the V S M when building and styling your own custom controls
+
+
+
+Drop a Toggle Switch onto the screen
+Drop a button onto the screen
+Open the solution in Blend
+
+Drop a buton and toggle switch on the scren.
+Wire the button up
+
+MyToggleSwitch.IsEnabled = !MyToggleSwitch.IsEnabled;
+
+right click the toggle switch and 'edit Tamplate'	
+	- Give it a name
+	- Use this document
+	- Split the screen
+Talk about how this will allow you to customize the look and feel of the control
+Open the states panel
+	- Talk about the Visual State Groupings
+	- Talk about the individual states
+
+Add a transition for the OnContent
+	- On -> Off
+	- set a 1s duration
+	- Run the application
+
+Add a transition to change the color of the selector
+	-> Disabled 
+	-> Make the selector red
+	-> Enabled - Make the selector white
+	-> Normal -> Disabled
+	-> .5s time
+	-> select the selector - Make it red
+	-> Disabled -> Normal
+	-> .5s
+	-> Select the selector - Make it white
+
+Run the application -> show it working
+
+
+STOP RECORDING... BREAK TIME
+
+
+Time to create a custom control
+	-> this will be shelled out -> Minus templates
+	-> Talk about how we want to create groups and states in order to allow the VSM to manage tem
+
+Create the interaction state
+    [TemplateVisualState(Name = "Selected", GroupName = "InteractionGroup")]
+    [TemplateVisualState(Name = "UnSelected", GroupName = "InteractionGroup")]
+
+Create the Common States
+    [TemplateVisualState(Name = "Enabled", GroupName = "CommonStates")] 
+    [TemplateVisualState(Name = "Disabled", GroupName = "CommonStates")]
+
+Go back to blend and show then inside the V S M
+	Oen Generic.xaml
+
+Select the Selected state
+	-> Select the text
+		-> Change the text size for each
+
+Wire up the tapped event
+            AutoImage = GetTemplateChild("AutoImage") as Image;
+            AutoImage.Tapped += AutoImageOnTapped;
+
+        private bool _tapped = false;
+        private void AutoImageOnTapped(object sender, TappedRoutedEventArgs tappedRoutedEventArgs)
+        {
+            if (!_tapped)
+            {
+                VisualStateManager.GoToState(this, "Selected", true);   
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "UnSelected", true);   
+            }
+            _tapped = !_tapped;
+        }
+
+Add the control to the screen
+		<views:AutoDisplayControl x:Name="MyCustomControl"  Margin="33,10,1033,518" 
+							  Grid.Row="1" 
+                              ImagePath="ms-appx:///Images/Audi_R8.png" 
+                               Title="Here is my title" SubTitle="here is my sub title" />
+
+Run the application -> show it working
+
+setup the enabled/disabled state
+Wire up the enable changed in the main dashboard
+ MyCustomControl.IsEnabled = !MyCustomControl.IsEnabled;
+
+Put this in the OnApplyTemplate
+	this.IsEnabledChanged += OnIsEnabledChanged;
+
+Create the event handler
+        private void OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs dependencyPropertyChangedEventArgs)
+        {
+            if (this.IsEnabled)
+            {
+                VisualStateManager.GoToState(this, "Enabled", true);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "Disabled", true);                
+            }
+        }
+
+Setup the styles
+
+	-> Disabled -> Make the text a green color
+	-> Disabled -> enabled
+		-> Make the text green
+		-> Add a transition - 1s
+	-> Enabled -> Disabled
+		-> set opacity to 25% on the stack panel
+
+Run the application -> show it working
+		

@@ -4,7 +4,7 @@
     {
         public DashboardViewModel()
         {
-            PageTitle = "Learning to use Camera";
+            PageTitle = "Learning to use the Visual State Manager";
             
         }
 

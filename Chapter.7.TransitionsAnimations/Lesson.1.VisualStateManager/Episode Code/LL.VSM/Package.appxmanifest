@@ -1,39 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-
-  <Identity Name="0d0a1c8a-f67c-419a-82d2-5a84bc9b4c42"
-            Publisher="CN=Derik"
-            Version="1.0.0.0" />
-
+  <Identity Name="0d0a1c8a-f67c-419a-82d2-5a84bc9b4c42" Publisher="CN=Derik" Version="1.0.0.0" />
   <Properties>
     <DisplayName>LL.VSM</DisplayName>
     <PublisherDisplayName>Derik</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Prerequisites>
     <OSMinVersion>6.2.1</OSMinVersion>
     <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-        Executable="$targetnametoken$.exe"
-        EntryPoint="LL.VSM.App">
-        <VisualElements
-            DisplayName="LL.VSM"
-            Logo="Assets\Logo.png"
-            SmallLogo="Assets\SmallLogo.png"
-            Description="LL.VSM"
-            ForegroundText="light"
-            BackgroundColor="#464646">
-            <DefaultTile ShowName="allLogos" />
-            <SplashScreen Image="Assets\SplashScreen.png" />
-        </VisualElements>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="LL.VSM.App">
+      <VisualElements DisplayName="LL.VSM" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="LL.VSM" ForegroundText="light" BackgroundColor="#464646">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#757575" />
+      </VisualElements>
     </Application>
   </Applications>
   <Capabilities>

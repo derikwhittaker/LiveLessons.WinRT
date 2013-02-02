@@ -57,42 +57,42 @@ namespace LL.Accelerometer.ViewModels
             }
         }
 
-        private async void AccelerometerOnReadingChanged(Sensor.Accelerometer sender, Sensor.AccelerometerReadingChangedEventArgs args)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
-                () =>
-                    {
-                        XAcceleration = args.Reading.AccelerationX;
-                        YAcceleration = args.Reading.AccelerationY;
-                        ZAcceleration = args.Reading.AccelerationZ;
-
-                        SetupNewLocation();
-                    });
-        }
-
-        private void SetupShaken(bool enableShaking)
-        {
-            if ( enableShaking )
+private async void AccelerometerOnReadingChanged(Sensor.Accelerometer sender, Sensor.AccelerometerReadingChangedEventArgs args)
+{
+    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+        () =>
             {
-                _accelerometer.Shaken += AccelerometerOnShaken;
-                ShakeCount = 0;
-                CurrentReadingStyle = "Shaking";
-            }
-            else
-            {
-                _accelerometer.Shaken -= AccelerometerOnShaken;
-                CurrentReadingStyle = "Stopped";
-            }
-        }
+                XAcceleration = args.Reading.AccelerationX;
+                YAcceleration = args.Reading.AccelerationY;
+                ZAcceleration = args.Reading.AccelerationZ;
 
-        private async void AccelerometerOnShaken(Sensor.Accelerometer sender, Sensor.AccelerometerShakenEventArgs args)
-        {
-            await _dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                                       () =>
-                                           {
-                                               ShakeCount = ShakeCount + 1;
-                                           });
-        }
+                SetupNewLocation();
+            });
+}
+
+private void SetupShaken(bool enableShaking)
+{
+    if ( enableShaking )
+    {
+        _accelerometer.Shaken += AccelerometerOnShaken;
+        ShakeCount = 0;
+        CurrentReadingStyle = "Shaking";
+    }
+    else
+    {
+        _accelerometer.Shaken -= AccelerometerOnShaken;
+        CurrentReadingStyle = "Stopped";
+    }
+}
+
+private async void AccelerometerOnShaken(Sensor.Accelerometer sender, Sensor.AccelerometerShakenEventArgs args)
+{
+    await _dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                                () =>
+                                    {
+                                        ShakeCount = ShakeCount + 1;
+                                    });
+}
 
         private int _canvasLeft;
         private int _canvasTop;
