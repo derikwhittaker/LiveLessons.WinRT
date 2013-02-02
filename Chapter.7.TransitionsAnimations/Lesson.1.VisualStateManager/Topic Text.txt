@@ -94,7 +94,7 @@ Wire up the tapped event
         }
 
 Add the control to the screen
-		<views:AutoDisplayControl x:Name="MyCustomControl"  Margin="33,10,1033,518" 
+		<views:AutoDisplayControl x:Name="MyCustomControl"   
 							  Grid.Row="1" 
                               ImagePath="ms-appx:///Images/Audi_R8.png" 
                                Title="Here is my title" SubTitle="here is my sub title" />

@@ -17,5 +17,11 @@ namespace LL.VSM.Views
 
             DataContext = new DashboardViewModel();
         }
+
+        private void ToggleEnableClick(object sender, RoutedEventArgs e)
+        {
+            MyToggleSwitch.IsEnabled = !MyToggleSwitch.IsEnabled;
+            MyCustomControl.IsEnabled = !MyCustomControl.IsEnabled;
+        }
     }
 }
