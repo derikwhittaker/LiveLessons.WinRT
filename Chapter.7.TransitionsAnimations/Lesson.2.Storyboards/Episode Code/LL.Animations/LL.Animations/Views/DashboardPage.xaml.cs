@@ -18,33 +18,9 @@ namespace LL.Animations.Views
             this.InitializeComponent();
 
             var vm = new DashboardViewModel();
-
-            vm.PropertyChanged += OnPropertyChanged;
-
+            
             DataContext = vm;
         }
 
-        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
-        {
-            switch (propertyChangedEventArgs.PropertyName)
-            {
-                case "BounceBall":
-                    BounceBallStoryboard.Begin();
-                    break;
-                case "SmoothBounceBall":
-                    SmoothBouceBallStoryboard.RepeatBehavior = new RepeatBehavior{Type = RepeatBehaviorType.Forever};
-                    SmoothBouceBallStoryboard.Begin();
-                    break;
-
-                case "EasingBounceBall":
-                    EasingAnimation.EasingFunction = new BounceEase
-                        {
-                            EasingMode = EasingMode.EaseIn
-                        };
-                    
-                    EasingBouceBallStoryboard.Begin();
-                    break;
-            }
-        }
     }
 }

@@ -11,49 +11,6 @@
 
 	<common:LayoutAwarePage.Resources>
    
-		<Storyboard x:Name="BounceBallStoryboard">
-			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Ball">
-				<DiscreteObjectKeyFrame KeyTime="0">
-					<DiscreteObjectKeyFrame.Value>
-						<Thickness>25,0</Thickness>
-					</DiscreteObjectKeyFrame.Value>
-				</DiscreteObjectKeyFrame>
-				<DiscreteObjectKeyFrame KeyTime="0:0:0.25">
-					<DiscreteObjectKeyFrame.Value>
-						<Thickness>25,-100,25,0</Thickness>
-					</DiscreteObjectKeyFrame.Value>
-				</DiscreteObjectKeyFrame>
-				<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
-					<DiscreteObjectKeyFrame.Value>
-						<Thickness>25,100,25,0</Thickness>
-					</DiscreteObjectKeyFrame.Value>
-				</DiscreteObjectKeyFrame>
-				<DiscreteObjectKeyFrame KeyTime="0:0:0.75">
-					<DiscreteObjectKeyFrame.Value>
-						<Thickness>25,0</Thickness>
-					</DiscreteObjectKeyFrame.Value>
-				</DiscreteObjectKeyFrame>
-			</ObjectAnimationUsingKeyFrames>
-		</Storyboard>
-		<Storyboard x:Name="SmoothBouceBallStoryboard">
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="SmoothBallCanvas">
-				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-117"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1" Value="142"/>
-				<EasingDoubleKeyFrame KeyTime="0:0:1.54" Value="1"/>
-			</DoubleAnimationUsingKeyFrames>
-		</Storyboard>
-		<Storyboard x:Name="EasingBouceBallStoryboard">
-			<DoubleAnimation x:Name="EasingAnimation" 
-                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" 
-                             Storyboard.TargetName="EasingBallCanvas"
-                             Duration="0:0:3"
-                             RepeatBehavior="Forever"
-                             From="0"
-                             To="-250"
-                             />
-		</Storyboard>
-   
 	</common:LayoutAwarePage.Resources>
 
 	<!--
@@ -78,32 +35,7 @@
 		</Grid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel Orientation="Horizontal" Margin="25,0">
-               <Button Command="{Binding BounceBallCommand}" Content=" Bounce Ball" />
-               <Ellipse x:Name="Ball" Height="25" Width="25" Margin="25,0" Fill="Red" />
-           </StackPanel>
-		               
-			<StackPanel Orientation="Horizontal" Margin="25,0">
-                <Button Command="{Binding SmoothBounceBallCommand}" Content="Smooth Bounce Ball" />
-                <Canvas x:Name="SmoothBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
-                	<Canvas.RenderTransform>
-                		<CompositeTransform/>
-                	</Canvas.RenderTransform>
-                    <Ellipse  Height="25" Width="25" Fill="Yellow" />
-                </Canvas>
-                
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Margin="25,0">
-                <Button Command="{Binding EasingBounceBallCommand}" Content="Easing Bounce Ball" />
-                <Canvas x:Name="EasingBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
-                    <Canvas.RenderTransform>
-                        <CompositeTransform/>
-                    </Canvas.RenderTransform>
-                    <Ellipse  Height="25" Width="25" Fill="Green" />
-                </Canvas>
-
-            </StackPanel>
+          
         </StackPanel>
 				
 	</Grid>
