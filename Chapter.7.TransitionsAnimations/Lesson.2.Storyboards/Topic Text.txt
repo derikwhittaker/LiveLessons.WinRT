@@ -10,7 +10,7 @@ a user experiance which is attractive and engaging.
 
 Summary
 In this lesson we learned the how to use storyboards and animations to enhance the user experiance of your application.
-* We learned how to create basic animations using blend
+* We learned how to create basic animations inside of blend
 * We learned  how to create trigger animations via their underlying story boards
 * We learned  how to apply eashing functions and easing modes to our animations to give them smooth and fluid movement.
 
