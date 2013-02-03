@@ -18,9 +18,30 @@ namespace LL.Animations.Views
             this.InitializeComponent();
 
             var vm = new DashboardViewModel();
+
+            vm.PropertyChanged += VmOnPropertyChanged;
             
             DataContext = vm;
         }
 
+        private void VmOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            switch (propertyChangedEventArgs.PropertyName)
+            {
+                case "BounceBall":
+                    BounceStoryboard.Begin();
+                    break;
+                case "SmoothBounceBall":
+                    SmoothBounceStoryboard.RepeatBehavior = new RepeatBehavior { Type = RepeatBehaviorType.Count, Count = 5};
+                    //SmoothBounceStoryboard.RepeatBehavior = new RepeatBehavior{Type = RepeatBehaviorType.Forever};
+                    SmoothBounceStoryboard.Begin();
+                    break;
+
+                case "EasingBounceBall":
+                    EasingBounceBallAnimation.EasingFunction = new CubicEase();
+                    EasingBounceBallStoryboard.Begin();
+                    break;
+            }
+        }
     }
 }

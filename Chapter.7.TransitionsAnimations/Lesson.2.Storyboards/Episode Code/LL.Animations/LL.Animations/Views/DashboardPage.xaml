@@ -8,9 +8,49 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d">
-
 	<common:LayoutAwarePage.Resources>
-   
+		<Storyboard x:Name="BounceStoryboard">
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Ball">
+				<DiscreteObjectKeyFrame KeyTime="0">
+					<DiscreteObjectKeyFrame.Value>
+						<Thickness>25,0,25,0</Thickness>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:0.4">
+					<DiscreteObjectKeyFrame.Value>
+						<Thickness>25,250,25,0</Thickness>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:1">
+					<DiscreteObjectKeyFrame.Value>
+						<Thickness>25,-250,25,0</Thickness>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+				<DiscreteObjectKeyFrame KeyTime="0:0:1.5">
+					<DiscreteObjectKeyFrame.Value>
+						<Thickness>25,0</Thickness>
+					</DiscreteObjectKeyFrame.Value>
+				</DiscreteObjectKeyFrame>
+			</ObjectAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Name="SmoothBounceStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ellipse">
+				<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-111"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:0.7" Value="129"/>
+				<EasingDoubleKeyFrame KeyTime="0:0:1.2" Value="4"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+        <Storyboard x:Name="EasingBounceBallStoryboard" >
+            <DoubleAnimation x:Name="EasingBounceBallAnimation"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)"
+                             Storyboard.TargetName="EasingBallCanvas"
+                             Duration="0:0:3"
+                             RepeatBehavior="Forever"
+                             From="0"
+                             To="-250"
+                             />
+        </Storyboard>
 	</common:LayoutAwarePage.Resources>
 
 	<!--
@@ -35,7 +75,34 @@
 		</Grid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-          
+            <StackPanel Orientation="Horizontal" Margin="25,0">
+                <Button Command="{Binding BounceBallCommand}" Content=" Bounce Ball" />
+                <Ellipse x:Name="Ball" Height="25" Width="25" Margin="25,0" Fill="Red" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25,0">
+                <Button Command="{Binding SmoothBounceBallCommand}" Content="Smooth Bounce Ball" />
+                <Canvas x:Name="SmoothBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Ellipse x:Name="ellipse"  Height="25" Width="25" Fill="Yellow" RenderTransformOrigin="0.5,0.5" >
+                    	<Ellipse.RenderTransform>
+                    		<CompositeTransform/>
+                    	</Ellipse.RenderTransform>
+                    </Ellipse>
+                </Canvas>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="25,0">
+                <Button Command="{Binding EasingBounceBallCommand}" Content="Easing Bounce Ball" />
+                <Canvas x:Name="EasingBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Ellipse  Height="25" Width="25" Fill="Green" />
+                </Canvas>
+
+            </StackPanel>
         </StackPanel>
 				
 	</Grid>
