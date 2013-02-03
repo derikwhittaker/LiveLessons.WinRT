@@ -1,18 +1,18 @@
 Introduction
-When building Windows 8 applications the user experiance should be one of the most important features you pay attention to.  It is important that you create
-a user interface and user experiance that is both smooth and compelling.  This is where the Visual State Manager comes into play.  The visual state manager is the 
-way you can control the visual experiance of your application as its state changes.  With the Visual State Manager you can do things like change visual appearance
-when a control is clicked or when it is disabled
+When building Windows 8 applications the user experiance should be one of the most important features you pay attention to.  It is paramount that your
+application is both fluid and attractive.  one way to achive this type of UI is to use animations and story boards.  Storyboads allow for you to 
+script out an animation in many different ways and allow for you to animate UI elements.  The ability to do this will allow you to build
+a user experiance which is attractive and engaging.
 
-* We are going to learn how to use the visual state manager and understand its role in building xaml based applications
-* We are gonig to learn how to take a 3rd party control and change its visual behavior by using the V S M
-* We are going to learn how to use the V S M when building and styling your own custom controls
+* We are going to learn how to create basic animations using blend
+* We are gonig to learn how to create trigger animations via their underlying story boards
+* We are going to learn how to apply eashing functions and easing modes to our animations to give them smooth and fluid movement.
 
 Summary
-In this lesson we learned the role the V S M plays in controlling the visual appearance of your applciation
-* We learned how to use the visual state manager and understand its role in building xaml based applications
-* We learned how to take a 3rd party control and change its visual behavior by using the V S M
-* We learned how to use the V S M when building and styling your own custom controls
+In this lesson we learned the how to use storyboards and animations to enhance the user experiance of your application.
+* We learned how to create basic animations using blend
+* We learned  how to create trigger animations via their underlying story boards
+* We learned  how to apply eashing functions and easing modes to our animations to give them smooth and fluid movement.
 
 
 
@@ -134,3 +134,20 @@ SmoothBouceBallStoryboard.RepeatBehavior = new RepeatBehavior{Type = RepeatBehav
         {
             OnPropertyChanged("EasingBounceBall");
         }
+
+* run the app
+
+* talk about easing functions
+http://msdn.microsoft.com/en-us/library/vstudio/ee308751(v=vs.100).aspx
+
+* add an easing function to the easing bounce --> first with no mode
+                    EasingAnimation.EasingFunction = new BounceEase();
+
+* run the application
+
+* talk about easing modes, these change the way the easing will be applied to the animation
+* add the mode
+                    EasingAnimation.EasingFunction = new BounceEase
+                        {
+                            EasingMode = EasingMode.EaseIn
+                        };
