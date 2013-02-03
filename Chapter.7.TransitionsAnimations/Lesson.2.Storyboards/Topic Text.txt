@@ -1,0 +1,136 @@
+Introduction
+When building Windows 8 applications the user experiance should be one of the most important features you pay attention to.  It is important that you create
+a user interface and user experiance that is both smooth and compelling.  This is where the Visual State Manager comes into play.  The visual state manager is the 
+way you can control the visual experiance of your application as its state changes.  With the Visual State Manager you can do things like change visual appearance
+when a control is clicked or when it is disabled
+
+* We are going to learn how to use the visual state manager and understand its role in building xaml based applications
+* We are gonig to learn how to take a 3rd party control and change its visual behavior by using the V S M
+* We are going to learn how to use the V S M when building and styling your own custom controls
+
+Summary
+In this lesson we learned the role the V S M plays in controlling the visual appearance of your applciation
+* We learned how to use the visual state manager and understand its role in building xaml based applications
+* We learned how to take a 3rd party control and change its visual behavior by using the V S M
+* We learned how to use the V S M when building and styling your own custom controls
+
+
+
+* open the vs solution
+
+* create the button and initial ellipse
+            <StackPanel Orientation="Horizontal" Margin="25,0">
+               <Button Command="{Binding BounceBallCommand}" Content=" Bounce Ball" />
+               <Ellipse x:Name="Ball" Height="25" Width="25" Margin="25,0" Fill="Red" />
+           </StackPanel>
+
+* open blend
+* create the BounceBallStoryboard
+	* this storyboard should move the ball up, down, middle
+
+	* run the storyboard in blend
+* go back to VS
+* setup the command for the button -> mention we are going to raise event to trigger the story board
+        public RelayCommand BounceBallCommand
+        {
+            get { return _bounceBallCommand ?? (_bounceBallCommand = new RelayCommand(BounceBall)); }
+        }
+
+        private void BounceBall()
+        {
+            OnPropertyChanged("BounceBall");
+        }
+* wire up the story board in the code behind
+vm.PropertyChanged += OnPropertyChanged;
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            switch (propertyChangedEventArgs.PropertyName)
+            {
+                case "BounceBall":
+                    BounceBallStoryboard.Begin();
+                    break;
+            }
+        }
+
+* run the application, show the ball bouncing.  point out that the animation works great but it is not very fluid.  this is because of the animation type -- Keyframe
+
+* setup the 2nd animation
+
+* add the button/ellipse to the dashbaord
+ <StackPanel Orientation="Horizontal" Margin="25,0">
+                <Button Command="{Binding SmoothBounceBallCommand}" Content="Smooth Bounce Ball" />
+                <Canvas x:Name="SmoothBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
+                	<Canvas.RenderTransform>
+                		<CompositeTransform/>
+                	</Canvas.RenderTransform>
+                    <Ellipse  Height="25" Width="25" Fill="Yellow" />
+                </Canvas>
+                
+            </StackPanel>
+
+* Create the animation in blend --> select the canvas
+
+* run the animation in blend
+
+* wire up the button command
+
+        public RelayCommand SmoothBounceBallCommand
+        {
+            get { return _smoothBounceBallCommand ?? (_smoothBounceBallCommand = new RelayCommand(SmoothBounceBall)); }
+        }
+
+        private void SmoothBounceBall()
+        {
+            OnPropertyChanged("SmoothBounceBall");
+        }
+
+* wire up the storyboard in the code behind
+                case "SmoothBounceBall":                    
+                    SmoothBouceBallStoryboard.Begin();
+                    break;
+
+* Run the application
+
+* talk about how it only runs one time, how do we run it over and over
+SmoothBouceBallStoryboard.RepeatBehavior = new RepeatBehavior{Type = RepeatBehaviorType.Forever};
+
+* run the application
+
+* setup the animation w/ easing
+
+* setup the button/elipse
+           <StackPanel Orientation="Horizontal" Margin="25,0">
+                <Button Command="{Binding EasingBounceBallCommand}" Content="Easing Bounce Ball" />
+                <Canvas x:Name="EasingBallCanvas" Margin="25,0" RenderTransformOrigin="0.5,0.5" >
+                    <Canvas.RenderTransform>
+                        <CompositeTransform/>
+                    </Canvas.RenderTransform>
+                    <Ellipse  Height="25" Width="25" Fill="Green" />
+                </Canvas>
+
+            </StackPanel>
+
+* create the animation but this time do it by hand, explain that some animations are a bit easier in VS
+	then they are in blend, or at least less trouble
+		<Storyboard x:Name="EasingBouceBallStoryboard">
+			<DoubleAnimation x:Name="EasingAnimation" 
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" 
+                             Storyboard.TargetName="EasingBallCanvas"
+                             Duration="0:0:3"
+                             RepeatBehavior="Forever"
+                             From="0"
+                             To="-250"
+                             />
+		</Storyboard>
+
+* Wire up the button command
+        public RelayCommand EasingBounceBallCommand
+        {
+            get { return _easingBounceBallCommand ?? (_easingBounceBallCommand = new RelayCommand(EasingBounceBall)); }
+        }
+
+        private void EasingBounceBall()
+        {
+            OnPropertyChanged("EasingBounceBall");
+        }
