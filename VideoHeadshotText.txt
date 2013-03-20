@@ -1,0 +1,40 @@
+Hello I am derik whittaker and I am going to be your instructor for this live lesson
+
+I have been building .net based applications for last 12 years.  OVer this time I have
+build client server applications, browswer based applications as well as mobile applications.
+
+I am a C# MVP, a member of the ASP Insiders group and a frequent speaker at various usergroups and 
+developer conferences around the country.
+
+IN this live lesson we are going to dive into the world of building Windows 8 Modern UI applications
+with C# and XAML. I will assume you have a working knowledge of both C# as well as XAML, but we 
+still cover many of the basic skills needed to build a modern UI application.
+
+In order to build a Windows 8 Modern UI application you will need to have a computer running
+windows 8 as well as Visual Studio 2012
+
+Lets go ahead and talk about the content of our lessons
+
+
+In the first lesson we are going to take lap around Win8 and Visual stuido 2012 in order to familurize ourselvs
+with some of the many new features we will be covering during this lesson
+
+In lesson 2 we will focus on leaning how to use the  Model view view model pattern, or MVVM, to 
+build Modern UI applications  
+
+IN lesson 3 we will explore 4 general features that all MOdern UI developers should be familure with
+, such as how to handle navigation and use the applciation bar
+
+in lesson 4 we will explore how to use some of the common UI controls such as the grid view, list view and flip view
+
+in lesson 5 we will learn how to light up your application by learning to use the various contracts to
+integrate your application into windows 8
+
+in lesson 6 we will learn how to light up the start screen with live tiles
+
+In lesson 7 we will explore how to handle transitions and animations in your ModernUI application.
+
+In lesson 8 we will learn how to use many of the built device sensors which will be avaiable to you 
+when building ModernUI apps.  These include the camera, light sensor and accelerometer to name a few.
+
+Now that we know what we are going to be learing during this lesson, its time to get to it.
