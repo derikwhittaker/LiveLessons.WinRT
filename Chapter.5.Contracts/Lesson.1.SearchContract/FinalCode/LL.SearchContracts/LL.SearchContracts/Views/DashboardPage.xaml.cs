@@ -48,7 +48,6 @@ namespace LL.SearchContracts.Views
 
         }
 
-
         void SearchPaneSuggestionsRequested(SearchPane sender, SearchPaneSuggestionsRequestedEventArgs args)
         {
             var vm = ((DashboardViewModel)DataContext);
@@ -61,7 +60,6 @@ namespace LL.SearchContracts.Views
         {
             var vm = ((DashboardViewModel) DataContext);
             vm.PerformSearchAsync(args.QueryText);
-
         }
 
         /// <summary>
